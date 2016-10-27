@@ -3,7 +3,8 @@ package tools;
 import java.util.Random;
 
 /**
- * Created by Lysergids on 2016/10/19 0019.
+ *
+ * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class RandomGenerateTool {
 
