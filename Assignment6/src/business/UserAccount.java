@@ -13,7 +13,7 @@ public class UserAccount {
 
     public static String ADMIN_ROLE = "admin";
     public static String EEPLOYEE_ROLE = "employee";
-    private static int count = 1000;
+    private static int count = 100000;
     private int userID;
     private String userName;
     private String password;

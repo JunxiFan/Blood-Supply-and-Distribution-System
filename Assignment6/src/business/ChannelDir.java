@@ -5,12 +5,13 @@
  */
 package business;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Characteristic {
-    private String ageGroup;
-    private int floorPrice;
-    private int ceilingPrice;
+public class ChannelDir {
+    private ArrayList<Channel> channelsDir;
+    private ChannelManager channelManager;
 }

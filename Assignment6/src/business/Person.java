@@ -11,8 +11,9 @@ package business;
  */
 public class Person {
 
-    private static int count = 1000;
+    private static int count = 100000;
     private int personID;
+    private int age;
     private String firstName;
     private String lastName;
 
@@ -26,6 +27,14 @@ public class Person {
 
     public static void setCount(int count) {
         Person.count = count;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getPersonID() {

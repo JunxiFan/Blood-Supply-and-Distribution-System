@@ -5,21 +5,18 @@
  */
 package business;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class ChannelManager  extends Person{
-    private static int count=100;
-    private int channelManagerID;
-    
-    public ChannelManager(){
-        channelManagerID=count++;
-    }
+public class Channel {
+    private String channelName;
+    private ArrayList<Market> MarketList;
     
     @Override
     public String toString(){
-        return this.getFirstName();
+        return channelName;
     }
-    
 }
