@@ -21,4 +21,5 @@ public class Market {
     private ArrayList<Characteristic> characteristicsList;
     private ArrayList<String> benefitsList;
     private ArrayList<Channel> channelList;
+    private ArrayList<ProductPackage> productPackagesList;
 }

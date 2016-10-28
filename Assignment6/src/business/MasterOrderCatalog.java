@@ -11,9 +11,6 @@ import java.util.ArrayList;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Characteristic {
-    private String ageGroup;
-    private int floorPrice;
-    private int ceilingPrice;
-    private ArrayList<Product> productList;
+public class MasterOrderCatalog {
+     private ArrayList<Order> orderList;
 }
