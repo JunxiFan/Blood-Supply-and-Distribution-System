@@ -33,12 +33,14 @@ public class CtmWorkAreaJPanel extends javax.swing.JPanel {
         viewCustomerBtn = new javax.swing.JButton();
         mngMarketBtn = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("宋体", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("等线", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Customer Work Area");
 
-        viewCustomerBtn.setText("View Customers");
+        viewCustomerBtn.setFont(new java.awt.Font("微软雅黑", 0, 18)); // NOI18N
+        viewCustomerBtn.setText("Place Your Order");
 
+        mngMarketBtn.setFont(new java.awt.Font("微软雅黑", 0, 18)); // NOI18N
         mngMarketBtn.setText("Create Customer Profile");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -62,7 +64,7 @@ public class CtmWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(mngMarketBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(viewCustomerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

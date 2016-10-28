@@ -45,12 +45,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 700));
 
+        jLabel1.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
         jLabel1.setText("UserName:");
+
+        jTextField1.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
 
         jLabel2.setText("Password:");
 
+        jTextField2.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
+
+        jButton1.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
         jButton1.setText("Login");
 
+        jButton2.setFont(new java.awt.Font("微软雅黑", 0, 15)); // NOI18N
         jButton2.setText("Log Out");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -89,7 +96,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(450, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
