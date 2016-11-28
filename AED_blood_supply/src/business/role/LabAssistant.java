@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Jiamin.S <shang.j@husky.neu.edu>
+ * @author fjx19
  */
-public class Receptionist extends Role{
+public class LabAssistant extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount userAccount, Organization organization, EcoSystem business) {

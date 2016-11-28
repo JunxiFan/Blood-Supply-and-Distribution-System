@@ -5,10 +5,25 @@
  */
 package business.clinic;
 
+import business.organization.Clinic;
+import business.role.LabAssistant;
+import business.role.Receptionist;
+import business.role.Role;
+import java.util.ArrayList;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class ReceptionistService {
-    
+public class ReceptionistService extends Clinic{
+     public ReceptionistService(){
+        super(ClinicType.ReceptionistService.getValue());
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+       ArrayList<Role> roles = new ArrayList();
+       roles.add(new Receptionist());
+       return roles;
+    }
 }

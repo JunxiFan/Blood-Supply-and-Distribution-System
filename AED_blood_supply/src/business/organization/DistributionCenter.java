@@ -5,10 +5,24 @@
  */
 package business.organization;
 
+import business.role.DistributionManager;
+import business.role.Role;
+import java.util.ArrayList;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class DistributionCenter {
+public class DistributionCenter extends Organization{
+    public DistributionCenter(){
+        super(organizationType.Distribution.getValue());
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        ArrayList<Role> roles = new ArrayList();
+        roles.add(new DistributionManager());
+        return roles;
+    }
     
 }

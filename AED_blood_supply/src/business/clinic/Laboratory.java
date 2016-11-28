@@ -5,10 +5,25 @@
  */
 package business.clinic;
 
+import business.organization.*;
+import business.role.LabAssistant;
+import business.role.Role;
+import java.util.ArrayList;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Laboratory {
+public class Laboratory extends Clinic{
     
+    public Laboratory(){
+        super(ClinicType.Lab.getValue());
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+       ArrayList<Role> roles = new ArrayList();
+       roles.add(new LabAssistant());
+       return roles;
+    }
 }
