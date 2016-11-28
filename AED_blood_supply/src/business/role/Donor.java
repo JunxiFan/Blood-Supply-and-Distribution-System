@@ -9,6 +9,6 @@ package business.role;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class DonorReceiver {
+public class Donor {
     
 }
