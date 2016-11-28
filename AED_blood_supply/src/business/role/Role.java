@@ -4,6 +4,11 @@
  */
 package business.role;
 
+import business.EcoSystem;
+import business.organization.Organization;
+import business.useraccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author raunak
@@ -31,6 +36,11 @@ public abstract class Role {
             return value;
         }
     }
+    
+    public abstract JPanel createWorkArea(JPanel userProcessContainer,
+            UserAccount userAccount,
+            Organization organization,
+            EcoSystem business);
     
     @Override
     public String toString() {
