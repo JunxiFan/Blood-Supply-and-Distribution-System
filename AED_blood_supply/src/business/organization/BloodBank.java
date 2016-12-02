@@ -18,7 +18,7 @@ public class BloodBank extends Organization {
     private ArrayList<Clinic> ClinicList;
 
     public BloodBank() {
-        super(organizationType.BloodBank.getValue());
+        super(OrganizationType.BloodBank.getValue());
         ClinicList = new ArrayList<>();
     }
 

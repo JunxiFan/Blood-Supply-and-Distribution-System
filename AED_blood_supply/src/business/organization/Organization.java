@@ -22,7 +22,7 @@ public abstract class Organization {
     private int organizationID;
     private static int counter;
 
-    public enum organizationType {
+    public enum OrganizationType {
         Clinic("Clinic"),
         BloodBank("Blood Bank"),
         BloodMngCenter("Blood Manage Center"),
@@ -30,7 +30,7 @@ public abstract class Organization {
         
         private String value;
 
-        private organizationType(String value) {
+        private OrganizationType(String value) {
             this.value = value;
         }
         public String getValue() {

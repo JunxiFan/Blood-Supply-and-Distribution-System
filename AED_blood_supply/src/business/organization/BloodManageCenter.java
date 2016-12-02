@@ -18,7 +18,7 @@ public class BloodManageCenter extends Organization {
     private ArrayList<DistributionCenter> distributionCenterList;
 
     public BloodManageCenter() {
-        super(organizationType.BloodMngCenter.getValue());
+        super(OrganizationType.BloodMngCenter.getValue());
         bloodBankList=new ArrayList();
         distributionCenterList=new ArrayList();
     }

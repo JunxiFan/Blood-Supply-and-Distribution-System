@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class DistributionCenter extends Organization{
     public DistributionCenter(){
-        super(organizationType.Distribution.getValue());
+        super(OrganizationType.Distribution.getValue());
     }
 
     @Override
