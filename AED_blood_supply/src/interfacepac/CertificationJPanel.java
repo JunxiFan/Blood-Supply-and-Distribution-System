@@ -5,6 +5,12 @@
  */
 package interfacepac;
 
+import business.EcoSystem;
+import business.useraccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
@@ -14,8 +20,16 @@ public class CertificationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CertificationJPanel
      */
-    public CertificationJPanel() {
+    private EcoSystem system;
+
+    public CertificationJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel = displayPanel;
+
+        RegJPanel RegJPanel = new RegJPanel(displayPanel);
+        displayPanel.add("manageOrganizationJPanel", RegJPanel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
     }
 
     /**
@@ -30,15 +44,12 @@ public class CertificationJPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         welcomeLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        usernameTField = new javax.swing.JTextField();
         welcomeLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        welcomeLabel = new javax.swing.JLabel();
-        welcomeLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        passwordTField = new javax.swing.JPasswordField();
+        loginBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        displayPanel = new javax.swing.JPanel();
 
         jSplitPane1.setDividerLocation(50);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -47,27 +58,27 @@ public class CertificationJPanel extends javax.swing.JPanel {
         welcomeLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         welcomeLabel1.setText("Username:");
 
-        jTextField2.setFont(new java.awt.Font("Verdana", 0, 22)); // NOI18N
+        usernameTField.setFont(new java.awt.Font("Verdana", 0, 22)); // NOI18N
 
         welcomeLabel2.setBackground(new java.awt.Color(250, 250, 250));
         welcomeLabel2.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         welcomeLabel2.setText("Password:");
 
-        jPasswordField1.setFont(new java.awt.Font("Verdana", 0, 22)); // NOI18N
+        passwordTField.setFont(new java.awt.Font("Verdana", 0, 22)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginBtn.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
+        loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
-        jButton2.setText("Logout");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
+        logoutBtn.setText("Logout");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
 
@@ -76,18 +87,18 @@ public class CertificationJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(303, Short.MAX_VALUE)
+                .addContainerGap(237, Short.MAX_VALUE)
                 .addComponent(welcomeLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernameTField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(welcomeLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordTField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -96,63 +107,18 @@ public class CertificationJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(welcomeLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(welcomeLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(passwordTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginBtn)
+                    .addComponent(logoutBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        welcomeLabel.setBackground(new java.awt.Color(250, 250, 250));
-        welcomeLabel.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
-        welcomeLabel.setText("Please login first");
-
-        welcomeLabel3.setBackground(new java.awt.Color(250, 250, 250));
-        welcomeLabel3.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
-        welcomeLabel3.setText("If you don't have account");
-
-        jButton3.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jButton3.setText("register now");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(335, Short.MAX_VALUE)
-                .addComponent(welcomeLabel3)
-                .addGap(333, 333, 333))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(452, 452, 452)
-                        .addComponent(welcomeLabel))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(475, 475, 475)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(welcomeLabel)
-                .addGap(125, 125, 125)
-                .addComponent(welcomeLabel3)
-                .addGap(154, 154, 154)
-                .addComponent(jButton3)
-                .addContainerGap(187, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setRightComponent(jPanel2);
+        displayPanel.setLayout(new java.awt.CardLayout());
+        jSplitPane1.setRightComponent(displayPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -162,35 +128,37 @@ public class CertificationJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String userName = usernameTField.getText();
+        // Get Password
+        char[] passwordCharArray = passwordTField.getPassword();
+        String password = String.valueOf(passwordCharArray);
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        MainJFrame panel = new MainJFrame();
+        remove(this);
+        add(panel);
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel displayPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel welcomeLabel;
+    private javax.swing.JButton loginBtn;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JPasswordField passwordTField;
+    private javax.swing.JTextField usernameTField;
     private javax.swing.JLabel welcomeLabel1;
     private javax.swing.JLabel welcomeLabel2;
-    private javax.swing.JLabel welcomeLabel3;
     // End of variables declaration//GEN-END:variables
 }

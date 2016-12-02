@@ -5,6 +5,10 @@
  */
 package interfacepac.sysadmin;
 
+import interfacepac.donorreceiver.PersonInfoJPanel;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
@@ -14,8 +18,11 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    public ConfigureAccountJPanel() {
+    JPanel displayPanel;
+            
+    public ConfigureAccountJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel=displayPanel;
     }
 
     /**
@@ -28,14 +35,14 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane5 = new javax.swing.JScrollPane();
-        resumeTbl = new javax.swing.JTable();
+        accountsTbl = new javax.swing.JTable();
         viewDetailsBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
-        resumeTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        resumeTbl.setModel(new javax.swing.table.DefaultTableModel(
+        accountsTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        accountsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -51,8 +58,8 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        resumeTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane5.setViewportView(resumeTbl);
+        accountsTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        jScrollPane5.setViewportView(accountsTbl);
 
         viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
         viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -96,12 +103,16 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewDetailsBtn)
                     .addComponent(deleteBtn))
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
         // TODO add your handling code here:
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        displayPanel.add("PerosonInfoJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
     }//GEN-LAST:event_viewDetailsBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -110,9 +121,9 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable accountsTbl;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable resumeTbl;
     private javax.swing.JButton viewDetailsBtn;
     // End of variables declaration//GEN-END:variables
 }
