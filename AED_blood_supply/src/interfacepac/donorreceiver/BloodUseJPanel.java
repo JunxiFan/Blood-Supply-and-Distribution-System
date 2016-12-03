@@ -22,7 +22,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
     public BloodUseJPanel(JPanel displayPanel) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -121,9 +121,10 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
     private void confirmTblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTblActionPerformed
         // TODO add your handling code here:
-        MainJFrame panel = new MainJFrame();
-        remove(this);
-        add(panel);
+        DROptionJPanel panel = new DROptionJPanel(displayPanel);
+        displayPanel.add("DROptionJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
     }//GEN-LAST:event_confirmTblActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed

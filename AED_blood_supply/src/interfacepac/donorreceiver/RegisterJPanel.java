@@ -5,7 +5,7 @@
  */
 package interfacepac.donorreceiver;
 
-import interfacepac.CertificationJPanel;
+import interfacepac.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -262,16 +262,16 @@ public class RegisterJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        CertificationJPanel panel = new CertificationJPanel(displayPanel);
-        displayPanel.add("CertificationJPanel", panel);
+        MainJFrame panel = new MainJFrame();
+        displayPanel.add("mainjframe", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        CertificationJPanel panel = new CertificationJPanel(displayPanel);
-        displayPanel.add("CertificationJPanel", panel);
+        MainJFrame panel = new MainJFrame();
+        displayPanel.add("mainjframe", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
     }//GEN-LAST:event_cancelBtnActionPerformed

@@ -19,10 +19,10 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
      * Creates new form BloodManageCenterJPanel
      */
     JPanel displayPanel;
-            
+
     public ConfigureAccountJPanel(JPanel displayPanel) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -38,6 +38,7 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
         accountsTbl = new javax.swing.JTable();
         viewDetailsBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -79,6 +80,13 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
             }
         });
 
+        backBtn.setText("<< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,10 +97,15 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
                 .addContainerGap(404, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
-                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(482, 482, 482))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(482, 482, 482))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backBtn)
+                        .addGap(98, 98, 98))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +116,9 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewDetailsBtn)
                     .addComponent(deleteBtn))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(69, 69, 69)
+                .addComponent(backBtn)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -119,9 +134,18 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        displayPanel.remove(this);
+
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.previous(displayPanel);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountsTbl;
+    private javax.swing.JButton backBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton viewDetailsBtn;

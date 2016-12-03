@@ -5,6 +5,7 @@
  */
 package interfacepac.sysadmin;
 
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -41,6 +42,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         deleteManagerBtn = new javax.swing.JButton();
         firstNameLabel = new javax.swing.JLabel();
         typeCBox = new javax.swing.JComboBox<>();
+        backBtn = new javax.swing.JButton();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -110,6 +112,13 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         typeCBox.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
         typeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        backBtn.setText("<< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +144,10 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                         .addComponent(typeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)))
                 .addContainerGap(404, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backBtn)
+                .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +166,9 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                     .addComponent(createManagerBtn)
                     .addComponent(deleteManagerBtn)
                     .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(backBtn)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -173,9 +188,18 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteManagerBtnActionPerformed
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        displayPanel.remove(this);
+
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.previous(displayPanel);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
+    private javax.swing.JButton backBtn;
     private javax.swing.JButton createManagerBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton deleteManagerBtn;

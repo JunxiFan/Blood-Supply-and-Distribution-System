@@ -5,6 +5,7 @@
  */
 package interfacepac.donorreceiver;
 
+import interfacepac.MainJFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -18,9 +19,10 @@ public class DROptionJPanel extends javax.swing.JPanel {
      * Creates new form DROptionJPanel
      */
     JPanel displayPanel;
+
     public DROptionJPanel(JPanel displayPanel) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -68,7 +70,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(455, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(donateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
