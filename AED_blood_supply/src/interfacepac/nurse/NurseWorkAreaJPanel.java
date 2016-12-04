@@ -7,6 +7,7 @@ package interfacepac.nurse;
 
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,8 +18,11 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    public NurseWorkAreaJPanel() {
+    JPanel displayPanel;
+
+    public NurseWorkAreaJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -31,17 +35,17 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane5 = new javax.swing.JScrollPane();
-        resumeTbl = new javax.swing.JTable();
-        viewDetailsBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
-        deleteBtn1 = new javax.swing.JButton();
+        ongoingTbl = new javax.swing.JTable();
+        assignBtn = new javax.swing.JButton();
+        bloodDrawBtn = new javax.swing.JButton();
+        sendtoTransitBtn = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        resumeTbl1 = new javax.swing.JTable();
+        finishedTbl = new javax.swing.JTable();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
-        resumeTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        resumeTbl.setModel(new javax.swing.table.DefaultTableModel(
+        ongoingTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        ongoingTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,40 +61,40 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        resumeTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane5.setViewportView(resumeTbl);
+        ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        jScrollPane5.setViewportView(ongoingTbl);
 
-        viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn.setText("assign to me");
-        viewDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        assignBtn.setBackground(new java.awt.Color(250, 250, 250));
+        assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        assignBtn.setText("assign to me");
+        assignBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtnActionPerformed(evt);
+                assignBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn.setText("blood draw");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        bloodDrawBtn.setBackground(new java.awt.Color(250, 250, 250));
+        bloodDrawBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        bloodDrawBtn.setText("blood draw");
+        bloodDrawBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                bloodDrawBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn1.setText("send for transit");
-        deleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+        sendtoTransitBtn.setBackground(new java.awt.Color(250, 250, 250));
+        sendtoTransitBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        sendtoTransitBtn.setText("send for transit");
+        sendtoTransitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn1ActionPerformed(evt);
+                sendtoTransitBtnActionPerformed(evt);
             }
         });
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
-        resumeTbl1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        resumeTbl1.setModel(new javax.swing.table.DefaultTableModel(
+        finishedTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        finishedTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -106,8 +110,8 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        resumeTbl1.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane6.setViewportView(resumeTbl1);
+        finishedTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        jScrollPane6.setViewportView(finishedTbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,11 +124,11 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bloodDrawBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(60, 60, 60)
-                            .addComponent(deleteBtn1))))
+                            .addComponent(sendtoTransitBtn))))
                 .addGap(353, 353, 353))
         );
         layout.setVerticalGroup(
@@ -134,35 +138,35 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewDetailsBtn)
-                    .addComponent(deleteBtn)
-                    .addComponent(deleteBtn1))
+                    .addComponent(assignBtn)
+                    .addComponent(bloodDrawBtn)
+                    .addComponent(sendtoTransitBtn))
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(214, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+    private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewDetailsBtnActionPerformed
+    }//GEN-LAST:event_assignBtnActionPerformed
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    private void bloodDrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodDrawBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtnActionPerformed
+    }//GEN-LAST:event_bloodDrawBtnActionPerformed
 
-    private void deleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn1ActionPerformed
+    private void sendtoTransitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoTransitBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtn1ActionPerformed
+    }//GEN-LAST:event_sendtoTransitBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton deleteBtn1;
+    private javax.swing.JButton assignBtn;
+    private javax.swing.JButton bloodDrawBtn;
+    private javax.swing.JTable finishedTbl;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable resumeTbl;
-    private javax.swing.JTable resumeTbl1;
-    private javax.swing.JButton viewDetailsBtn;
+    private javax.swing.JTable ongoingTbl;
+    private javax.swing.JButton sendtoTransitBtn;
     // End of variables declaration//GEN-END:variables
 }

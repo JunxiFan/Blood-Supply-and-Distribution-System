@@ -5,6 +5,9 @@
  */
 package interfacepac.sysadmin;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
@@ -14,8 +17,11 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    public ConfigureJPanel() {
+    JPanel displayPanel;
+            
+    public ConfigureJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel=displayPanel;
     }
 
     /**
@@ -29,13 +35,14 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
         jScrollPane5 = new javax.swing.JScrollPane();
         resumeTbl = new javax.swing.JTable();
-        viewDetailsBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
-        firstNameTField = new javax.swing.JTextField();
-        viewDetailsBtn1 = new javax.swing.JButton();
-        deleteBtn1 = new javax.swing.JButton();
+        nameTField = new javax.swing.JTextField();
+        createManagerBtn = new javax.swing.JButton();
+        deleteManagerBtn = new javax.swing.JButton();
         firstNameLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        typeCBox = new javax.swing.JComboBox<>();
+        backBtn = new javax.swing.JButton();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -59,12 +66,12 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         resumeTbl.setGridColor(new java.awt.Color(250, 250, 250));
         jScrollPane5.setViewportView(resumeTbl);
 
-        viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn.setText("Add");
-        viewDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setBackground(new java.awt.Color(250, 250, 250));
+        addBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtnActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
 
@@ -77,24 +84,24 @@ public class ConfigureJPanel extends javax.swing.JPanel {
             }
         });
 
-        firstNameTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
-        firstNameTField.setEnabled(false);
+        nameTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
+        nameTField.setEnabled(false);
 
-        viewDetailsBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn1.setText("Create");
-        viewDetailsBtn1.addActionListener(new java.awt.event.ActionListener() {
+        createManagerBtn.setBackground(new java.awt.Color(250, 250, 250));
+        createManagerBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        createManagerBtn.setText("Create");
+        createManagerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtn1ActionPerformed(evt);
+                createManagerBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn1.setText("Delete");
-        deleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+        deleteManagerBtn.setBackground(new java.awt.Color(250, 250, 250));
+        deleteManagerBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        deleteManagerBtn.setText("Delete");
+        deleteManagerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn1ActionPerformed(evt);
+                deleteManagerBtnActionPerformed(evt);
             }
         });
 
@@ -102,8 +109,15 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         firstNameLabel.setText("Manager");
         firstNameLabel.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        typeCBox.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
+        typeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        backBtn.setText("<< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,67 +131,82 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(firstNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
-                            .addComponent(viewDetailsBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createManagerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(deleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(deleteManagerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(firstNameTField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameTField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(typeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)))
                 .addContainerGap(404, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backBtn)
+                .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(108, 108, 108)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(typeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewDetailsBtn)
+                    .addComponent(addBtn)
                     .addComponent(deleteBtn)
-                    .addComponent(firstNameTField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewDetailsBtn1)
-                    .addComponent(deleteBtn1)
+                    .addComponent(createManagerBtn)
+                    .addComponent(deleteManagerBtn)
                     .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(backBtn)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewDetailsBtnActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteBtnActionPerformed
 
-    private void viewDetailsBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtn1ActionPerformed
+    private void createManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createManagerBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewDetailsBtn1ActionPerformed
+    }//GEN-LAST:event_createManagerBtnActionPerformed
 
-    private void deleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn1ActionPerformed
+    private void deleteManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteManagerBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtn1ActionPerformed
+    }//GEN-LAST:event_deleteManagerBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        displayPanel.remove(this);
+
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.previous(displayPanel);
+    }//GEN-LAST:event_backBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton createManagerBtn;
     private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton deleteBtn1;
+    private javax.swing.JButton deleteManagerBtn;
     private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JTextField firstNameTField;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextField nameTField;
     private javax.swing.JTable resumeTbl;
-    private javax.swing.JButton viewDetailsBtn;
-    private javax.swing.JButton viewDetailsBtn1;
+    private javax.swing.JComboBox<String> typeCBox;
     // End of variables declaration//GEN-END:variables
 }
