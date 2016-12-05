@@ -7,6 +7,7 @@ package interfacepac.distribution;
 
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,6 +20,10 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
      */
     public distributionAreaJPanel() {
         initComponents();
+    }
+
+    public distributionAreaJPanel(JPanel userProcessContainer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
