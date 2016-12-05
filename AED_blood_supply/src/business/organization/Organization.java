@@ -26,7 +26,10 @@ public abstract class Organization {
         Clinic("Clinic"),
         BloodBank("Blood Bank"),
         BloodMngCenter("Blood Manage Center"),
-        Distribution("Distribution Center");
+        Distribution("Distribution Center"),
+        Lab("Laboratory"),
+        NurseCenter("Nurse Center"),
+        ReceptionistService("ReceptionistService");
         
         private String value;
 

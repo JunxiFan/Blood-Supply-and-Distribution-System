@@ -16,10 +16,10 @@ import java.util.ArrayList;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class NurseCenter extends Clinic {
+public class NurseCenter extends Organization {
 
     public NurseCenter() {
-        super(ClinicType.NurseCenter.getValue());
+        super(OrganizationType.NurseCenter.getValue());
     }
 
     @Override

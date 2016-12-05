@@ -14,10 +14,10 @@ import java.util.ArrayList;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Laboratory extends Clinic{
+public class Laboratory extends Organization{
     
     public Laboratory(){
-        super(ClinicType.Lab.getValue());
+        super(OrganizationType.Lab.getValue());
     }
 
     @Override
