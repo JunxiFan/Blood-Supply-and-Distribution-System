@@ -8,6 +8,7 @@ package business.role;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import interfacepac.sysadmin.SAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -18,7 +19,7 @@ public class SAdmin extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount userAccount, Organization organization, EcoSystem business) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return new SAdminWorkAreaJPanel(userProcessContainer);
     }
     
 }

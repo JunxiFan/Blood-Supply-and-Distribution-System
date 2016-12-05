@@ -6,6 +6,8 @@
 package interfacepac;
 
 import business.EcoSystem;
+import business.organization.BloodManageCenter;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.DROptionJPanel;
 import interfacepac.sysadmin.SAdminWorkAreaJPanel;
 import java.awt.CardLayout;
@@ -22,6 +24,7 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     RegJPanel regJPanel;
+    private EcoSystem ecoSystem;
 
     public MainJFrame() {
         initComponents();
@@ -166,16 +169,25 @@ public class MainJFrame extends javax.swing.JFrame {
         char[] passwordCharArray = passwordTField.getPassword();
         String password = String.valueOf(passwordCharArray);
 
-        displayPanel.removeAll();
+        UserAccount userAccount = ecoSystem.getUserAccountList().authenticateUser(userName, password);
 
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        displayPanel.add("workArea", userAccount.getRole().createWorkArea(displayPanel, userAccount, ecoSystem, ecoSystem));
+        layout.next(displayPanel);
+
+//        if (userAccount == null) {
+//            for (BloodManageCenter bloodManageCenter : ecoSystem.getBloodManageCenterList()) {
+//                userAccount = bloodManageCenter.getUserAccountList().authenticateUser(userName, password);
+//                if(userAccount==null){
+//                    for()
+//                }
+//            }
+//        }
 //        DROptionJPanel panel = new DROptionJPanel(displayPanel);
 //        displayPanel.add("DROptionJPanel", panel);
 //        CardLayout layout = (CardLayout) displayPanel.getLayout();
 //        layout.next(displayPanel);
-        SAdminWorkAreaJPanel panel = new SAdminWorkAreaJPanel(displayPanel);
-        displayPanel.add("SAdminWorkAreaJPanel", panel);
-        CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
