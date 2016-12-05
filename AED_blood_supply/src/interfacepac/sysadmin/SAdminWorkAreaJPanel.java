@@ -6,6 +6,8 @@
 package interfacepac.sysadmin;
 
 import interfacepac.donorreceiver.*;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,8 +18,11 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DonateJPanel
      */
-    public SAdminWorkAreaJPanel() {
+    JPanel displayPanel;
+            
+    public SAdminWorkAreaJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel=displayPanel;
     }
 
     /**
@@ -30,12 +35,12 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        viewJTree = new javax.swing.JTree();
         dobLabel = new javax.swing.JLabel();
-        viewDetailsBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        configurateBtn = new javax.swing.JButton();
+        manageAccountBtn = new javax.swing.JButton();
 
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane1.setViewportView(viewJTree);
 
         dobLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         dobLabel.setText("Choose one node");
@@ -43,21 +48,21 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         dobLabel.setMinimumSize(new java.awt.Dimension(150, 24));
         dobLabel.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn.setText("Configurate");
-        viewDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        configurateBtn.setBackground(new java.awt.Color(250, 250, 250));
+        configurateBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        configurateBtn.setText("Configurate");
+        configurateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtnActionPerformed(evt);
+                configurateBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn.setText("Manage account");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        manageAccountBtn.setBackground(new java.awt.Color(250, 250, 250));
+        manageAccountBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        manageAccountBtn.setText("Manage account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                manageAccountBtnActionPerformed(evt);
             }
         });
 
@@ -71,8 +76,8 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(viewDetailsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manageAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(configurateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(389, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -85,27 +90,35 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(17, 17, 17)
                         .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(viewDetailsBtn)
+                        .addComponent(configurateBtn)
                         .addGap(56, 56, 56)
-                        .addComponent(deleteBtn)))
+                        .addComponent(manageAccountBtn)))
                 .addContainerGap(280, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+    private void configurateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configurateBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewDetailsBtnActionPerformed
+        ConfigureJPanel panel = new ConfigureJPanel(displayPanel);
+        displayPanel.add("ConfigureJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_configurateBtnActionPerformed
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtnActionPerformed
+        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel);
+        displayPanel.add("ConfigureAccountJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton configurateBtn;
     private javax.swing.JLabel dobLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
-    private javax.swing.JButton viewDetailsBtn;
+    private javax.swing.JButton manageAccountBtn;
+    private javax.swing.JTree viewJTree;
     // End of variables declaration//GEN-END:variables
 }

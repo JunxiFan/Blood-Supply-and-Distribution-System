@@ -7,6 +7,7 @@ package interfacepac.distribution;
 
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,6 +22,10 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public distributionAreaJPanel(JPanel userProcessContainer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,17 +36,17 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane5 = new javax.swing.JScrollPane();
-        resumeTbl = new javax.swing.JTable();
-        viewDetailsBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
-        deleteBtn1 = new javax.swing.JButton();
+        ongoingTbl = new javax.swing.JTable();
+        assgnBtn = new javax.swing.JButton();
+        packageBtn = new javax.swing.JButton();
+        sendBtn = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        resumeTbl1 = new javax.swing.JTable();
+        finishedTbl = new javax.swing.JTable();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
-        resumeTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        resumeTbl.setModel(new javax.swing.table.DefaultTableModel(
+        ongoingTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        ongoingTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,40 +62,40 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        resumeTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane5.setViewportView(resumeTbl);
+        ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        jScrollPane5.setViewportView(ongoingTbl);
 
-        viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn.setText("assign to me");
-        viewDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        assgnBtn.setBackground(new java.awt.Color(250, 250, 250));
+        assgnBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        assgnBtn.setText("assign to me");
+        assgnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtnActionPerformed(evt);
+                assgnBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn.setText("package");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        packageBtn.setBackground(new java.awt.Color(250, 250, 250));
+        packageBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        packageBtn.setText("package");
+        packageBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                packageBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn1.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn1.setText("send");
-        deleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+        sendBtn.setBackground(new java.awt.Color(250, 250, 250));
+        sendBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        sendBtn.setText("send");
+        sendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn1ActionPerformed(evt);
+                sendBtnActionPerformed(evt);
             }
         });
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
-        resumeTbl1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        resumeTbl1.setModel(new javax.swing.table.DefaultTableModel(
+        finishedTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        finishedTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -106,8 +111,8 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        resumeTbl1.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane6.setViewportView(resumeTbl1);
+        finishedTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        jScrollPane6.setViewportView(finishedTbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,11 +124,11 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(assgnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(packageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(59, 59, 59)
-                            .addComponent(deleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(404, Short.MAX_VALUE))
         );
@@ -134,35 +139,35 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewDetailsBtn)
-                    .addComponent(deleteBtn1)
-                    .addComponent(deleteBtn))
+                    .addComponent(assgnBtn)
+                    .addComponent(sendBtn)
+                    .addComponent(packageBtn))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(228, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+    private void assgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assgnBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_viewDetailsBtnActionPerformed
+    }//GEN-LAST:event_assgnBtnActionPerformed
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    private void packageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_packageBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtnActionPerformed
+    }//GEN-LAST:event_packageBtnActionPerformed
 
-    private void deleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn1ActionPerformed
+    private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtn1ActionPerformed
+    }//GEN-LAST:event_sendBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JButton deleteBtn1;
+    private javax.swing.JButton assgnBtn;
+    private javax.swing.JTable finishedTbl;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable resumeTbl;
-    private javax.swing.JTable resumeTbl1;
-    private javax.swing.JButton viewDetailsBtn;
+    private javax.swing.JTable ongoingTbl;
+    private javax.swing.JButton packageBtn;
+    private javax.swing.JButton sendBtn;
     // End of variables declaration//GEN-END:variables
 }

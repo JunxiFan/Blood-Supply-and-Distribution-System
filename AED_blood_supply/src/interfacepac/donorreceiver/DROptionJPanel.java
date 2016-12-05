@@ -5,6 +5,10 @@
  */
 package interfacepac.donorreceiver;
 
+import interfacepac.MainJFrame;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
@@ -14,8 +18,11 @@ public class DROptionJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DROptionJPanel
      */
-    public DROptionJPanel() {
+    JPanel displayPanel;
+
+    public DROptionJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -28,33 +35,48 @@ public class DROptionJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        donateBtn = new javax.swing.JButton();
+        needBtn = new javax.swing.JButton();
+        viewBtn = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabel1.setText("Choose your option");
 
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jButton1.setText("I want donate blood");
+        donateBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        donateBtn.setText("I want donate blood");
+        donateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                donateBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jButton2.setText("I need blood");
+        needBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        needBtn.setText("I need blood");
+        needBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                needBtnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        jButton3.setText("View my information");
+        viewBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        viewBtn.setText("View my information");
+        viewBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(455, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(donateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(needBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(453, 453, 453))
         );
         layout.setVerticalGroup(
@@ -63,20 +85,44 @@ public class DROptionJPanel extends javax.swing.JPanel {
                 .addGap(101, 101, 101)
                 .addComponent(jLabel1)
                 .addGap(62, 62, 62)
-                .addComponent(jButton1)
+                .addComponent(donateBtn)
                 .addGap(97, 97, 97)
-                .addComponent(jButton2)
+                .addComponent(needBtn)
                 .addGap(95, 95, 95)
-                .addComponent(jButton3)
+                .addComponent(viewBtn)
                 .addContainerGap(203, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void donateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBtnActionPerformed
+        // TODO add your handling code here:
+        DonateJPanel panel = new DonateJPanel(displayPanel);
+        displayPanel.add("DonateJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_donateBtnActionPerformed
+
+    private void needBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_needBtnActionPerformed
+        // TODO add your handling code here:
+        BloodUseJPanel panel = new BloodUseJPanel(displayPanel);
+        displayPanel.add("BloodUseJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_needBtnActionPerformed
+
+    private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
+        // TODO add your handling code here:
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        displayPanel.add("PersonInfoJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_viewBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton donateBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton needBtn;
+    private javax.swing.JButton viewBtn;
     // End of variables declaration//GEN-END:variables
 }

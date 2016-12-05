@@ -5,6 +5,10 @@
  */
 package interfacepac.donorreceiver;
 
+import interfacepac.*;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
@@ -14,8 +18,11 @@ public class RegisterJPanel extends javax.swing.JPanel {
     /**
      * Creates new form RegisterJPanel
      */
-    public RegisterJPanel() {
+    JPanel displayPanel;
+
+    public RegisterJPanel(JPanel displayPanel) {
         initComponents();
+        this.displayPanel = displayPanel;
     }
 
     /**
@@ -30,9 +37,9 @@ public class RegisterJPanel extends javax.swing.JPanel {
         firstNameLabel1 = new javax.swing.JLabel();
         firstNameLabel2 = new javax.swing.JLabel();
         firstNameLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        passwordTField = new javax.swing.JPasswordField();
+        rePasswordTField = new javax.swing.JPasswordField();
+        userNameTField = new javax.swing.JTextField();
         firstNameLabel = new javax.swing.JLabel();
         firstNameTField = new javax.swing.JTextField();
         lastNameLabel = new javax.swing.JLabel();
@@ -47,12 +54,12 @@ public class RegisterJPanel extends javax.swing.JPanel {
         workPhoneTField = new javax.swing.JTextField();
         emailTField = new javax.swing.JTextField();
         EmailLabel = new javax.swing.JLabel();
-        viewDetailsBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        confirmBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
 
         firstNameLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
-        firstNameLabel1.setText("Password");
+        firstNameLabel1.setText("Re-Password");
         firstNameLabel1.setPreferredSize(new java.awt.Dimension(150, 24));
 
         firstNameLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
@@ -63,11 +70,11 @@ public class RegisterJPanel extends javax.swing.JPanel {
         firstNameLabel3.setText("Username");
         firstNameLabel3.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        jPasswordField1.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
+        passwordTField.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
 
-        jPasswordField2.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
+        rePasswordTField.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
+        userNameTField.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
 
         firstNameLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         firstNameLabel.setText("Firstname");
@@ -121,21 +128,21 @@ public class RegisterJPanel extends javax.swing.JPanel {
         EmailLabel.setMinimumSize(new java.awt.Dimension(150, 24));
         EmailLabel.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
-        viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        viewDetailsBtn.setText("Confirm");
-        viewDetailsBtn.addActionListener(new java.awt.event.ActionListener() {
+        confirmBtn.setBackground(new java.awt.Color(250, 250, 250));
+        confirmBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        confirmBtn.setText("Confirm");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewDetailsBtnActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
 
-        deleteBtn.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn.setText("Cancel");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        cancelBtn.setBackground(new java.awt.Color(250, 250, 250));
+        cancelBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                cancelBtnActionPerformed(evt);
             }
         });
 
@@ -169,14 +176,14 @@ public class RegisterJPanel extends javax.swing.JPanel {
                         .addComponent(dobTField))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(firstNameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(56, 56, 56)
+                            .addComponent(firstNameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(firstNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(passwordTField)
+                            .addComponent(userNameTField)
+                            .addComponent(rePasswordTField, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,9 +204,9 @@ public class RegisterJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(510, 510, 510))
         );
         layout.setVerticalGroup(
@@ -210,15 +217,15 @@ public class RegisterJPanel extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userNameTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rePasswordTField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,25 +254,33 @@ public class RegisterJPanel extends javax.swing.JPanel {
                     .addComponent(emailTField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewDetailsBtn)
-                    .addComponent(deleteBtn))
+                    .addComponent(confirmBtn)
+                    .addComponent(cancelBtn))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
+        MainJFrame panel = new MainJFrame();
+        displayPanel.add("mainjframe", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
-    }//GEN-LAST:event_viewDetailsBtnActionPerformed
-
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtnActionPerformed
+        MainJFrame panel = new MainJFrame();
+        displayPanel.add("mainjframe", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel EmailLabel;
-    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JLabel dobLabel;
     private javax.swing.JTextField dobTField;
     private javax.swing.JTextField emailTField;
@@ -278,12 +293,11 @@ public class RegisterJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel genderLaber;
     private javax.swing.JLabel homePhoneLabel;
     private javax.swing.JTextField homePhoneTField;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTField;
-    private javax.swing.JButton viewDetailsBtn;
+    private javax.swing.JPasswordField passwordTField;
+    private javax.swing.JPasswordField rePasswordTField;
+    private javax.swing.JTextField userNameTField;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel workPhoneLabel;
     private javax.swing.JTextField workPhoneTField;

@@ -22,11 +22,11 @@
                   <Component id="jScrollPane6" min="-2" pref="495" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="viewDetailsBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="assgnBtn" min="-2" pref="124" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="deleteBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="packageBtn" min="-2" pref="124" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Component id="deleteBtn1" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="sendBtn" min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane5" min="-2" pref="495" max="-2" attributes="0"/>
                   </Group>
@@ -42,9 +42,9 @@
               <Component id="jScrollPane5" min="-2" pref="200" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="viewDetailsBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="deleteBtn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="deleteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assgnBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sendBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="packageBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jScrollPane6" min="-2" pref="200" max="-2" attributes="0"/>
@@ -66,7 +66,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="resumeTbl">
+        <Component class="javax.swing.JTable" name="ongoingTbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Microsoft YaHei UI" size="12" style="0"/>
@@ -88,7 +88,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="viewDetailsBtn">
+    <Component class="javax.swing.JButton" name="assgnBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -99,10 +99,10 @@
         <Property name="text" type="java.lang.String" value="assign to me"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewDetailsBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assgnBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="deleteBtn">
+    <Component class="javax.swing.JButton" name="packageBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -113,10 +113,10 @@
         <Property name="text" type="java.lang.String" value="package"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="packageBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="deleteBtn1">
+    <Component class="javax.swing.JButton" name="sendBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -127,7 +127,7 @@
         <Property name="text" type="java.lang.String" value="send"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteBtn1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendBtnActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane6">
@@ -142,7 +142,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="resumeTbl1">
+        <Component class="javax.swing.JTable" name="finishedTbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Microsoft YaHei UI" size="12" style="0"/>
