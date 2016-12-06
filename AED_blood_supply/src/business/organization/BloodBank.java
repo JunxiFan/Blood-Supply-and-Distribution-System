@@ -40,6 +40,12 @@ public class BloodBank extends Organization {
     public void setClinicList(ArrayList<Clinic> ClinicList) {
         this.ClinicList = ClinicList;
     }
+    
+    public Clinic createClinic(String name) {
+        Clinic clinic = new Clinic(name);
+        ClinicList.add(clinic);
+        return clinic;
+    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {

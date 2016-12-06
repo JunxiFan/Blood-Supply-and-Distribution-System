@@ -54,6 +54,12 @@ public class BloodManageCenter extends Organization {
         nextLvBloodManageCenterList.add(bloodManageCenter);
         return bloodManageCenter;
     }
+    
+    public BloodBank createBloodBank(String name) {
+        BloodBank bloodBank = new BloodBank(name);
+        bloodBankList.add(bloodBank);
+        return bloodBank;
+    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
