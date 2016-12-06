@@ -34,4 +34,6 @@ public class Clinic extends Organization{
     public ArrayList<Role> getSupportedRole() {
         return null;
     }
+    
+    //dfdfdfsdflskjafksjd
 }
