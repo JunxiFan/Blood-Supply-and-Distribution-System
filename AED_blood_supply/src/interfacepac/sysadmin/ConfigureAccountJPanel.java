@@ -5,6 +5,8 @@
  */
 package interfacepac.sysadmin;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.PersonInfoJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,11 +20,15 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
 
-    public ConfigureAccountJPanel(JPanel displayPanel) {
+    public ConfigureAccountJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -124,7 +130,7 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
 
     private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
         displayPanel.add("PerosonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

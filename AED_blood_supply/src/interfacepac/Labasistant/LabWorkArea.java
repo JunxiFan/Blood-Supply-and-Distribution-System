@@ -20,11 +20,15 @@ public class LabWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form LabWorkArea
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
             
-    public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
+    public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel=displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -303,7 +307,7 @@ public class LabWorkArea extends javax.swing.JPanel {
 
     private void deleteBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn2ActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
         displayPanel.add("PerosonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

@@ -19,10 +19,12 @@ public class EcoSystem extends Organization {
 
     private static EcoSystem business;
     private ArrayList<BloodManageCenter> bloodManageCenterList;
+    private DORUserController dORUserController;
 
     private EcoSystem() {
-        super(null);
+        super("system");
         bloodManageCenterList = new ArrayList();
+        dORUserController = new DORUserController();
     }
 
     public static EcoSystem getInstance() {
@@ -46,7 +48,14 @@ public class EcoSystem extends Organization {
         return bloodManageCenter;
     }
 
+    public DORUserController getdORUserController() {
+        return dORUserController;
+    }
 
+    public void setdORUserController(DORUserController dORUserController) {
+        this.dORUserController = dORUserController;
+    }
+    
 
     @Override
     public ArrayList<Role> getSupportedRole() {

@@ -21,11 +21,15 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
 
-    public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
+    public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -193,7 +197,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
     private void deleteBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn2ActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
         displayPanel.add("PerosonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

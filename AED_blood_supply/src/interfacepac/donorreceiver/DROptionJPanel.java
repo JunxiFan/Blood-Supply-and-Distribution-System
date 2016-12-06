@@ -19,11 +19,16 @@ public class DROptionJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DROptionJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
 
-    public DROptionJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public DROptionJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel = displayPanel;
+        this.displayPanel=displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -97,7 +102,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void donateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBtnActionPerformed
         // TODO add your handling code here:
-        DonateJPanel panel = new DonateJPanel(displayPanel);
+        DonateJPanel panel = new DonateJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DonateJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -105,7 +110,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void needBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_needBtnActionPerformed
         // TODO add your handling code here:
-        BloodUseJPanel panel = new BloodUseJPanel(displayPanel);
+        BloodUseJPanel panel = new BloodUseJPanel(displayPanel, userAccount, organization);
         displayPanel.add("BloodUseJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -113,7 +118,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
         displayPanel.add("PersonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

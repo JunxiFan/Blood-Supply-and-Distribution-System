@@ -20,11 +20,15 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DonateJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
             
     public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel=displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -101,7 +105,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void configurateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configurateBtnActionPerformed
         // TODO add your handling code here:
-        ConfigureJPanel panel = new ConfigureJPanel(displayPanel);
+        ConfigureJPanel panel = new ConfigureJPanel(displayPanel, userAccount, organization);
         displayPanel.add("ConfigureJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -109,7 +113,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel);
+        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel, userAccount, organization);
         displayPanel.add("ConfigureAccountJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

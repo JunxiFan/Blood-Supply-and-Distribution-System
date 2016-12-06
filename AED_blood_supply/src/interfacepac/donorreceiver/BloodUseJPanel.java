@@ -5,6 +5,8 @@
  */
 package interfacepac.donorreceiver;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -17,11 +19,15 @@ public class BloodUseJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DonateJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
 
-    public BloodUseJPanel(JPanel displayPanel) {
+    public BloodUseJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -120,7 +126,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
     private void confirmTblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTblActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel);
+        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -128,7 +134,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel);
+        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

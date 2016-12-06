@@ -5,6 +5,8 @@
  */
 package interfacepac.donorreceiver;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -21,11 +23,16 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     TableJPanel donationTable;
     TableJPanel consumptionTable;
     
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
             
-    public PersonInfoJPanel(JPanel displayPanel) {
+    public PersonInfoJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel=displayPanel;
+        this.displayPanel=displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**
@@ -530,7 +537,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
 
     private void cancelBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn1ActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel);
+        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

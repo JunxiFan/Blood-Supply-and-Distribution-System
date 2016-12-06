@@ -31,21 +31,118 @@ public class CertificationJPanel extends javax.swing.JPanel {
 
     public CertificationJPanel(JPanel displayJPanel, boolean isDOR) {
         initComponents();
-        this.system  = EcoSystem.getInstance();
+        this.system = EcoSystem.getInstance();
         this.displayJPanel = displayJPanel;
         this.isDOR = isDOR;
         populateDisplayPanel();
     }
 
-    public void populateDisplayPanel() {
+    private void populateDisplayPanel() {
 
-        LoadSPanel RegJPanel = new LoadSPanel( displayJPanel);
+        LoadSPanel RegJPanel = new LoadSPanel(displayJPanel);
         RegJPanel.welcomeIfLabel.setVisible(isDOR);
         RegJPanel.registerBtn.setVisible(isDOR);
         logoutBtn.setText("Back");
         displayPanel.add("welcome", RegJPanel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
+    }
+
+    private void loginCheck() {
+        String userName = usernameTField.getText();
+        char[] passwordCharArray = passwordTField.getPassword();
+        String password = String.valueOf(passwordCharArray);
+        UserAccount userAccount = system.getUserAccountList().authenticateUser(userName, password);
+
+        Organization inOrganization = null;
+
+        if (userAccount == null) {
+            userAccount = system.getdORUserController().getUserAccountList().authenticateUser(userName, password);
+            if (userAccount == null) {
+                here:
+                for (BloodManageCenter bloodMC : system.getBloodManageCenterList()) {
+                    userAccount = bloodMC.getUserAccountList().authenticateUser(userName, password);
+                    if (userAccount == null) {
+                        for (DistributionCenter distributionC : bloodMC.getDistributionCenterList()) {
+                            userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                            if (userAccount != null) {
+                                inOrganization = distributionC;
+                                break here;
+                            }
+                        }
+                        for (BloodManageCenter bloodMC2 : bloodMC.getNextLvBloodManageCenterList()) {
+                            userAccount = bloodMC2.getUserAccountList().authenticateUser(userName, password);
+                            if (userAccount == null) {
+                                for (DistributionCenter distributionC : bloodMC2.getDistributionCenterList()) {
+                                    userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                                    if (userAccount != null) {
+                                        inOrganization = distributionC;
+                                        break here;
+                                    }
+                                }
+                                for (BloodBank bloodBank : bloodMC2.getBloodBankList()) {
+                                    userAccount = bloodBank.getUserAccountList().authenticateUser(userName, password);
+                                    if (userAccount == null) {
+                                        for (DistributionCenter distributionC : bloodBank.getDistributionCenterList()) {
+                                            userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                                            if (userAccount != null) {
+                                                inOrganization = distributionC;
+                                                break here;
+                                            }
+                                        }
+                                        for (Clinic clinic : bloodBank.getClinicList()) {
+                                            userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
+                                            if (userAccount == null) {
+                                                for (Organization organization : clinic.getOrganizationList()) {
+                                                    userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
+                                                    if (userAccount != null) {
+                                                        inOrganization = organization;
+                                                        break here;
+                                                    }
+                                                }
+
+                                            } else {
+                                                inOrganization = clinic;
+                                                break here;
+                                            }
+                                        }
+                                    } else {
+                                        inOrganization = bloodBank;
+                                        break here;
+                                    }
+                                }
+                            } else {
+                                inOrganization = bloodMC2;
+                                break here;
+                            }
+                        }
+                    } else {
+                        inOrganization = bloodMC;
+                        break here;
+                    }
+                }
+            } else {
+                inOrganization = system.getdORUserController();
+            }
+        } else {
+            inOrganization = system;
+        }
+
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(null, "Invalid credentials");
+            return;
+        } else {
+            CardLayout layout = (CardLayout) displayPanel.getLayout();
+            displayPanel.add("workArea", userAccount.getRole().createWorkArea(displayPanel, userAccount, inOrganization));
+            layout.next(displayPanel);
+            loginBtn.setVisible(false);
+            logoutBtn.setVisible(true);
+            logoutBtn.setText("Logout");
+            usernameTField.setVisible(false);
+            passwordTField.setVisible(false);
+            passwordLabel.setText(userAccount.toString());
+        }
+
     }
 
     /**
@@ -150,96 +247,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-        String userName = usernameTField.getText();
-        // Get Password
-        char[] passwordCharArray = passwordTField.getPassword();
-        String password = String.valueOf(passwordCharArray);
-        UserAccount userAccount = system.getUserAccountList().authenticateUser(userName, password);
-
-        Organization inOrganization = null;
-
-        if (userAccount == null) {
-            here:
-            for (BloodManageCenter bloodMC : system.getBloodManageCenterList()) {
-                userAccount = bloodMC.getUserAccountList().authenticateUser(userName, password);
-                if (userAccount == null) {
-                    for (DistributionCenter distributionC : bloodMC.getDistributionCenterList()) {
-                        userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
-                        if (userAccount != null) {
-                            inOrganization = distributionC;
-                            break here;
-                        }
-                    }
-                    for (BloodManageCenter bloodMC2 : bloodMC.getNextLvBloodManageCenterList()) {
-                        userAccount = bloodMC2.getUserAccountList().authenticateUser(userName, password);
-                        if (userAccount == null) {
-                            for (DistributionCenter distributionC : bloodMC2.getDistributionCenterList()) {
-                                userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
-                                if (userAccount != null) {
-                                    inOrganization = distributionC;
-                                    break here;
-                                }
-                            }
-                            for (BloodBank bloodBank : bloodMC2.getBloodBankList()) {
-                                userAccount = bloodBank.getUserAccountList().authenticateUser(userName, password);
-                                if (userAccount == null) {
-                                    for (DistributionCenter distributionC : bloodBank.getDistributionCenterList()) {
-                                        userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
-                                        if (userAccount != null) {
-                                            inOrganization = distributionC;
-                                            break here;
-                                        }
-                                    }
-                                    for (Clinic clinic : bloodBank.getClinicList()) {
-                                        userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
-                                        if (userAccount == null) {
-                                            for (Organization organization : clinic.getOrganizationList()) {
-                                                userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
-                                                if (userAccount != null) {
-                                                    inOrganization = organization;
-                                                    break here;
-                                                }
-                                            }
-
-                                        } else {
-                                            inOrganization = clinic;
-                                            break here;
-                                        }
-                                    }
-                                } else {
-                                    inOrganization = bloodBank;
-                                    break here;
-                                }
-                            }
-                        } else {
-                            inOrganization = bloodMC2;
-                            break here;
-                        }
-                    }
-                } else {
-                    inOrganization = bloodMC;
-                    break here;
-                }
-            }
-        } else {
-            inOrganization = system;
-        }
-
-        if (userAccount == null) {
-            JOptionPane.showMessageDialog(null, "Invalid credentials");
-            return;
-        } else {
-            CardLayout layout = (CardLayout) displayPanel.getLayout();
-            displayPanel.add("workArea", userAccount.getRole().createWorkArea(displayPanel, userAccount, inOrganization));
-            layout.next(displayPanel);
-        }
-
-        loginBtn.setVisible(false);
-        logoutBtn.setVisible(true);
-        logoutBtn.setText("Logout");
-        usernameTField.setVisible(false);
-        passwordTField.setVisible(false);
-        passwordLabel.setText(userAccount.toString());
+        loginCheck();
 
     }//GEN-LAST:event_loginBtnActionPerformed
 

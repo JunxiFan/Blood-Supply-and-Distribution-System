@@ -5,6 +5,8 @@
  */
 package interfacepac.sysadmin;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -17,11 +19,15 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
             
-    public ConfigureJPanel(JPanel displayPanel) {
+    public ConfigureJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel=displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
     }
 
     /**

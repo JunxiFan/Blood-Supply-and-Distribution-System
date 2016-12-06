@@ -9,6 +9,6 @@ package business.useraccount;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class DRAccount {
+public class DRAccount extends UserAccount{
     
 }

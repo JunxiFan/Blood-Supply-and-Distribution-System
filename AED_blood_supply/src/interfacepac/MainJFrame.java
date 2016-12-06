@@ -6,6 +6,7 @@
 package interfacepac;
 
 import business.EcoSystem;
+import business.db4outil.DB4OUtil;
 import business.role.SAdmin;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
@@ -20,18 +21,20 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     private EcoSystem ecoSystem;
+    private DB4OUtil dB4OUtil;
     
     public MainJFrame() {
         initComponents();
+        dB4OUtil = DB4OUtil.getInstance();
         ecoSystem = systemInit();
         loadPanel();
     }
     
-    private static EcoSystem systemInit(){
+    private EcoSystem systemInit(){
         
-        EcoSystem system = EcoSystem.getInstance();
+        EcoSystem system = dB4OUtil.retrieveSystem();
         
-        UserAccount ua = system.getUserAccountList().createUserAccount("sysadmin", "sysadmin", new SAdmin());
+        system.getUserAccountList().createUserAccount("sysadmin", "sysadmin", new SAdmin());
         
         return system;
     }

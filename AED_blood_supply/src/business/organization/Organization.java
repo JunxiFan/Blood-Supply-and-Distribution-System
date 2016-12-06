@@ -29,6 +29,7 @@ public abstract class Organization {
         Distribution("Distribution Center"),
         Lab("Laboratory"),
         NurseCenter("Nurse Center"),
+        DOR("Donor or Receiver"),
         ReceptionistService("ReceptionistService");
         
         private String value;
