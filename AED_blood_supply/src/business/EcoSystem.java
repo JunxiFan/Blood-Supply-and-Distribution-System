@@ -20,11 +20,21 @@ public class EcoSystem extends Organization {
     private static EcoSystem business;
     private ArrayList<BloodManageCenter> bloodManageCenterList;
     private DORUserController dORUserController;
+    private DistributionCenter distributionCenter;
+
+    public DistributionCenter getDistributionCenter() {
+        return distributionCenter;
+    }
+
+    public void setDistributionCenter(DistributionCenter distributionCenter) {
+        this.distributionCenter = distributionCenter;
+    }
 
     private EcoSystem() {
         super("system");
         bloodManageCenterList = new ArrayList();
-        dORUserController = new DORUserController();
+        dORUserController = new DORUserController("User Area");
+        distributionCenter = new DistributionCenter("Global DistributionCenter");
     }
 
     public static EcoSystem getInstance() {
@@ -42,8 +52,8 @@ public class EcoSystem extends Organization {
         this.bloodManageCenterList = bloodManageCenterList;
     }
 
-    public BloodManageCenter createBloodManageCenter() {
-        BloodManageCenter bloodManageCenter = new BloodManageCenter();
+    public BloodManageCenter createBloodManageCenter(String s) {
+        BloodManageCenter bloodManageCenter = new BloodManageCenter(s);
         bloodManageCenterList.add(bloodManageCenter);
         return bloodManageCenter;
     }

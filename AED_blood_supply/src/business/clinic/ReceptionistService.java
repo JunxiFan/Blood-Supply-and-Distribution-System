@@ -17,8 +17,9 @@ import java.util.ArrayList;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class ReceptionistService extends Organization{
-     public ReceptionistService(){
+     public ReceptionistService(String name){
         super(OrganizationType.ReceptionistService.getValue());
+        this.setName(name);
     }
 
     @Override

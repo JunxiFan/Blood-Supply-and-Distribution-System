@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public abstract class Organization {
 
     private String name;
+    private String type;
     private WorkQueue workQueue;
     private UserAccountDir userAccountList;
     private int organizationID;
@@ -42,8 +43,8 @@ public abstract class Organization {
         }
     }
 
-    public Organization(String name) {
-        this.name = name;
+    public Organization(String type) {
+        type = name;
         workQueue = new WorkQueue();
         userAccountList = new UserAccountDir();
         organizationID = counter;

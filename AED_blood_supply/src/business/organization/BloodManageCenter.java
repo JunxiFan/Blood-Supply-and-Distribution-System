@@ -15,7 +15,14 @@ import java.util.ArrayList;
 public class BloodManageCenter extends Organization {
 
     private ArrayList<BloodBank> bloodBankList;
-    private ArrayList<DistributionCenter> distributionCenterList;
+    private DistributionCenter distributionCenter;
+
+    public BloodManageCenter(String name) {
+        super(OrganizationType.BloodMngCenter.getValue());
+        bloodBankList = new ArrayList();
+        nextLvBloodManageCenterList = new ArrayList();
+        this.setName(name);
+    }
 
     public ArrayList<BloodBank> getBloodBankList() {
         return bloodBankList;
@@ -25,12 +32,12 @@ public class BloodManageCenter extends Organization {
         this.bloodBankList = bloodBankList;
     }
 
-    public ArrayList<DistributionCenter> getDistributionCenterList() {
-        return distributionCenterList;
+    public DistributionCenter getDistributionCenter() {
+        return distributionCenter;
     }
 
-    public void setDistributionCenterList(ArrayList<DistributionCenter> distributionCenterList) {
-        this.distributionCenterList = distributionCenterList;
+    public void setDistributionCenter(DistributionCenter distributionCenter) {
+        this.distributionCenter = distributionCenter;
     }
 
     public ArrayList<BloodManageCenter> getNextLvBloodManageCenterList() {
@@ -42,15 +49,8 @@ public class BloodManageCenter extends Organization {
     }
     private ArrayList<BloodManageCenter> nextLvBloodManageCenterList;
 
-    public BloodManageCenter() {
-        super(OrganizationType.BloodMngCenter.getValue());
-        bloodBankList=new ArrayList();
-        distributionCenterList=new ArrayList();
-        nextLvBloodManageCenterList = new ArrayList();
-    }
-    
-    public BloodManageCenter createBloodManageCenter() {
-        BloodManageCenter bloodManageCenter = new BloodManageCenter();
+    public BloodManageCenter createBloodManageCenter(String name) {
+        BloodManageCenter bloodManageCenter = new BloodManageCenter(name);
         nextLvBloodManageCenterList.add(bloodManageCenter);
         return bloodManageCenter;
     }

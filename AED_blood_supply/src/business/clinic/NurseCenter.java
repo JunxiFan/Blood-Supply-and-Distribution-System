@@ -18,8 +18,9 @@ import java.util.ArrayList;
  */
 public class NurseCenter extends Organization {
 
-    public NurseCenter() {
+    public NurseCenter(String name) {
         super(OrganizationType.NurseCenter.getValue());
+        this.setName(name);
     }
 
     @Override

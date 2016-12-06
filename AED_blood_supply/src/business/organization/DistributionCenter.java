@@ -14,8 +14,9 @@ import java.util.ArrayList;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class DistributionCenter extends Organization{
-    public DistributionCenter(){
+    public DistributionCenter(String name){
         super(OrganizationType.Distribution.getValue());
+        this.setName(name);
     }
 
     @Override

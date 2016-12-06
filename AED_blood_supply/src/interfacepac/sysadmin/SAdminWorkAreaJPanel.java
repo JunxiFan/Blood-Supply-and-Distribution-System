@@ -5,11 +5,19 @@
  */
 package interfacepac.sysadmin;
 
+import business.EcoSystem;
+import business.organization.BloodManageCenter;
 import business.organization.Organization;
+import business.organization.BloodBank;
+import business.organization.Clinic;
+import business.organization.DistributionCenter;
 import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.*;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -23,12 +31,62 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-            
+    private EcoSystem system;
+
     public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        system = EcoSystem.getInstance();
+    }
+
+    public void populateTree() {
+        DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
+        ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
+        ArrayList<BloodManageCenter> secondBMCList;
+        ArrayList<BloodBank> bloodBankList;
+        ArrayList<DistributionCenter> firstDistributionList;
+        ArrayList<DistributionCenter> secondDistributionList;
+        ArrayList<DistributionCenter> thirdDistributionList;
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+        int i = 0;
+        for (BloodManageCenter lv1BMC : firstBMCList) {
+            DefaultMutableTreeNode firstBMCNode = new DefaultMutableTreeNode(lv1BMC);
+            root.insert(firstBMCNode, i++);
+            int j = 0;
+            for (BloodManageCenter lv2BMC : lv1BMC.getNextLvBloodManageCenterList()) {
+                DefaultMutableTreeNode secondBMCNode = new DefaultMutableTreeNode(lv2BMC);
+                firstBMCNode.insert(secondBMCNode, j++);
+                int k = 0;
+                for (BloodBank bloodBank : lv2BMC.getBloodBankList()) {
+                    DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                    secondBMCNode.insert(bloodBankNode, k++);
+                    int l = 0;
+                    for (Clinic clinic : bloodBank.getClinicList()) {
+                        DefaultMutableTreeNode clinicNode = new DefaultMutableTreeNode(clinic);
+                        bloodBankNode.insert(clinicNode, l++);
+                        int m = 0;
+                        for (Organization organ : clinic.getOrganizationList()) {
+                        DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
+                        bloodBankNode.insert(organNode, m++);    
+                        }
+                    }
+                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+                    secondBMCNode.insert(fourthDistributionNode, l++);
+                }
+                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+                secondBMCNode.insert(thirdDistributionNode, k++);
+            }
+            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+            firstBMCNode.insert(secondDistributionNode, i++);
+        }
+        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
+        root.insert(firstDistributionNode, i++);
+        model.reload();
     }
 
     /**
@@ -46,6 +104,40 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         configurateBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
 
+        viewJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("System");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("colors");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("blue");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("violet");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("red");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("yellow");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("sports");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("basketball");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("soccer");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("football");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("hockey");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("food");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("hot dogs");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("pizza");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("ravioli");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("bananas");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        viewJTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        viewJTree.setRowHeight(24);
         jScrollPane1.setViewportView(viewJTree);
 
         dobLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N

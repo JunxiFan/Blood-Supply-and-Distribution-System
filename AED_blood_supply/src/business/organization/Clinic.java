@@ -17,9 +17,10 @@ import java.util.ArrayList;
 public class Clinic extends Organization{
     private ArrayList<Organization> organizationList;
     
-        public Clinic(){
+        public Clinic(String name){
         super(OrganizationType.Clinic.getValue());
         organizationList = new ArrayList();
+        this.setName(name);
     }
 
     public ArrayList<Organization> getOrganizationList() {

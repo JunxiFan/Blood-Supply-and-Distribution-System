@@ -59,67 +59,66 @@ public class CertificationJPanel extends javax.swing.JPanel {
         if (userAccount == null) {
             userAccount = system.getdORUserController().getUserAccountList().authenticateUser(userName, password);
             if (userAccount == null) {
-                here:
-                for (BloodManageCenter bloodMC : system.getBloodManageCenterList()) {
-                    userAccount = bloodMC.getUserAccountList().authenticateUser(userName, password);
-                    if (userAccount == null) {
-                        for (DistributionCenter distributionC : bloodMC.getDistributionCenterList()) {
-                            userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                userAccount = system.getDistributionCenter().getUserAccountList().authenticateUser(userName, password);
+                if (userAccount == null) {
+                    here:
+                    for (BloodManageCenter bloodMC : system.getBloodManageCenterList()) {
+                        userAccount = bloodMC.getUserAccountList().authenticateUser(userName, password);
+                        if (userAccount == null) {
+                            userAccount = bloodMC.getDistributionCenter().getUserAccountList().authenticateUser(userName, password);
                             if (userAccount != null) {
-                                inOrganization = distributionC;
-                                break here;
+                                inOrganization = bloodMC.getDistributionCenter();
+                                break;
                             }
-                        }
-                        for (BloodManageCenter bloodMC2 : bloodMC.getNextLvBloodManageCenterList()) {
-                            userAccount = bloodMC2.getUserAccountList().authenticateUser(userName, password);
-                            if (userAccount == null) {
-                                for (DistributionCenter distributionC : bloodMC2.getDistributionCenterList()) {
-                                    userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                            for (BloodManageCenter bloodMC2 : bloodMC.getNextLvBloodManageCenterList()) {
+                                userAccount = bloodMC2.getUserAccountList().authenticateUser(userName, password);
+                                if (userAccount == null) {
+                                    userAccount = bloodMC2.getDistributionCenter().getUserAccountList().authenticateUser(userName, password);
                                     if (userAccount != null) {
-                                        inOrganization = distributionC;
+                                        inOrganization = bloodMC2.getDistributionCenter();
                                         break here;
                                     }
-                                }
-                                for (BloodBank bloodBank : bloodMC2.getBloodBankList()) {
-                                    userAccount = bloodBank.getUserAccountList().authenticateUser(userName, password);
-                                    if (userAccount == null) {
-                                        for (DistributionCenter distributionC : bloodBank.getDistributionCenterList()) {
-                                            userAccount = distributionC.getUserAccountList().authenticateUser(userName, password);
+                                    for (BloodBank bloodBank : bloodMC2.getBloodBankList()) {
+                                        userAccount = bloodBank.getUserAccountList().authenticateUser(userName, password);
+                                        if (userAccount == null) {
+                                            userAccount = bloodBank.getDistributionCenter().getUserAccountList().authenticateUser(userName, password);
                                             if (userAccount != null) {
-                                                inOrganization = distributionC;
+                                                inOrganization = bloodBank.getDistributionCenter();
                                                 break here;
                                             }
-                                        }
-                                        for (Clinic clinic : bloodBank.getClinicList()) {
-                                            userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
-                                            if (userAccount == null) {
-                                                for (Organization organization : clinic.getOrganizationList()) {
-                                                    userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
-                                                    if (userAccount != null) {
-                                                        inOrganization = organization;
-                                                        break here;
+                                            for (Clinic clinic : bloodBank.getClinicList()) {
+                                                userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
+                                                if (userAccount == null) {
+                                                    for (Organization organization : clinic.getOrganizationList()) {
+                                                        userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
+                                                        if (userAccount != null) {
+                                                            inOrganization = organization;
+                                                            break here;
+                                                        }
                                                     }
-                                                }
 
-                                            } else {
-                                                inOrganization = clinic;
-                                                break here;
+                                                } else {
+                                                    inOrganization = clinic;
+                                                    break here;
+                                                }
                                             }
+                                        } else {
+                                            inOrganization = bloodBank;
+                                            break here;
                                         }
-                                    } else {
-                                        inOrganization = bloodBank;
-                                        break here;
                                     }
+                                } else {
+                                    inOrganization = bloodMC2;
+                                    break here;
                                 }
-                            } else {
-                                inOrganization = bloodMC2;
-                                break here;
                             }
+                        } else {
+                            inOrganization = bloodMC;
+                            break here;
                         }
-                    } else {
-                        inOrganization = bloodMC;
-                        break here;
                     }
+                } else {
+                    inOrganization = system.getDistributionCenter();
                 }
             } else {
                 inOrganization = system.getdORUserController();

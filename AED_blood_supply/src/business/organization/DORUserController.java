@@ -15,9 +15,10 @@ import java.util.ArrayList;
 public class DORUserController extends Organization{
     private ArrayList<Organization> organizationList;
     
-        public DORUserController(){
+        public DORUserController(String name){
         super(OrganizationType.DOR.getValue());
         organizationList = new ArrayList();
+        this.setName(name);
     }
 
     public ArrayList<Organization> getOrganizationList() {
