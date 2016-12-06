@@ -5,6 +5,8 @@
  */
 package interfacepac.receptionist;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.PersonInfoJPanel;
 import interfacepac.sysadmin.*;
 import java.awt.CardLayout;
@@ -21,7 +23,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
      */
     JPanel displayPanel;
 
-    public ReceptionistJPanel(JPanel displayPanel) {
+    public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel = displayPanel;
     }

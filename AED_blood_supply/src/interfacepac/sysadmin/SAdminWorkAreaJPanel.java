@@ -5,6 +5,8 @@
  */
 package interfacepac.sysadmin;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -20,7 +22,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel displayPanel;
             
-    public SAdminWorkAreaJPanel(JPanel displayPanel) {
+    public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel=displayPanel;
     }

@@ -5,6 +5,7 @@
  */
 package interfacepac;
 
+import business.EcoSystem;
 import interfacepac.donorreceiver.RegisterJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,11 +19,15 @@ public class RegJPanel extends javax.swing.JPanel {
     /**
      * Creates new form regJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private EcoSystem ecoSystem;
+    private CertificationJPanel cPanel;
             
     public RegJPanel(JPanel displayPanel) {
         initComponents();
         this.displayPanel=displayPanel;
+        this.ecoSystem  = EcoSystem.getInstance();
+        
     }
 
 
@@ -36,23 +41,35 @@ public class RegJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        welcomeLabel = new javax.swing.JLabel();
-        welcomeLabel3 = new javax.swing.JLabel();
-        registerBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        dORBtn = new javax.swing.JButton();
+        staffBtn = new javax.swing.JButton();
+        adminBtn = new javax.swing.JButton();
 
-        welcomeLabel.setBackground(new java.awt.Color(250, 250, 250));
-        welcomeLabel.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
-        welcomeLabel.setText("Please login first");
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jLabel1.setText("welcome");
 
-        welcomeLabel3.setBackground(new java.awt.Color(250, 250, 250));
-        welcomeLabel3.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
-        welcomeLabel3.setText("If you don't have account");
-
-        registerBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
-        registerBtn.setText("register now");
-        registerBtn.addActionListener(new java.awt.event.ActionListener() {
+        dORBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        dORBtn.setText("I'm a donor or receiver");
+        dORBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerBtnActionPerformed(evt);
+                dORBtnActionPerformed(evt);
+            }
+        });
+
+        staffBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        staffBtn.setText("I'm a staff");
+        staffBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                staffBtnActionPerformed(evt);
+            }
+        });
+
+        adminBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        adminBtn.setText("I'm system admin");
+        adminBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminBtnActionPerformed(evt);
             }
         });
 
@@ -61,45 +78,60 @@ public class RegJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(338, 338, 338)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(welcomeLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(529, 529, 529)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dORBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(staffBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(welcomeLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(339, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel1)))
+                .addContainerGap(528, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(welcomeLabel)
-                .addGap(125, 125, 125)
-                .addComponent(welcomeLabel3)
-                .addGap(143, 143, 143)
-                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(jLabel1)
+                .addGap(72, 72, 72)
+                .addComponent(dORBtn)
+                .addGap(191, 191, 191)
+                .addComponent(staffBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addComponent(adminBtn)
+                .addGap(102, 102, 102))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-        // TODO add your handling code here:
-        RegisterJPanel panel = new RegisterJPanel(displayPanel);
-        displayPanel.add("RegisterJPanel", panel);
+    private void dORBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dORBtnActionPerformed
+        cPanel = new CertificationJPanel(displayPanel, true);
+        displayPanel.add("certification", cPanel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
-    }//GEN-LAST:event_registerBtnActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_dORBtnActionPerformed
+
+    private void staffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffBtnActionPerformed
+       cPanel = new CertificationJPanel(displayPanel, false);
+        displayPanel.add("certification", cPanel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_staffBtnActionPerformed
+
+    private void adminBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBtnActionPerformed
+        cPanel = new CertificationJPanel(displayPanel, false);
+        displayPanel.add("certification", cPanel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton registerBtn;
-    private javax.swing.JLabel welcomeLabel;
-    private javax.swing.JLabel welcomeLabel3;
+    private javax.swing.JButton adminBtn;
+    private javax.swing.JButton dORBtn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton staffBtn;
     // End of variables declaration//GEN-END:variables
 }

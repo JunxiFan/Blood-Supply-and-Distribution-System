@@ -16,10 +16,20 @@ import java.util.ArrayList;
 public class BloodBank extends Organization {
 
     private ArrayList<Clinic> ClinicList;
+    private ArrayList<DistributionCenter> distributionCenterList;
 
     public BloodBank() {
         super(OrganizationType.BloodBank.getValue());
         ClinicList = new ArrayList<>();
+        distributionCenterList = new ArrayList<>();
+    }
+
+    public ArrayList<DistributionCenter> getDistributionCenterList() {
+        return distributionCenterList;
+    }
+
+    public void setDistributionCenterList(ArrayList<DistributionCenter> distributionCenterList) {
+        this.distributionCenterList = distributionCenterList;
     }
 
     public ArrayList<Clinic> getClinicList() {

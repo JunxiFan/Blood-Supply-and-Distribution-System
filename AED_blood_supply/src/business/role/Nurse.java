@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class Nurse extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount userAccount, Organization organization, EcoSystem business) {
-        return new NurseWorkAreaJPanel(userProcessContainer);
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+        return new NurseWorkAreaJPanel(displayPanel, userAccount, organization);
     }
     
 }

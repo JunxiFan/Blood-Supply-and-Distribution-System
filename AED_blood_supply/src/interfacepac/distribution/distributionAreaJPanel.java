@@ -5,6 +5,8 @@
  */
 package interfacepac.distribution;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
 import javax.swing.JPanel;
@@ -18,12 +20,8 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    public distributionAreaJPanel() {
+    public distributionAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
-    }
-
-    public distributionAreaJPanel(JPanel userProcessContainer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

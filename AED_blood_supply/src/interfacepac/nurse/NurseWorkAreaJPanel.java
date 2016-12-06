@@ -5,6 +5,8 @@
  */
 package interfacepac.nurse;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
 import javax.swing.JPanel;
@@ -20,7 +22,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel displayPanel;
 
-    public NurseWorkAreaJPanel(JPanel displayPanel) {
+    public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel = displayPanel;
     }

@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class DistributionManager extends Role {
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount userAccount, Organization organization, EcoSystem business) {
-        return new distributionAreaJPanel(userProcessContainer);
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+        return new distributionAreaJPanel(displayPanel, userAccount, organization);
     }
 
 }

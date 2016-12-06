@@ -5,7 +5,6 @@
  */
 package interfacepac.donorreceiver;
 
-import interfacepac.MainJFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 

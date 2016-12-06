@@ -17,10 +17,42 @@ public class BloodManageCenter extends Organization {
     private ArrayList<BloodBank> bloodBankList;
     private ArrayList<DistributionCenter> distributionCenterList;
 
+    public ArrayList<BloodBank> getBloodBankList() {
+        return bloodBankList;
+    }
+
+    public void setBloodBankList(ArrayList<BloodBank> bloodBankList) {
+        this.bloodBankList = bloodBankList;
+    }
+
+    public ArrayList<DistributionCenter> getDistributionCenterList() {
+        return distributionCenterList;
+    }
+
+    public void setDistributionCenterList(ArrayList<DistributionCenter> distributionCenterList) {
+        this.distributionCenterList = distributionCenterList;
+    }
+
+    public ArrayList<BloodManageCenter> getNextLvBloodManageCenterList() {
+        return nextLvBloodManageCenterList;
+    }
+
+    public void setNextLvBloodManageCenterList(ArrayList<BloodManageCenter> nextLvBloodManageCenterList) {
+        this.nextLvBloodManageCenterList = nextLvBloodManageCenterList;
+    }
+    private ArrayList<BloodManageCenter> nextLvBloodManageCenterList;
+
     public BloodManageCenter() {
         super(OrganizationType.BloodMngCenter.getValue());
         bloodBankList=new ArrayList();
         distributionCenterList=new ArrayList();
+        nextLvBloodManageCenterList = new ArrayList();
+    }
+    
+    public BloodManageCenter createBloodManageCenter() {
+        BloodManageCenter bloodManageCenter = new BloodManageCenter();
+        nextLvBloodManageCenterList.add(bloodManageCenter);
+        return bloodManageCenter;
     }
 
     @Override

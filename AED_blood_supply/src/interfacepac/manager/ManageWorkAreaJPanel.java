@@ -5,6 +5,9 @@
  */
 package interfacepac.manager;
 
+import business.EcoSystem;
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.*;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
@@ -22,7 +25,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel displayPanel;
 
-    public ManageWorkAreaJPanel(JPanel displayPanel) {
+    public ManageWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
     }

@@ -5,7 +5,8 @@
  */
 package interfacepac.donorreceiver;
 
-import interfacepac.MainJFrame;
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -20,7 +21,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
      */
     JPanel displayPanel;
 
-    public DROptionJPanel(JPanel displayPanel) {
+    public DROptionJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
     }

@@ -15,8 +15,19 @@ import java.util.ArrayList;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class Clinic extends Organization{
+    private ArrayList<Organization> organizationList;
+    
         public Clinic(){
         super(OrganizationType.Clinic.getValue());
+        organizationList = new ArrayList();
+    }
+
+    public ArrayList<Organization> getOrganizationList() {
+        return organizationList;
+    }
+
+    public void setOrganizationList(ArrayList<Organization> organizationList) {
+        this.organizationList = organizationList;
     }
         
     @Override

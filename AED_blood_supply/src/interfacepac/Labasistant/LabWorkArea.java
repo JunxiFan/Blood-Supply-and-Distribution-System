@@ -5,6 +5,8 @@
  */
 package interfacepac.Labasistant;
 
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -20,7 +22,7 @@ public class LabWorkArea extends javax.swing.JPanel {
      */
     JPanel displayPanel;
             
-    public LabWorkArea(JPanel displayPanel) {
+    public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
         initComponents();
         this.displayPanel=displayPanel;
     }

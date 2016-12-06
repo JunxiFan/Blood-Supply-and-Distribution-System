@@ -8,6 +8,7 @@ package business.role;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import interfacepac.manager.ManageWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -17,8 +18,8 @@ import javax.swing.JPanel;
 public class SecondManager extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount userAccount, Organization organization, EcoSystem business) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+        return new ManageWorkAreaJPanel(displayPanel, userAccount, organization);
     }
     
 }
