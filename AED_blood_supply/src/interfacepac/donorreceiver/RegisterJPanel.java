@@ -32,6 +32,37 @@ public class RegisterJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.organization = organization;
         system = EcoSystem.getInstance();
+
+    }
+
+    public void initialData() {
+        String userName = userNameTField.getText();
+        char[] passwordCharArray = passwordTField.getPassword();
+        String password = String.valueOf(passwordCharArray);
+        char[] repasswordCharArray = rePasswordTField.getPassword();
+        String repassword = String.valueOf(repasswordCharArray);
+        String firstName = firstNameTField.getText();
+        String lastName = lastNameTField.getText();
+        String gender = (String) genderCBox.getSelectedItem();
+        String dob = dobTField.getText();
+        String homePhone = homePhoneTField.getText();
+        String workPhone = workPhoneTField.getText();
+        String email = emailTField.getText();
+
+        UserAccount userAccount = new UserAccount();
+        if (password.equals(repassword)) {
+            userAccount.setPassword(password);
+        } else {
+            System.out.println("Two Passwords are different!");
+        }
+        userAccount.setUsername(userName);
+        userAccount.setFirstName(firstName);
+        userAccount.setGender(gender);
+        userAccount.setDateOfBirth(dob);
+        userAccount.setHomePhone(homePhone);
+        userAccount.setWorkPhone(workPhone);
+        userAccount.setEmail(email);
+        organization.getUserAccountList().addUserAccount(userAccount);
     }
 
     /**
@@ -271,18 +302,17 @@ public class RegisterJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        MainJFrame panel = new MainJFrame();
-        displayPanel.add("mainjframe", panel);
+        initialData();
+        displayPanel.remove(this);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+        layout.previous(displayPanel);
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        MainJFrame panel = new MainJFrame();
-        displayPanel.add("mainjframe", panel);
+        displayPanel.remove(this);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+        layout.previous(displayPanel);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
 
