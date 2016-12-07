@@ -35,6 +35,7 @@ public class MainJFrame extends javax.swing.JFrame {
         EcoSystem system = dB4OUtil.retrieveSystem();
         
         system.getUserAccountList().createUserAccount("sysadmin", "sysadmin", new SAdmin());
+        system.getUserAccountList().createUserAccount("a", "a", new SAdmin());
         
         return system;
     }

@@ -44,7 +44,7 @@ public abstract class Organization {
     }
 
     public Organization(String type) {
-        type = name;
+        this.type = type;
         workQueue = new WorkQueue();
         userAccountList = new UserAccountDir();
         organizationID = counter;

@@ -35,11 +35,12 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     private Organization organ;
 
     public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-        initComponents();
+        
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         system = EcoSystem.getInstance();
+        initComponents();
         populateTree();
     }
 
@@ -74,17 +75,17 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                         int m = 0;
                         for (Organization organ : clinic.getOrganizationList()) {
                             DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
-                            bloodBankNode.insert(organNode, m++);
+                            clinicNode.insert(organNode, m++);
                         }
                     }
                     DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
-                    secondBMCNode.insert(fourthDistributionNode, l++);
+                    bloodBankNode.insert(fourthDistributionNode, l++);
                 }
                 DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
                 secondBMCNode.insert(thirdDistributionNode, k++);
             }
             DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
-            firstBMCNode.insert(secondDistributionNode, i++);
+            firstBMCNode.insert(secondDistributionNode, j++);
         }
         DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
         root.insert(firstDistributionNode, i++);
@@ -140,6 +141,11 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         treeNode1.add(treeNode2);
         viewJTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         viewJTree.setRowHeight(24);
+        viewJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                viewJTreeHierarchyChanged(evt);
+            }
+        });
         viewJTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
                 viewJTreeValueChanged(evt);
@@ -166,7 +172,6 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageAccountBtn.setBackground(new java.awt.Color(250, 250, 250));
         manageAccountBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         manageAccountBtn.setText("Manage account");
-        manageAccountBtn.setEnabled(false);
         manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageAccountBtnActionPerformed(evt);
@@ -227,22 +232,27 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         try {
             organ = (Organization) selectedNode.getUserObject();
-            if (organ != null) {
-                dobLabel.setText(organ.toString());
-            }
+            dobLabel.setText(organ.toString());
+            if(organ.getType() == Organization.OrganizationType.Clinic.getValue())
+                configurateBtn.setEnabled(false);
+            else
             configurateBtn.setEnabled(true);
-            manageAccountBtn.setEnabled(true);
         } catch (Exception e) {
             if (selectedNode != null) {
                 organ = system;
-                dobLabel.setText(organ.toString());
+                dobLabel.setText("system");
+                configurateBtn.setEnabled(true);
             } else {
                 configurateBtn.setEnabled(false);
-                manageAccountBtn.setEnabled(false);
             }
         }
 
     }//GEN-LAST:event_viewJTreeValueChanged
+
+    private void viewJTreeHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_viewJTreeHierarchyChanged
+        // TODO add your handling code here:
+        populateTree();
+    }//GEN-LAST:event_viewJTreeHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

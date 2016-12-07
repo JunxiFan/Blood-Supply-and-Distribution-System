@@ -5,6 +5,9 @@
  */
 package interfacepac.donorreceiver;
 
+import business.EcoSystem;
+import business.organization.Organization;
+import business.useraccount.UserAccount;
 import interfacepac.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,11 +21,17 @@ public class RegisterJPanel extends javax.swing.JPanel {
     /**
      * Creates new form RegisterJPanel
      */
-    JPanel displayPanel;
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
+    private EcoSystem system;
 
-    public RegisterJPanel(JPanel displayPanel) {
+    public RegisterJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
         this.displayPanel = displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
+        system = EcoSystem.getInstance();
     }
 
     /**

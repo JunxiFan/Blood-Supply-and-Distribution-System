@@ -15,12 +15,12 @@ import java.util.ArrayList;
  */
 public class BloodBank extends Organization {
 
-    private ArrayList<Clinic> ClinicList;
+    private ArrayList<Clinic> clinicList;
     private DistributionCenter distributionCenter;
 
     public BloodBank(String name) {
         super(OrganizationType.BloodBank.getValue());
-        ClinicList = new ArrayList<>();
+        clinicList = new ArrayList<>();
         this.setName(name);
         distributionCenter = new DistributionCenter(name+"distribution");
     }
@@ -35,16 +35,16 @@ public class BloodBank extends Organization {
 
 
     public ArrayList<Clinic> getClinicList() {
-        return ClinicList;
+        return clinicList;
     }
 
-    public void setClinicList(ArrayList<Clinic> ClinicList) {
-        this.ClinicList = ClinicList;
+    public void setClinicList(ArrayList<Clinic> clinicList) {
+        this.clinicList = clinicList;
     }
     
     public Clinic createClinic(String name) {
         Clinic clinic = new Clinic(name);
-        ClinicList.add(clinic);
+        clinicList.add(clinic);
         return clinic;
     }
 
