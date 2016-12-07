@@ -21,7 +21,7 @@ public abstract class Organization {
     private WorkQueue workQueue;
     private UserAccountDir userAccountList;
     private int organizationID;
-    private static int counter;
+    private static int counter = 0;
 
     public enum OrganizationType {
         Clinic("Clinic"),
@@ -67,6 +67,14 @@ public abstract class Organization {
 
     public void setWorkQueue(WorkQueue workQueue) {
         this.workQueue = workQueue;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public UserAccountDir getUserAccountList() {

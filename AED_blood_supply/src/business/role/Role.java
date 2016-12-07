@@ -18,6 +18,7 @@ public abstract class Role {
     public enum RoleType{
         SAdmin("Admin"),
         Donor("Doctor"),
+        BMCManage("BloodManageCenterManager"),
         Nurse("Nurse"),
         Receiver("Receiver"),
         Receptionist("Receptionist");

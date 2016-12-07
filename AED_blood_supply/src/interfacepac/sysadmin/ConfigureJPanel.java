@@ -5,10 +5,19 @@
  */
 package interfacepac.sysadmin;
 
+import business.EcoSystem;
+import business.clinic.Laboratory;
+import business.clinic.NurseCenter;
+import business.clinic.ReceptionistService;
+import business.organization.BloodBank;
+import business.organization.BloodManageCenter;
+import business.organization.Clinic;
+import business.organization.DistributionCenter;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,12 +31,164 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-            
+    private EcoSystem system;
+
     public ConfigureJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        system = EcoSystem.getInstance();
+        initAdjust();
+        populateTable();
+    }
+
+    private void initAdjust() {
+        typeCBox.setVisible(false);
+        if (organization.getType() == Organization.OrganizationType.Clinic.getValue()) {
+            firstNameLabel.setVisible(false);
+            createManagerBtn.setVisible(false);
+            deleteManagerBtn.setVisible(false);
+            typeCBox.setVisible(true);
+            populateComboBox();
+        } else if (organization.getType() == Organization.OrganizationType.Distribution.getValue() || organization.getType() == Organization.OrganizationType.Lab.getValue() || organization.getType() == Organization.OrganizationType.NurseCenter.getValue() || organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()) {
+            nameTField.setVisible(false);
+            addBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+        }
+
+    }
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) resumeTbl.getModel();
+        model.setRowCount(0);
+        if (organization.getType() == Organization.OrganizationType.BloodMngCenter.getValue()) {
+            BloodManageCenter bMC = (BloodManageCenter)organization;
+            for (Organization organ : bMC.getNextLvBloodManageCenterList()) {
+                Object[] row = new Object[3];
+                row[0] = organ.getOrganizationID();
+                row[1] = organ;
+                row[2] = organ.getType();
+                model.addRow(row);
+            }
+            for (Organization organ : bMC.getBloodBankList()) {
+                Object[] row = new Object[3];
+                row[0] = organ.getOrganizationID();
+                row[1] = organ;
+                row[2] = organ.getType();
+                model.addRow(row);
+            }
+            if (bMC.getDistributionCenter() != null) {
+                Object[] row = new Object[3];
+                row[0] = system.getDistributionCenter().getOrganizationID();
+                row[1] = system.getDistributionCenter();
+                row[2] = system.getDistributionCenter().getType();
+                model.addRow(row);
+            }
+        }else if(organization.getType() == Organization.OrganizationType.BloodBank.getValue()){
+            BloodBank bloodBank = (BloodBank)organization;
+            for (Organization organ : bloodBank.getClinicList()) {
+                Object[] row = new Object[3];
+                row[0] = organ.getOrganizationID();
+                row[1] = organ;
+                row[2] = organ.getType();
+                model.addRow(row);
+            }
+            if (bloodBank.getDistributionCenter() != null) {
+                Object[] row = new Object[3];
+                row[0] = system.getDistributionCenter().getOrganizationID();
+                row[1] = system.getDistributionCenter();
+                row[2] = system.getDistributionCenter().getType();
+                model.addRow(row);
+            }
+        }else if(organization.getType() == Organization.OrganizationType.Clinic.getValue()){
+            Clinic clinic = (Clinic)organization;
+            for (Organization organ : clinic.getOrganizationList()) {
+                Object[] row = new Object[3];
+                row[0] = organ.getOrganizationID();
+                row[1] = organ;
+                row[2] = organ.getType();
+                model.addRow(row);
+            }
+        }else if(organization.getType() == Organization.OrganizationType.Distribution.getValue()){
+            DistributionCenter distributionC = (DistributionCenter)organization;
+            for (UserAccount user : distributionC.getUserAccountList().getUserAccountList()) {
+                Object[] row = new Object[3];
+                row[0] = user;
+                row[1] = user.getfullName();
+                row[2] = user.getRole();
+                model.addRow(row);
+            }
+        }else if(organization.getType() == Organization.OrganizationType.Lab.getValue()){
+            Laboratory lab = (Laboratory)organization;
+            for (UserAccount user : lab.getUserAccountList().getUserAccountList()) {
+                Object[] row = new Object[3];
+                row[0] = user;
+                row[1] = user.getfullName();
+                row[2] = user.getRole();
+                model.addRow(row);
+            }            
+        }else if(organization.getType() == Organization.OrganizationType.NurseCenter.getValue()){
+            NurseCenter nurseC = (NurseCenter)organization;
+            for (UserAccount user : nurseC.getUserAccountList().getUserAccountList()) {
+                Object[] row = new Object[3];
+                row[0] = user;
+                row[1] = user.getfullName();
+                row[2] = user.getRole();
+                model.addRow(row);
+            }            
+        }else if(organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()){
+            ReceptionistService rs = (ReceptionistService)organization;
+            for (UserAccount user : rs.getUserAccountList().getUserAccountList()) {
+                Object[] row = new Object[3];
+                row[0] = user;
+                row[1] = user.getfullName();
+                row[2] = user.getRole();
+                model.addRow(row);
+            } 
+        } else {
+            for (Organization organ : system.getBloodManageCenterList()) {
+                Object[] row = new Object[3];
+                row[0] = organ.getOrganizationID();
+                row[1] = organ.getName();
+                row[2] = organ.getType();
+                model.addRow(row);
+            }
+            if (system.getDistributionCenter() != null) {
+                Object[] row = new Object[3];
+                row[0] = system.getDistributionCenter().getOrganizationID();
+                row[1] = system.getDistributionCenter().getName();
+                row[2] = system.getDistributionCenter().getType();
+                model.addRow(row);
+            }
+        }
+    }
+
+    private void populateComboBox() {
+        typeCBox.removeAllItems();
+        typeCBox.addItem(Organization.OrganizationType.Lab.getValue());
+        typeCBox.addItem(Organization.OrganizationType.NurseCenter.getValue());
+        typeCBox.addItem(Organization.OrganizationType.ReceptionistService.getValue());
+    }
+    
+    private void addOrganization(){
+        if (organization.getType() == Organization.OrganizationType.BloodMngCenter.getValue()) {
+            
+        }else if(organization.getType() == Organization.OrganizationType.BloodBank.getValue()){
+            
+        }else if(organization.getType() == Organization.OrganizationType.Clinic.getValue()){
+            
+        }else if(organization.getType() == Organization.OrganizationType.Distribution.getValue()){
+            
+        }else if(organization.getType() == Organization.OrganizationType.Lab.getValue()){
+                       
+        }else if(organization.getType() == Organization.OrganizationType.NurseCenter.getValue()){
+                      
+        }else if(organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()){
+        
+        } else {
+            system.createBloodManageCenter(nameTField.getText());
+        }
     }
 
     /**
@@ -58,7 +219,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Email", "Date of birth"
+                "ID", "Name", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -180,6 +341,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -197,7 +359,6 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
         displayPanel.remove(this);
-
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.previous(displayPanel);
     }//GEN-LAST:event_backBtnActionPerformed

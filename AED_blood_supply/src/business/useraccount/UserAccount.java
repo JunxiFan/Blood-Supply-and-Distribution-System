@@ -16,6 +16,13 @@ public class UserAccount {
 
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private String email;
+    private String workPhone;
+    private String homePhone;
+    private String dateOfBirth;
     private Role role;
     private WorkQueue workQueue;
 
@@ -53,6 +60,66 @@ public class UserAccount {
 
     public void setWorkQueue(WorkQueue workQueue) {
         this.workQueue = workQueue;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public void setWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+    
+    public String getfullName() {
+        return firstName+" "+lastName;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Override

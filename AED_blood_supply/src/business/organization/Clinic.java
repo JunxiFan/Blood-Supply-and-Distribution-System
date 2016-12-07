@@ -14,11 +14,10 @@ import java.util.ArrayList;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Clinic extends Organization {
-
+public class Clinic extends Organization{
     private ArrayList<Organization> organizationList;
-
-    public Clinic(String name) {
+    
+        public Clinic(String name){
         super(OrganizationType.Clinic.getValue());
         organizationList = new ArrayList();
         this.setName(name);
@@ -31,12 +30,9 @@ public class Clinic extends Organization {
     public void setOrganizationList(ArrayList<Organization> organizationList) {
         this.organizationList = organizationList;
     }
-
-
+        
     @Override
     public ArrayList<Role> getSupportedRole() {
         return null;
     }
-
-    //dfdfdfsdflskjafksjd
 }

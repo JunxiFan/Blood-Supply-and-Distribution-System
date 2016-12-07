@@ -22,6 +22,7 @@ public class BloodBank extends Organization {
         super(OrganizationType.BloodBank.getValue());
         ClinicList = new ArrayList<>();
         this.setName(name);
+        distributionCenter = new DistributionCenter(name+"distribution");
     }
 
     public DistributionCenter getDistributionCenter() {

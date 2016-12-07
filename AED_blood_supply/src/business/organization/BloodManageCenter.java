@@ -16,12 +16,14 @@ public class BloodManageCenter extends Organization {
 
     private ArrayList<BloodBank> bloodBankList;
     private DistributionCenter distributionCenter;
+    private boolean firstLevel = false;
 
     public BloodManageCenter(String name) {
         super(OrganizationType.BloodMngCenter.getValue());
         bloodBankList = new ArrayList();
         nextLvBloodManageCenterList = new ArrayList();
         this.setName(name);
+        distributionCenter = new DistributionCenter(name+"distribution");
     }
 
     public ArrayList<BloodBank> getBloodBankList() {
@@ -48,6 +50,14 @@ public class BloodManageCenter extends Organization {
         this.nextLvBloodManageCenterList = nextLvBloodManageCenterList;
     }
     private ArrayList<BloodManageCenter> nextLvBloodManageCenterList;
+
+    public boolean isFirstLevel() {
+        return firstLevel;
+    }
+
+    public void setFirstLevel() {
+        this.firstLevel = true;
+    }
 
     public BloodManageCenter createBloodManageCenter(String name) {
         BloodManageCenter bloodManageCenter = new BloodManageCenter(name);
