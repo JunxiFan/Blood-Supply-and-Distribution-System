@@ -5,6 +5,7 @@
  */
 package business.organization;
 
+import business.clinic.*;
 import business.role.Role;
 import business.useraccount.UserAccountDir;
 import business.workqueue.WorkQueue;
@@ -21,6 +22,7 @@ public class Clinic extends Organization{
         super(OrganizationType.Clinic.getValue());
         organizationList = new ArrayList();
         this.setName(name);
+        initialClinic();
     }
 
     public ArrayList<Organization> getOrganizationList() {
@@ -30,6 +32,15 @@ public class Clinic extends Organization{
     public void setOrganizationList(ArrayList<Organization> organizationList) {
         this.organizationList = organizationList;
     }
+    public void initialClinic(){
+        Laboratory laboratory=new Laboratory(this.getName()+"Laboratory");
+        NurseCenter nurseCenter = new NurseCenter(this.getName()+"Nurce Center");
+        ReceptionistService receptionistService = new ReceptionistService(this.getName()+"Receptionist Service");
+        organizationList.add(laboratory);
+        organizationList.add(nurseCenter);
+        organizationList.add(receptionistService);
+    }
+
         
     @Override
     public ArrayList<Role> getSupportedRole() {
