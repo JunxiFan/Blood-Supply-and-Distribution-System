@@ -5,10 +5,22 @@
  */
 package interfacepac.donorreceiver;
 
+import business.EcoSystem;
+import business.organization.BloodBank;
+import business.organization.BloodManageCenter;
+import business.organization.Clinic;
+import business.organization.DistributionCenter;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import business.workqueue.WorkRequest;
+import business.workqueue.donorRequest;
+import business.workqueue.receiverRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -22,12 +34,65 @@ public class BloodUseJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
+    private EcoSystem system;
+    private Organization organ;
 
     public BloodUseJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-        initComponents();
+
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        system = EcoSystem.getInstance();
+        initComponents();
+        populateTree();
+    }
+
+    public void populateTree() {
+        DefaultTreeModel model = (DefaultTreeModel) clinicJTree.getModel();
+        ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
+        ArrayList<BloodManageCenter> secondBMCList;
+        ArrayList<BloodBank> bloodBankList;
+        ArrayList<DistributionCenter> firstDistributionList;
+        ArrayList<DistributionCenter> secondDistributionList;
+        ArrayList<DistributionCenter> thirdDistributionList;
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+        int i = 0;
+        for (BloodManageCenter lv1BMC : firstBMCList) {
+            DefaultMutableTreeNode firstBMCNode = new DefaultMutableTreeNode(lv1BMC);
+            root.insert(firstBMCNode, i++);
+            int j = 0;
+            for (BloodManageCenter lv2BMC : lv1BMC.getNextLvBloodManageCenterList()) {
+                DefaultMutableTreeNode secondBMCNode = new DefaultMutableTreeNode(lv2BMC);
+                firstBMCNode.insert(secondBMCNode, j++);
+                int k = 0;
+                for (BloodBank bloodBank : lv2BMC.getBloodBankList()) {
+                    DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                    secondBMCNode.insert(bloodBankNode, k++);
+                    int l = 0;
+                    for (Clinic clinic : bloodBank.getClinicList()) {
+                        DefaultMutableTreeNode clinicNode = new DefaultMutableTreeNode(clinic);
+                        bloodBankNode.insert(clinicNode, l++);
+                        int m = 0;
+                        for (Organization organ : clinic.getOrganizationList()) {
+                            DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
+                            clinicNode.insert(organNode, m++);
+                        }
+                    }
+                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+                    bloodBankNode.insert(fourthDistributionNode, l++);
+                }
+                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+                secondBMCNode.insert(thirdDistributionNode, k++);
+            }
+            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+            firstBMCNode.insert(secondDistributionNode, j++);
+        }
+        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
+        root.insert(firstDistributionNode, i++);
+        model.reload();
     }
 
     /**
@@ -44,9 +109,20 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         dobLabel = new javax.swing.JLabel();
         dobLabel2 = new javax.swing.JLabel();
         consumptionCBox = new javax.swing.JComboBox<>();
-        confirmTbl = new javax.swing.JButton();
+        confirmBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
+        clinicJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        clinicJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                clinicJTreeHierarchyChanged(evt);
+            }
+        });
+        clinicJTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                clinicJTreeValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(clinicJTree);
 
         dobLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
@@ -64,12 +140,12 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         consumptionCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        confirmTbl.setBackground(new java.awt.Color(250, 250, 250));
-        confirmTbl.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        confirmTbl.setText("Confirm");
-        confirmTbl.addActionListener(new java.awt.event.ActionListener() {
+        confirmBtn.setBackground(new java.awt.Color(250, 250, 250));
+        confirmBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        confirmBtn.setText("Confirm");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmTblActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
 
@@ -98,7 +174,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
                         .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(confirmTbl, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(300, 300, 300))
@@ -118,33 +194,75 @@ public class BloodUseJPanel extends javax.swing.JPanel {
                             .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(confirmTbl)
+                            .addComponent(confirmBtn)
                             .addComponent(cancelBtn))))
                 .addContainerGap(270, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void confirmTblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmTblActionPerformed
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
+        int consumption = (int) consumptionCBox.getSelectedItem();
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
+        
+        Organization org = (Organization) selectedNode.getUserObject();
+
+        receiverRequest donorRequest = new receiverRequest();
+        donorRequest.setSender(userAccount);
+        donorRequest.setStatus("Sent");
+        donorRequest.setConsumption(consumption);
+        
+        org.getWorkQueue().getWorkReqestList().add(donorRequest);
+        userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
+        JOptionPane.showMessageDialog(null, "Request succeed.");
+
         DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
-    }//GEN-LAST:event_confirmTblActionPerformed
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
-        displayPanel.add("DROptionJPanel", panel);
+        displayPanel.remove(this);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+        layout.previous(displayPanel);
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void clinicJTreeHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_clinicJTreeHierarchyChanged
+        // TODO add your handling code here:
+        populateTree();
+
+    }//GEN-LAST:event_clinicJTreeHierarchyChanged
+
+    private void clinicJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_clinicJTreeValueChanged
+        // TODO add your handling code here:
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
+
+        try {
+            organ = (Organization) selectedNode.getUserObject();
+            dobLabel.setText(organ.toString());
+            if (organ.getType() == Organization.OrganizationType.Clinic.getValue()) {
+                confirmBtn.setEnabled(true);
+            } else {
+                confirmBtn.setEnabled(false);
+            }
+        } catch (Exception e) {
+            if (selectedNode != null) {
+                organ = system;
+                dobLabel.setText("system");
+                confirmBtn.setEnabled(true);
+            } else {
+                confirmBtn.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_clinicJTreeValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTree clinicJTree;
-    private javax.swing.JButton confirmTbl;
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JComboBox<String> consumptionCBox;
     private javax.swing.JLabel dobLabel;
     private javax.swing.JLabel dobLabel2;

@@ -29,7 +29,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="confirmTbl" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="confirmBtn" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="cancelBtn" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
@@ -54,7 +54,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="confirmTbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="confirmBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -73,6 +73,15 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTree" name="clinicJTree">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Verdana" size="18" style="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="hierarchyChanged" listener="java.awt.event.HierarchyListener" parameters="java.awt.event.HierarchyEvent" handler="clinicJTreeHierarchyChanged"/>
+            <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="clinicJTreeValueChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -128,7 +137,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="confirmTbl">
+    <Component class="javax.swing.JButton" name="confirmBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -139,7 +148,7 @@
         <Property name="text" type="java.lang.String" value="Confirm"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmTblActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cancelBtn">

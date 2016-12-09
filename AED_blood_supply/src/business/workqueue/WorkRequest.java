@@ -21,6 +21,7 @@ public class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
 
+
     public WorkRequest() {
         requestDate = new Date();
     }
@@ -72,6 +73,7 @@ public class WorkRequest {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
-    
-    
+
+
+
 }

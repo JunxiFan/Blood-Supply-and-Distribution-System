@@ -5,10 +5,22 @@
  */
 package interfacepac.donorreceiver;
 
+import business.EcoSystem;
+import business.blood.Blood;
+import business.organization.BloodBank;
+import business.organization.BloodManageCenter;
+import business.organization.Clinic;
+import business.organization.DistributionCenter;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import business.workqueue.WorkRequest;
+import business.workqueue.donorRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -22,12 +34,60 @@ public class DonateJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
+    private EcoSystem system;
+    private Organization organ;
 
     public DonateJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-        initComponents();
+
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        system = EcoSystem.getInstance();
+        initComponents();
+        populateTree();
+    }
+
+    public void populateTree() {
+        DefaultTreeModel model = (DefaultTreeModel) clinicJTree.getModel();
+        ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+        int i = 0;
+        for (BloodManageCenter lv1BMC : firstBMCList) {
+            DefaultMutableTreeNode firstBMCNode = new DefaultMutableTreeNode(lv1BMC);
+            root.insert(firstBMCNode, i++);
+            int j = 0;
+            for (BloodManageCenter lv2BMC : lv1BMC.getNextLvBloodManageCenterList()) {
+                DefaultMutableTreeNode secondBMCNode = new DefaultMutableTreeNode(lv2BMC);
+                firstBMCNode.insert(secondBMCNode, j++);
+                int k = 0;
+                for (BloodBank bloodBank : lv2BMC.getBloodBankList()) {
+                    DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                    secondBMCNode.insert(bloodBankNode, k++);
+                    int l = 0;
+                    for (Clinic clinic : bloodBank.getClinicList()) {
+                        DefaultMutableTreeNode clinicNode = new DefaultMutableTreeNode(clinic);
+                        bloodBankNode.insert(clinicNode, l++);
+                        int m = 0;
+                        for (Organization organ : clinic.getOrganizationList()) {
+                            DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
+                            clinicNode.insert(organNode, m++);
+                        }
+                    }
+                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+                    bloodBankNode.insert(fourthDistributionNode, l++);
+                }
+                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+                secondBMCNode.insert(thirdDistributionNode, k++);
+            }
+            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+            firstBMCNode.insert(secondDistributionNode, j++);
+        }
+        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
+        root.insert(firstDistributionNode, i++);
+        model.reload();
     }
 
     /**
@@ -48,7 +108,19 @@ public class DonateJPanel extends javax.swing.JPanel {
         donationsCBox = new javax.swing.JComboBox<>();
         confirmBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        dobLabel3 = new javax.swing.JLabel();
 
+        clinicJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        clinicJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                clinicJTreeHierarchyChanged(evt);
+            }
+        });
+        clinicJTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                clinicJTreeValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(clinicJTree);
 
         dobLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
@@ -71,8 +143,8 @@ public class DonateJPanel extends javax.swing.JPanel {
         dobLabel2.setMinimumSize(new java.awt.Dimension(150, 24));
         dobLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        donationsCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        donationsCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        donationsCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        donationsCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "200", "300", "400" }));
 
         confirmBtn.setBackground(new java.awt.Color(250, 250, 250));
         confirmBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -92,29 +164,39 @@ public class DonateJPanel extends javax.swing.JPanel {
             }
         });
 
+        dobLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        dobLabel3.setText("ml");
+        dobLabel3.setMaximumSize(new java.awt.Dimension(150, 24));
+        dobLabel3.setMinimumSize(new java.awt.Dimension(150, 24));
+        dobLabel3.setPreferredSize(new java.awt.Dimension(150, 24));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dobLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(reserveDateTField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(donationsCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(donationsCBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                 .addGap(300, 300, 300))
         );
         layout.setVerticalGroup(
@@ -133,7 +215,8 @@ public class DonateJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(donationsCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(donationsCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(confirmBtn)
@@ -144,6 +227,20 @@ public class DonateJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
+        int donation = (int) donationsCBox.getSelectedItem();
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
+        
+        Organization org = (Organization) selectedNode.getUserObject();
+
+        donorRequest donorRequest = new donorRequest();
+        donorRequest.setSender(userAccount);
+        donorRequest.setStatus("Sent");
+        donorRequest.setDonation(donation);
+
+        org.getWorkQueue().getWorkReqestList().add(donorRequest);
+        userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
+        JOptionPane.showMessageDialog(null, "Thank you!");
+
         DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
@@ -152,11 +249,39 @@ public class DonateJPanel extends javax.swing.JPanel {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
-        displayPanel.add("DROptionJPanel", panel);
+        displayPanel.remove(this);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+        layout.previous(displayPanel);
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void clinicJTreeHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_clinicJTreeHierarchyChanged
+        // TODO add your handling code here:
+        populateTree();
+    }//GEN-LAST:event_clinicJTreeHierarchyChanged
+
+    private void clinicJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_clinicJTreeValueChanged
+        // TODO add your handling code here:
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
+
+        try {
+            organ = (Organization) selectedNode.getUserObject();
+            dobLabel.setText(organ.toString());
+            if (organ.getType() == Organization.OrganizationType.Clinic.getValue()) {
+                confirmBtn.setEnabled(true);
+            } else {
+                confirmBtn.setEnabled(false);
+            }
+        } catch (Exception e) {
+            if (selectedNode != null) {
+                organ = system;
+                dobLabel.setText("system");
+                confirmBtn.setEnabled(true);
+            } else {
+                confirmBtn.setEnabled(false);
+            }
+        }
+
+    }//GEN-LAST:event_clinicJTreeValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -166,6 +291,7 @@ public class DonateJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel dobLabel;
     private javax.swing.JLabel dobLabel1;
     private javax.swing.JLabel dobLabel2;
+    private javax.swing.JLabel dobLabel3;
     private javax.swing.JComboBox<String> donationsCBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField reserveDateTField;

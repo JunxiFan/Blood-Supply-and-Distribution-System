@@ -52,17 +52,18 @@ public class RegisterJPanel extends javax.swing.JPanel {
         UserAccount userAccount = new UserAccount();
         if (password.equals(repassword)) {
             userAccount.setPassword(password);
+            userAccount.setUsername(userName);
+            userAccount.setFirstName(firstName);
+            userAccount.setGender(gender);
+            userAccount.setDateOfBirth(dob);
+            userAccount.setHomePhone(homePhone);
+            userAccount.setWorkPhone(workPhone);
+            userAccount.setEmail(email);
+            organization.getUserAccountList().addUserAccount(userAccount);
         } else {
             System.out.println("Two Passwords are different!");
         }
-        userAccount.setUsername(userName);
-        userAccount.setFirstName(firstName);
-        userAccount.setGender(gender);
-        userAccount.setDateOfBirth(dob);
-        userAccount.setHomePhone(homePhone);
-        userAccount.setWorkPhone(workPhone);
-        userAccount.setEmail(email);
-        organization.getUserAccountList().addUserAccount(userAccount);
+
     }
 
     /**

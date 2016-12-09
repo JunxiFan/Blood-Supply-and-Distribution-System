@@ -47,11 +47,6 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     public void populateTree() {
         DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
         ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
-        ArrayList<BloodManageCenter> secondBMCList;
-        ArrayList<BloodBank> bloodBankList;
-        ArrayList<DistributionCenter> firstDistributionList;
-        ArrayList<DistributionCenter> secondDistributionList;
-        ArrayList<DistributionCenter> thirdDistributionList;
 
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
