@@ -13,8 +13,8 @@ import business.organization.DistributionCenter;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
-import business.workqueue.donorRequest;
-import business.workqueue.receiverRequest;
+import business.workqueue.DonorRequest;
+import business.workqueue.ReceiverRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -202,16 +202,17 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        int consumption = (int) consumptionCBox.getSelectedItem();
+        String consumption = (String) consumptionCBox.getSelectedItem();
+        int consumptionVolum = Integer.parseInt(consumption);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
-        
+
         Organization org = (Organization) selectedNode.getUserObject();
 
-        receiverRequest donorRequest = new receiverRequest();
+        ReceiverRequest donorRequest = new ReceiverRequest();
         donorRequest.setSender(userAccount);
         donorRequest.setStatus("Sent");
-        donorRequest.setConsumption(consumption);
-        
+        donorRequest.setConsumption(consumptionVolum);
+
         org.getWorkQueue().getWorkReqestList().add(donorRequest);
         userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
         JOptionPane.showMessageDialog(null, "Request succeed.");

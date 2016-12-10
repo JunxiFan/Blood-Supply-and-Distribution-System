@@ -14,7 +14,7 @@ import business.organization.DistributionCenter;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
-import business.workqueue.donorRequest;
+import business.workqueue.DonorRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -227,15 +227,16 @@ public class DonateJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        int donation = (int) donationsCBox.getSelectedItem();
+        String donation = (String) donationsCBox.getSelectedItem();
+        int donationVolumn = Integer.parseInt(donation);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
-        
+
         Organization org = (Organization) selectedNode.getUserObject();
 
-        donorRequest donorRequest = new donorRequest();
+        DonorRequest donorRequest = new DonorRequest();
         donorRequest.setSender(userAccount);
         donorRequest.setStatus("Sent");
-        donorRequest.setDonation(donation);
+        donorRequest.setDonation(donationVolumn);
 
         org.getWorkQueue().getWorkReqestList().add(donorRequest);
         userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
