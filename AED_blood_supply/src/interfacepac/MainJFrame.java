@@ -7,6 +7,9 @@ package interfacepac;
 
 import business.EcoSystem;
 import business.db4outil.DB4OUtil;
+import business.organization.DORUserController;
+import business.role.DonorReceiver;
+import business.role.Receptionist;
 import business.role.SAdmin;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
@@ -36,6 +39,12 @@ public class MainJFrame extends javax.swing.JFrame {
         
         system.getUserAccountList().createUserAccount("sysadmin", "sysadmin", new SAdmin());
         system.getUserAccountList().createUserAccount("a", "a", new SAdmin());
+        
+
+        system.getUserAccountList().createUserAccount("b", "b", new DonorReceiver());
+        
+        system.getUserAccountList().createUserAccount("c", "c", new Receptionist());
+        
         
         return system;
     }

@@ -5,6 +5,7 @@
  */
 package business.useraccount;
 
+import business.VitalSign.VitalSignHistory;
 import business.role.Role;
 import business.workqueue.WorkQueue;
 
@@ -25,9 +26,11 @@ public class UserAccount {
     private String dateOfBirth;
     private Role role;
     private WorkQueue workQueue;
+    private VitalSignHistory vitalSignHistory;
 
     public UserAccount() {
         workQueue = new WorkQueue();
+        vitalSignHistory = new VitalSignHistory();
     }
 
     public String getUsername() {
@@ -113,13 +116,21 @@ public class UserAccount {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
-    
+
     public String getfullName() {
-        return firstName+" "+lastName;
+        return firstName + " " + lastName;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public VitalSignHistory getVitalSignHistory() {
+        return vitalSignHistory;
+    }
+
+    public void setVitalSignHistory(VitalSignHistory vitalSignHistory) {
+        this.vitalSignHistory = vitalSignHistory;
     }
 
     @Override

@@ -5,10 +5,12 @@
  */
 package interfacepac.donorreceiver;
 
+import business.VitalSign.VitalSign;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,17 +24,41 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     TableJPanel allTable;
     TableJPanel donationTable;
     TableJPanel consumptionTable;
-    
+
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-            
+
     public PersonInfoJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
         initComponents();
-        this.displayPanel=displayPanel;
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        populateTable();
+        populateVitalSign();
+    }
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) vitalSignTbl.getModel();
+        model.setRowCount(0);
+        for (VitalSign vitalSign : userAccount.getVitalSignHistory().getVitalSignHistory()) {
+            Object row[] = new Object[2];
+            row[0] = vitalSign;
+            row[1] = vitalSign.getVitalSignID();
+            model.addRow(row);
+        }
+    }
+    public void populateVitalSign(){
+        int selectedrow = vitalSignTbl.getSelectedRow();
+        if(selectedrow>=0){
+            VitalSign vs=(VitalSign)vitalSignTbl.getValueAt(selectedrow, 0);
+            vSBloodTypeTField.setText(vs.getBloodtype());
+            hemoblobinTField.setText(vs.getHemoglobin());
+            infectionTField.setText(vs.getInfection());
+            diabetesTField.setText(vs.getDiabetes());
+            tempConditonTField.setText(vs.getTempCondition());
+            permConditionTField.setText(vs.getPermCondition());
+        }
     }
 
     /**
@@ -88,7 +114,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
         permConditionTField = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        vitalSignTbl = new javax.swing.JTable();
         cancelBtn1 = new javax.swing.JButton();
 
         historyDisTblPanel.addTab("all record", null, allTable);
@@ -449,7 +475,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vital Signs", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("微软雅黑 Light", 1, 24))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        vitalSignTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -457,7 +483,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
                 "Date", "Lab"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(vitalSignTbl);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -478,7 +504,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
 
         cancelBtn1.setBackground(new java.awt.Color(250, 250, 250));
         cancelBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        cancelBtn1.setText("Done");
+        cancelBtn1.setText("<< Back");
         cancelBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtn1ActionPerformed(evt);
@@ -529,6 +555,16 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
+        String homePhone = homePhoneTField.getText();
+        String workPhone = workPhoneTField.getText();
+        String email = emailTField.getText();
+
+        userAccount.setHomePhone(homePhone);
+        userAccount.setWorkPhone(workPhone);
+        userAccount.setEmail(email);
+
+        System.out.println("Update succeed");
+
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -537,10 +573,9 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
 
     private void cancelBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn1ActionPerformed
         // TODO add your handling code here:
-        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
-        displayPanel.add("DROptionJPanel", panel);
+        displayPanel.remove(this);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
+        layout.previous(displayPanel);
     }//GEN-LAST:event_cancelBtn1ActionPerformed
 
 
@@ -577,7 +612,6 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel lastNameLabel1;
     private javax.swing.JLabel lastNameLabel2;
@@ -589,6 +623,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tempConditonTField;
     private javax.swing.JButton updateBtn;
     private javax.swing.JTextField vSBloodTypeTField;
+    private javax.swing.JTable vitalSignTbl;
     private javax.swing.JLabel workPhoneLabel;
     private javax.swing.JTextField workPhoneTField;
     // End of variables declaration//GEN-END:variables

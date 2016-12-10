@@ -5,12 +5,17 @@
  */
 package interfacepac.receptionist;
 
+import business.clinic.ReceptionistService;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import business.workqueue.DonorRequest;
+import business.workqueue.*;
 import interfacepac.donorreceiver.PersonInfoJPanel;
 import interfacepac.sysadmin.*;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +28,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
      */
     private JPanel displayPanel;
     private UserAccount userAccount;
+//    private Organization organization;
     private Organization organization;
 
     public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
@@ -30,6 +36,44 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        populateProcessTbl();
+        populateOngoingTbl();
+    }
+
+    public void populateOngoingTbl() {
+        DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("Sent")) {
+                Object[] row = new Object[4];
+                row[0] = request;
+                row[1] = request.getSender().getfullName();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
+                int donation = ((DonorRequest) request).getDonation();
+                row[3] = donation;
+
+                model.addRow(row);
+            }
+        }
+    }
+
+    public void populateProcessTbl() {
+        DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("Pending")) {
+                Object[] row = new Object[4];
+                row[0] = request;
+                row[1] = request.getSender().getfullName();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
+                int donation = ((DonorRequest) request).getDonation();
+                row[3] = donation;
+
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -44,12 +88,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         ongoingTbl = new javax.swing.JTable();
         assignBtn = new javax.swing.JButton();
-        sendtoTestBtn = new javax.swing.JButton();
         sendtoNurseBtn = new javax.swing.JButton();
-        deleteBtn2 = new javax.swing.JButton();
+        viewBtn = new javax.swing.JButton();
         rejectBtn = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        finishedTbl = new javax.swing.JTable();
+        processTbl = new javax.swing.JTable();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -59,11 +102,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Email", "Date of birth"
+                "Status", "Sender", "Reciever", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -71,6 +114,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
             }
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        ongoingTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ongoingTblMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(ongoingTbl);
 
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
@@ -79,15 +127,6 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         assignBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignBtnActionPerformed(evt);
-            }
-        });
-
-        sendtoTestBtn.setBackground(new java.awt.Color(250, 250, 250));
-        sendtoTestBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        sendtoTestBtn.setText("send to test");
-        sendtoTestBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendtoTestBtnActionPerformed(evt);
             }
         });
 
@@ -100,12 +139,12 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteBtn2.setBackground(new java.awt.Color(250, 250, 250));
-        deleteBtn2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        deleteBtn2.setText("view details");
-        deleteBtn2.addActionListener(new java.awt.event.ActionListener() {
+        viewBtn.setBackground(new java.awt.Color(250, 250, 250));
+        viewBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        viewBtn.setText("view details");
+        viewBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn2ActionPerformed(evt);
+                viewBtnActionPerformed(evt);
             }
         });
 
@@ -120,25 +159,30 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
-        finishedTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        finishedTbl.setModel(new javax.swing.table.DefaultTableModel(
+        processTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        processTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Email", "Date of birth"
+                "Status", "Sender", "Reciever", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        finishedTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        jScrollPane6.setViewportView(finishedTbl);
+        processTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        processTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                processTblMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(processTbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -147,20 +191,17 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(401, 401, 401)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(deleteBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(sendtoTestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56)
+                        .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(404, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,53 +211,122 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteBtn2)
-                    .addComponent(rejectBtn))
+                    .addComponent(viewBtn)
+                    .addComponent(assignBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assignBtn)
-                    .addComponent(sendtoTestBtn)
-                    .addComponent(sendtoNurseBtn))
-                .addGap(35, 35, 35)
+                    .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rejectBtn))
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_assignBtnActionPerformed
+        int selectedRow = ongoingTbl.getSelectedRow();
 
-    private void sendtoTestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoTestBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sendtoTestBtnActionPerformed
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        userAccount.getWorkQueue().getWorkReqestList().add(request);
+        JOptionPane.showMessageDialog(null, "Assigned succeed.");
+
+        populateOngoingTbl();
+        populateProcessTbl();
+    }//GEN-LAST:event_assignBtnActionPerformed
 
     private void sendtoNurseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoNurseBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = processTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        request.setStatus("Accepted");
+        populateProcessTbl();
     }//GEN-LAST:event_sendtoNurseBtnActionPerformed
 
-    private void deleteBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn2ActionPerformed
+    private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
-        displayPanel.add("PerosonInfoJPanel", panel);
-        CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
-    }//GEN-LAST:event_deleteBtn2ActionPerformed
+        int selectedRow1 = ongoingTbl.getSelectedRow();
+        int selectedRow2 = processTbl.getSelectedRow();
+
+        WorkRequest request = null;
+        UserAccount donor;
+        if (selectedRow1 < 0 && selectedRow2 < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        } else if (selectedRow1 < 0 && selectedRow2 >= 0) {
+            request = (WorkRequest) processTbl.getValueAt(selectedRow2, 0);
+            return;
+        } else if (selectedRow1 >= 0 && selectedRow2 < 0) {
+            request = (WorkRequest) ongoingTbl.getValueAt(selectedRow1, 0);
+            return;
+        }
+
+        if (request != null) {
+            donor = request.getSender();
+            PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, donor, organization);
+            displayPanel.add("PerosonInfoJPanel", panel);
+            CardLayout layout = (CardLayout) displayPanel.getLayout();
+            layout.next(displayPanel);
+        } else {
+            JOptionPane.showMessageDialog(null, "The donor is not available");
+        }
+    }//GEN-LAST:event_viewBtnActionPerformed
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = processTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        request.setStatus("Rejected");
+
+        populateOngoingTbl();
+        populateProcessTbl();
     }//GEN-LAST:event_rejectBtnActionPerformed
+
+    private void ongoingTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ongoingTblMouseClicked
+        // TODO add your handling code here:
+//        int selectedRow=ongoingTbl.getSelectedRow();
+//        if (selectedRow < 0) {
+//            return;
+//        }
+//        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+//        String status = request.getStatus();
+//        if(status.equals(""))
+        rejectBtn.setEnabled(false);
+        sendtoNurseBtn.setEnabled(false);
+    }//GEN-LAST:event_ongoingTblMouseClicked
+
+    private void processTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processTblMouseClicked
+        // TODO add your handling code here:
+        assignBtn.setEnabled(false);
+    }//GEN-LAST:event_processTblMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignBtn;
-    private javax.swing.JButton deleteBtn2;
-    private javax.swing.JTable finishedTbl;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable ongoingTbl;
+    private javax.swing.JTable processTbl;
     private javax.swing.JButton rejectBtn;
     private javax.swing.JButton sendtoNurseBtn;
-    private javax.swing.JButton sendtoTestBtn;
+    private javax.swing.JButton viewBtn;
     // End of variables declaration//GEN-END:variables
 }
