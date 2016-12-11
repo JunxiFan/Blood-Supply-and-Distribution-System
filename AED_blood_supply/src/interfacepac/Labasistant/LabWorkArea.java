@@ -39,11 +39,11 @@ public class LabWorkArea extends javax.swing.JPanel {
     private RandomGenerateTool rgt;
 
     public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        initComponents();
         populateOngoingTbl();
         populateProcessTbl();
         rgt = new RandomGenerateTool();
@@ -452,7 +452,7 @@ public class LabWorkArea extends javax.swing.JPanel {
             return;
         }
         WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
-        request.setStatus("To blood bank ");
+        request.setStatus("For transit");
 
         Blood blood = new Blood();
         UserAccount donor = request.getSender();
@@ -467,10 +467,8 @@ public class LabWorkArea extends javax.swing.JPanel {
         doSet();
 
         request.getSender().getVitalSignHistory().addVitals(vitalSign);
-
-        Clinic clinic = (Clinic) organization.getUpOrgan();
-        BloodBank bb = (BloodBank) clinic.getUpOrgan();
-        bb.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
+        
+        system.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
 
         populateOngoingTbl();
         populateProcessTbl();

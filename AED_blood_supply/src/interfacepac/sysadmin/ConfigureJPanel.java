@@ -103,24 +103,12 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = organ.getType();
                 model.addRow(row);
             }
-            if (bMC.getDistributionCenter() != null) {
-                Object[] row = new Object[2];
-                row[0] = bMC.getDistributionCenter();
-                row[1] = bMC.getDistributionCenter().getType();
-                model.addRow(row);
-            }
         } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
             BloodBank bloodBank = (BloodBank) organization;
             for (Organization organ : bloodBank.getClinicList()) {
                 Object[] row = new Object[2];
                 row[0] = organ;
                 row[1] = organ.getType();
-                model.addRow(row);
-            }
-            if (bloodBank.getDistributionCenter() != null) {
-                Object[] row = new Object[2];
-                row[0] = bloodBank.getDistributionCenter();
-                row[1] = bloodBank.getDistributionCenter().getType();
                 model.addRow(row);
             }
         } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {

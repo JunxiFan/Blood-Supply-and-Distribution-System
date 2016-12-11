@@ -51,6 +51,14 @@ public class WorkRequest {
         return quantity;
     }
 
+    public Organization getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Organization destination) {
+        this.destination = destination;
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

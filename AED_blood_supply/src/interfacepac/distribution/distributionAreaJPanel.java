@@ -8,9 +8,11 @@ package interfacepac.distribution;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import business.workqueue.WorkRequest;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,8 +23,61 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
+    private JPanel displayPanel;
+    private UserAccount userAccount;
+    private Organization organization;
+    private EcoSystem system;
+    private WorkRequest workRequest;
+    
     public distributionAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
+        this.displayPanel = displayPanel;
+        this.userAccount = userAccount;
+        this.organization = organization;
+        this.system = system;
         initComponents();
+        populateProcessTbl();
+        populateOngoingTbl();
+    }
+    
+    public void populateOngoingTbl() {
+        DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("For transit") || (request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())))  {
+                Object[] row = new Object[5];
+                row[0] = request;
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                row[3] = request.getBlood().getBloodType();
+                row[4] = request.getDestination();
+                int donation = request.getQuantity();
+                row[5] = donation;
+
+                model.addRow(row);
+            }
+        }
+    }
+
+    public void populateProcessTbl() {
+        DefaultTableModel model = (DefaultTableModel) finishedTbl.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("Distribute Pending") || request.getStatus().equals("For transit")) {
+            } else {
+                Object[] row = new Object[5];
+                row[0] = request;
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                row[3] = request.getBlood().getBloodType();
+                row[4] = request.getDestination();
+                int donation = request.getQuantity();
+                row[5] = donation;
+
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -49,11 +104,11 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Sender", "BloodType", "Destination", "Quantity"
+                "Status", "Sender", "Operator", "BloodType", "Destination", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -62,9 +117,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
         jScrollPane5.setViewportView(ongoingTbl);
-        if (ongoingTbl.getColumnModel().getColumnCount() > 0) {
-            ongoingTbl.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         assgnBtn.setBackground(new java.awt.Color(250, 250, 250));
         assgnBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -92,11 +144,11 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Email", "Date of birth"
+                "Status", "Sender", "Operator", "BloodType", "Destination", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

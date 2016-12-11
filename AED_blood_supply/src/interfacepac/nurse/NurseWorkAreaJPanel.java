@@ -33,11 +33,11 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     private EcoSystem system;
 
     public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        initComponents();
         populateOngoingTbl();
         populateProcessTbl();
     }

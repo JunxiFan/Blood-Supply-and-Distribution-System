@@ -5,6 +5,7 @@
  */
 package business.organization;
 
+import business.blood.Blood;
 import business.role.BloodBankManager;
 import business.role.Role;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class BloodBank extends Organization {
 
     private ArrayList<Clinic> clinicList;
     private DistributionCenter distributionCenter;
+    private ArrayList<Blood> BloodRepertory;
+
     //private BloodManageCenter upOrgan = null;
 
     public BloodBank(String name) {
@@ -25,6 +28,7 @@ public class BloodBank extends Organization {
         this.setName(name);
         distributionCenter = new DistributionCenter(name+" distribution");
         distributionCenter.setUpOrgan(this);
+        BloodRepertory = new ArrayList<>();
     }
 
     public DistributionCenter getDistributionCenter() {
@@ -48,6 +52,14 @@ public class BloodBank extends Organization {
         Clinic clinic = new Clinic(name);
         clinicList.add(clinic);
         return clinic;
+    }
+
+    public ArrayList<Blood> getBloodRepertory() {
+        return BloodRepertory;
+    }
+
+    public void setBloodRepertory(ArrayList<Blood> BloodRepertory) {
+        this.BloodRepertory = BloodRepertory;
     }
 
 //    public BloodManageCenter getUpOrgan() {

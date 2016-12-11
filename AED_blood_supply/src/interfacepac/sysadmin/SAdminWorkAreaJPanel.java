@@ -73,14 +73,14 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                             clinicNode.insert(organNode, m++);
                         }
                     }
-                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
-                    bloodBankNode.insert(fourthDistributionNode, l++);
+                    //DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+                    //bloodBankNode.insert(fourthDistributionNode, l++);
                 }
-                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
-                secondBMCNode.insert(thirdDistributionNode, k++);
+                //DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+                //secondBMCNode.insert(thirdDistributionNode, k++);
             }
-            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
-            firstBMCNode.insert(secondDistributionNode, j++);
+            //DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+            //firstBMCNode.insert(secondDistributionNode, j++);
         }
         DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
         root.insert(firstDistributionNode, i++);
