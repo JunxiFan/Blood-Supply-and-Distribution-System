@@ -31,6 +31,14 @@ public class UserAccountDir {
         return null;
     }
     
+    public UserAccount usernameCheck(String username){
+        for (UserAccount ua : userAccountList)
+            if (ua.getUsername().equals(username) ){
+                return ua;
+            }
+        return null;
+    }
+    
     public UserAccount createUserAccount(String username, String password, Role role){
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);

@@ -36,10 +36,10 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private EcoSystem system;
 
     public ConfigureJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        System.out.println(organization);
         this.system = system;
         initComponents();
         initAdjust();
@@ -47,19 +47,39 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
     private void initAdjust() {
         typeCBox.setVisible(false);
+        if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue()) || organization.getType().equals(Organization.OrganizationType.Lab.getValue()) || organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue()) || organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
+            int selectedrow = resumeTbl.getSelectedRow();
+            if (selectedrow >= 0) {
+                UserNameLabel.setText((String) resumeTbl.getValueAt(selectedrow, 0));
+            }
+            else{
+                UserNameLabel.setText("Choose or create");
+            }
+        } else {
+            if (organization.getUserAccountList().getUserAccountList().size() == 0) {
+                createManagerBtn.setVisible(true);
+                deleteManagerBtn.setVisible(false);
+            } else {
+                createManagerBtn.setVisible(false);
+                deleteManagerBtn.setVisible(true);
+                UserNameLabel.setText(organization.getUserAccountList().getUserAccountList().get(0).getUsername());
+            }
+        }
 //        if (organization.getType() == Organization.OrganizationType.Clinic.getValue()) {
 //            firstNameLabel.setVisible(false);
 //            createManagerBtn.setVisible(false);
 //            deleteManagerBtn.setVisible(false);
 //            typeCBox.setVisible(true);
 //            populateComboBox();} else
-        if (organization.getType() == Organization.OrganizationType.Distribution.getValue() || organization.getType() == Organization.OrganizationType.Lab.getValue() || organization.getType() == Organization.OrganizationType.NurseCenter.getValue() || organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()) {
+        if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue()) || organization.getType().equals(Organization.OrganizationType.Lab.getValue()) || organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue()) || organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
+            System.out.println("lala");
+            System.out.println(Organization.OrganizationType.Distribution.getValue());
             nameTField.setVisible(false);
             addBtn.setVisible(false);
             deleteBtn.setVisible(false);
-        } 
+        }
         if ("system".equals(organization.getType())) {
-            firstNameLabel.setVisible(false);
+            UserNameLabel.setVisible(false);
             createManagerBtn.setVisible(false);
             deleteManagerBtn.setVisible(false);
         }
@@ -69,7 +89,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) resumeTbl.getModel();
         model.setRowCount(0);
-        if (organization.getType() == Organization.OrganizationType.BloodMngCenter.getValue()) {
+        if (organization.getType().equals(Organization.OrganizationType.BloodMngCenter.getValue())) {
             BloodManageCenter bMC = (BloodManageCenter) organization;
             for (Organization organ : bMC.getNextLvBloodManageCenterList()) {
                 Object[] row = new Object[2];
@@ -89,7 +109,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = bMC.getDistributionCenter().getType();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.BloodBank.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
             BloodBank bloodBank = (BloodBank) organization;
             for (Organization organ : bloodBank.getClinicList()) {
                 Object[] row = new Object[2];
@@ -103,7 +123,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = bloodBank.getDistributionCenter().getType();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.Clinic.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
             Clinic clinic = (Clinic) organization;
             for (Organization organ : clinic.getOrganizationList()) {
                 Object[] row = new Object[2];
@@ -111,7 +131,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = organ.getType();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.Distribution.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue())) {
             DistributionCenter distributionC = (DistributionCenter) organization;
             for (UserAccount user : distributionC.getUserAccountList().getUserAccountList()) {
                 Object[] row = new Object[2];
@@ -119,7 +139,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = user.getRole();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.Lab.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Lab.getValue())) {
             Laboratory lab = (Laboratory) organization;
             for (UserAccount user : lab.getUserAccountList().getUserAccountList()) {
                 Object[] row = new Object[2];
@@ -127,7 +147,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = user.getRole();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.NurseCenter.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue())) {
             NurseCenter nurseC = (NurseCenter) organization;
             for (UserAccount user : nurseC.getUserAccountList().getUserAccountList()) {
                 Object[] row = new Object[2];
@@ -135,7 +155,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 row[1] = user.getRole();
                 model.addRow(row);
             }
-        } else if (organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
             ReceptionistService rs = (ReceptionistService) organization;
             for (UserAccount user : rs.getUserAccountList().getUserAccountList()) {
                 Object[] row = new Object[2];
@@ -144,6 +164,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 model.addRow(row);
             }
         } else {
+            //System.out.println(organization.getType());
             for (Organization organ : system.getBloodManageCenterList()) {
                 Object[] row = new Object[2];
                 row[0] = organ;
@@ -167,25 +188,25 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     }
 
     private void addOrganization() {
-        if (organization.getType() == Organization.OrganizationType.BloodMngCenter.getValue()) {
+        if (organization.getType().equals(Organization.OrganizationType.BloodMngCenter.getValue())) {
             BloodManageCenter bMC = (BloodManageCenter) organization;
             if (bMC.isFirstLevel()) {
                 bMC.createBloodManageCenter(nameTField.getText());
             } else {
                 bMC.createBloodBank(nameTField.getText());
             }
-        } else if (organization.getType() == Organization.OrganizationType.BloodBank.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
             BloodBank bloodBank = (BloodBank) organization;
             bloodBank.createClinic(nameTField.getText());
-        } else if (organization.getType() == Organization.OrganizationType.Clinic.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
 
-        } else if (organization.getType() == Organization.OrganizationType.Distribution.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue())) {
 
-        } else if (organization.getType() == Organization.OrganizationType.Lab.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.Lab.getValue())) {
 
-        } else if (organization.getType() == Organization.OrganizationType.NurseCenter.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue())) {
 
-        } else if (organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()) {
+        } else if (organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
 
         } else {
             BloodManageCenter bmc = system.createBloodManageCenter(nameTField.getText());
@@ -210,7 +231,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         nameTField = new javax.swing.JTextField();
         createManagerBtn = new javax.swing.JButton();
         deleteManagerBtn = new javax.swing.JButton();
-        firstNameLabel = new javax.swing.JLabel();
+        UserNameLabel = new javax.swing.JLabel();
         typeCBox = new javax.swing.JComboBox<>();
         backBtn = new javax.swing.JButton();
 
@@ -237,6 +258,11 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         resumeTbl.addHierarchyListener(new java.awt.event.HierarchyListener() {
             public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
                 resumeTblHierarchyChanged(evt);
+            }
+        });
+        resumeTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resumeTblMouseClicked(evt);
             }
         });
         jScrollPane5.setViewportView(resumeTbl);
@@ -279,9 +305,9 @@ public class ConfigureJPanel extends javax.swing.JPanel {
             }
         });
 
-        firstNameLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
-        firstNameLabel.setText("Manager");
-        firstNameLabel.setPreferredSize(new java.awt.Dimension(150, 24));
+        UserNameLabel.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        UserNameLabel.setText("Manager");
+        UserNameLabel.setPreferredSize(new java.awt.Dimension(150, 24));
 
         typeCBox.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
         typeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -303,7 +329,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(firstNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(UserNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
                             .addComponent(createManagerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -339,7 +365,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createManagerBtn)
                     .addComponent(deleteManagerBtn)
-                    .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(UserNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(backBtn)
                 .addContainerGap(53, Short.MAX_VALUE))
@@ -361,28 +387,28 @@ public class ConfigureJPanel extends javax.swing.JPanel {
             int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "warning", dialogButton);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 Organization organ = (Organization) resumeTbl.getValueAt(selectedrow, 0);
-                if (organization.getType() == Organization.OrganizationType.BloodMngCenter.getValue()) {
+                if (organization.getType().equals(Organization.OrganizationType.BloodMngCenter.getValue())) {
                     BloodManageCenter bMC = (BloodManageCenter) organization;
                     if (bMC.isFirstLevel()) {
                         bMC.getNextLvBloodManageCenterList().remove(organ);
                     } else {
                         bMC.getBloodBankList().remove(organ);
                     }
-                } else if (organization.getType() == Organization.OrganizationType.BloodBank.getValue()) {
+                } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
                     BloodBank bloodBank = (BloodBank) organization;
                     bloodBank.getClinicList().remove(organ);
-                } else if (organization.getType() == Organization.OrganizationType.Clinic.getValue()) {
-                    
-                } else if (organization.getType() == Organization.OrganizationType.Distribution.getValue()) {
-                    
-                } else if (organization.getType() == Organization.OrganizationType.Lab.getValue()) {
+                } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
 
-                } else if (organization.getType() == Organization.OrganizationType.NurseCenter.getValue()) {
+                } else if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue())) {
 
-                } else if (organization.getType() == Organization.OrganizationType.ReceptionistService.getValue()) {
+                } else if (organization.getType().equals(Organization.OrganizationType.Lab.getValue())) {
+
+                } else if (organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue())) {
+
+                } else if (organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
 
                 } else {
-                        system.getBloodManageCenterList().remove(organ);
+                    system.getBloodManageCenterList().remove(organ);
                 }
                 organization.getUserAccountList().getUserAccountList().remove(userAccount);
                 JOptionPane.showMessageDialog(null, "Account has been deleted");
@@ -403,20 +429,25 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
     private void deleteManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteManagerBtnActionPerformed
         // TODO add your handling code here:
-        int selectedrow = resumeTbl.getSelectedRow();
+        if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue()) || organization.getType().equals(Organization.OrganizationType.Lab.getValue()) || organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue()) || organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
+            int selectedrow = resumeTbl.getSelectedRow();
 
-        if (selectedrow >= 0) {
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "warning", dialogButton);
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                UserAccount userAccount = (UserAccount) resumeTbl.getValueAt(selectedrow, 0);
-                organization.getUserAccountList().getUserAccountList().remove(userAccount);
-                JOptionPane.showMessageDialog(null, "Account has been deleted");
-                populateTable();
+            if (selectedrow >= 0) {
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "warning", dialogButton);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    UserAccount userAccount = (UserAccount) resumeTbl.getValueAt(selectedrow, 0);
+                    organization.getUserAccountList().getUserAccountList().remove(userAccount);
+                    JOptionPane.showMessageDialog(null, "Account has been deleted");
+                    populateTable();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select any row");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please select any row");
+            organization.getUserAccountList().getUserAccountList().clear();
         }
+        initAdjust();
     }//GEN-LAST:event_deleteManagerBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -429,16 +460,22 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private void resumeTblHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_resumeTblHierarchyChanged
         // TODO add your handling code here:
         populateTable();
+        initAdjust();
     }//GEN-LAST:event_resumeTblHierarchyChanged
+
+    private void resumeTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resumeTblMouseClicked
+        // TODO add your handling code here:
+        initAdjust();
+    }//GEN-LAST:event_resumeTblMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel UserNameLabel;
     private javax.swing.JButton addBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JButton createManagerBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton deleteManagerBtn;
-    private javax.swing.JLabel firstNameLabel;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField nameTField;
     private javax.swing.JTable resumeTbl;

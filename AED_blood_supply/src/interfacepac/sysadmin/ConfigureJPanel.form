@@ -22,7 +22,7 @@
                   <Component id="jScrollPane5" min="-2" pref="495" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="firstNameLabel" max="32767" attributes="0"/>
+                          <Component id="UserNameLabel" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="createManagerBtn" min="-2" pref="124" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="createManagerBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="deleteManagerBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="firstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="UserNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="backBtn" min="-2" max="-2" attributes="0"/>
@@ -123,6 +123,7 @@
           </Properties>
           <Events>
             <EventHandler event="hierarchyChanged" listener="java.awt.event.HierarchyListener" parameters="java.awt.event.HierarchyEvent" handler="resumeTblHierarchyChanged"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="resumeTblMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -190,7 +191,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteManagerBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="firstNameLabel">
+    <Component class="javax.swing.JLabel" name="UserNameLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Microsoft YaHei UI" size="18" style="0"/>

@@ -6,10 +6,16 @@
 package interfacepac.donorreceiver;
 
 import business.EcoSystem;
+import business.organization.BloodBank;
+import business.organization.BloodManageCenter;
+import business.organization.Clinic;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import interfacepac.*;
+import business.role.*;
+import com.db4o.defragment.FirstPassCommand;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -22,14 +28,14 @@ public class RegisterJPanel extends javax.swing.JPanel {
      * Creates new form RegisterJPanel
      */
     private JPanel displayPanel;
-    private UserAccount userAccount;
+    private UserAccount account;
     private Organization organization;
     private EcoSystem system;
 
     public RegisterJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
-        this.userAccount = userAccount;
+        this.account = userAccount;
         this.organization = organization;
         this.system = system;
 
@@ -49,19 +55,103 @@ public class RegisterJPanel extends javax.swing.JPanel {
         String workPhone = workPhoneTField.getText();
         String email = emailTField.getText();
 
-        UserAccount userAccount = new UserAccount();
-        if (password.equals(repassword)) {
-            userAccount.setPassword(password);
-            userAccount.setUsername(userName);
-            userAccount.setFirstName(firstName);
-            userAccount.setGender(gender);
-            userAccount.setDateOfBirth(dob);
-            userAccount.setHomePhone(homePhone);
-            userAccount.setWorkPhone(workPhone);
-            userAccount.setEmail(email);
-            organization.getUserAccountList().addUserAccount(userAccount);
+        UserAccount userAccount = system.getUserAccountList().usernameCheck(userName);
+        if (userAccount == null) {
+            userAccount = system.getdORUserController().getUserAccountList().usernameCheck(userName);
+            if (userAccount == null) {
+                userAccount = system.getDistributionCenter().getUserAccountList().usernameCheck(userName);
+                if (userAccount == null) {
+                    here:
+                    for (BloodManageCenter bloodMC : system.getBloodManageCenterList()) {
+                        userAccount = bloodMC.getUserAccountList().usernameCheck(userName);
+                        if (userAccount == null) {
+                            userAccount = bloodMC.getDistributionCenter().getUserAccountList().usernameCheck(userName);
+                            if (userAccount != null) {
+                                break;
+                            }
+                            for (BloodManageCenter bloodMC2 : bloodMC.getNextLvBloodManageCenterList()) {
+                                userAccount = bloodMC2.getUserAccountList().usernameCheck(userName);
+                                if (userAccount == null) {
+                                    userAccount = bloodMC2.getDistributionCenter().getUserAccountList().usernameCheck(userName);
+                                    if (userAccount != null) {
+                                        break here;
+                                    }
+                                    for (BloodBank bloodBank : bloodMC2.getBloodBankList()) {
+                                        userAccount = bloodBank.getUserAccountList().usernameCheck(userName);
+                                        if (userAccount == null) {
+                                            userAccount = bloodBank.getDistributionCenter().getUserAccountList().usernameCheck(userName);
+                                            if (userAccount != null) {
+                                                break here;
+                                            }
+                                            for (Clinic clinic : bloodBank.getClinicList()) {
+                                                userAccount = clinic.getUserAccountList().usernameCheck(userName);
+                                                if (userAccount == null) {
+                                                    for (Organization organ : clinic.getOrganizationList()) {
+                                                        userAccount = clinic.getUserAccountList().usernameCheck(userName);
+                                                        if (userAccount != null) {
+                                                            break here;
+                                                        }
+                                                    }
+
+                                                } else {
+                                                    break here;
+                                                }
+                                            }
+                                        } else {
+                                            break here;
+                                        }
+                                    }
+                                } else {
+                                    break here;
+                                }
+                            }
+                        } else {
+                            break here;
+                        }
+                    }
+                } else {
+                }
+            } else {
+            }
         } else {
-            System.out.println("Two Passwords are different!");
+        }
+
+        if (userAccount == null) {
+            userAccount = new UserAccount();
+            if (password.equals(repassword)) {
+                userAccount.setPassword(password);
+                userAccount.setUsername(userName);
+                userAccount.setFirstName(firstName);
+                userAccount.setGender(gender);
+                userAccount.setDateOfBirth(dob);
+                userAccount.setHomePhone(homePhone);
+                userAccount.setWorkPhone(workPhone);
+                userAccount.setEmail(email);
+                if (organization.getType().equals(Organization.OrganizationType.BloodMngCenter.getValue())) {
+                    userAccount.setRole(new FisrtManager());
+                } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
+                    userAccount.setRole(new BloodBankManager());
+                } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
+
+                } else if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue())) {
+                    userAccount.setRole(new DistributionManager());
+                } else if (organization.getType().equals(Organization.OrganizationType.Lab.getValue())) {
+                    userAccount.setRole(new LabAssistant());
+                } else if (organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue())) {
+                    userAccount.setRole(new Nurse());
+                } else if (organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
+                    userAccount.setRole(new Receptionist());
+                } else if (organization.getType().equals(Organization.OrganizationType.DOR.getValue())) {
+                    userAccount.setRole(new DonorReceiver());
+                } else {
+                    JOptionPane.showMessageDialog(null,"no match role");
+                }
+                organization.getUserAccountList().addUserAccount(userAccount);
+            } else {
+                JOptionPane.showMessageDialog(null,"Two Passwords are different!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "username already exist");
         }
 
     }
@@ -130,8 +220,7 @@ public class RegisterJPanel extends javax.swing.JPanel {
         lastNameTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
 
         genderCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
-        genderCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hide", "male", "female", "other" }));
-        genderCBox.setVisible(false);
+        genderCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "secret", "male", "female", "other" }));
 
         genderLaber.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         genderLaber.setText("Gender");

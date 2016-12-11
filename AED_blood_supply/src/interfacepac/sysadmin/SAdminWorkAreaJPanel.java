@@ -228,12 +228,13 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         try {
             organ = (Organization) selectedNode.getUserObject();
             dobLabel.setText(organ.toString());
-            if(organ.getType() == Organization.OrganizationType.Clinic.getValue())
+            if(organ.getType().equals(Organization.OrganizationType.Clinic.getValue()))
                 configurateBtn.setEnabled(false);
             else
             configurateBtn.setEnabled(true);
         } catch (Exception e) {
             if (selectedNode != null) {
+                System.out.println(e);
                 organ = system;
                 dobLabel.setText("system");
                 configurateBtn.setEnabled(true);
