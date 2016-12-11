@@ -14,7 +14,6 @@ import business.organization.Clinic;
 import business.organization.Organization;
 import business.tools.RandomGenerateTool;
 import business.useraccount.UserAccount;
-import business.workqueue.DonorRequest;
 import business.workqueue.WorkRequest;
 import interfacepac.donorreceiver.*;
 import java.awt.CardLayout;
@@ -460,7 +459,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         blood.setDonor(donor);
         blood.setBloodType((String) bloodTypeTField.getText());
         blood.setClinic((Clinic) organization.getUpOrgan());
-        int volum = ((DonorRequest) request).getQuantity();
+        int volum = request.getQuantity();
         blood.setVolum(volum);
 
         request.setBlood(blood);

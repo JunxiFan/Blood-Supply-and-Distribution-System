@@ -6,10 +6,12 @@
 package interfacepac.nurse;
 
 import business.EcoSystem;
+import business.VitalSign.VitalSign;
 import business.blood.Blood;
 import business.organization.BloodBank;
 import business.organization.Clinic;
 import business.organization.Organization;
+import business.tools.RandomGenerateTool;
 import business.useraccount.UserAccount;
 import business.workqueue.DonorRequest;
 import business.workqueue.WorkRequest;
@@ -48,7 +50,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("To nurse") ||request.getStatus().equals("Help")||(request.getStatus().equals("Call for blood") && request.getReceiver().getUsername().equals(userAccount.getUsername()))|| (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
+            if (request.getStatus().equals("To nurse") ||request.getStatus().equals("Help")||(request.getStatus().equals("Wait for test") && request.getReceiver().getUsername().equals(userAccount.getUsername()))|| (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[4];
                 row[0] = request;
                 row[1] = request.getSender();
@@ -58,6 +60,45 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
 
                 model.addRow(row);
             }
+        }
+    }
+    
+    private String testBloodType(WorkRequest req){
+        UserAccount donor = req.getSender();
+        VitalSign vs = new VitalSign();
+        RandomGenerateTool rgt = new RandomGenerateTool();
+        if (donor.getVitalSignHistory().getVitalSignHistory().isEmpty()) {
+            vs.setBloodtype(rgt.randBloodType());
+            if (rgt.randHemo()) {
+                vs.setHemoglobin("Normal");
+            } else {
+                vs.setHemoglobin("Abnormal");
+            }
+            if (rgt.randill()) {
+                vs.setInfection("No");
+            } else {
+                vs.setInfection("Yes");
+            }
+            if (rgt.randill()) {
+                vs.setDiabetes("No");
+            } else {
+                vs.setDiabetes("Yes");
+            }
+            if (rgt.randill()) {
+                vs.setTempCondition("No");
+            } else {
+                vs.setTempCondition("Yes");
+            }
+            if (rgt.randill()) {
+                vs.setPermCondition("No");
+            } else {
+                vs.setPermCondition("Yes");
+            }
+            donor.getVitalSignHistory().getVitalSignHistory().add(vs);
+            return vs.getBloodtype();
+        } else {
+            vs = donor.getVitalSignHistory().getVitalSignHistory().get(donor.getVitalSignHistory().getVitalSignHistory().size() - 1);
+            return vs.getBloodtype();
         }
     }
 
@@ -329,8 +370,18 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
-        request.setStatus("Waiting");
+        
         BloodBank bb = (BloodBank) organization.getUpOrgan().getUpOrgan();
+        if(bb.calculateRepertory(testBloodType(request)) >= 5000){
+            request.setStatus("Waiting");
+            request.setDestination(organization);
+            system.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
+        }
+        else{
+            request.setStatus("Lack blood");
+            request.setDestination(organization);
+            organization.getUpOrgan().getUpOrgan().getWorkQueue().getWorkReqestList().add(request);
+        }
 
         populateOngoingTbl();
         populateProcessTbl();
