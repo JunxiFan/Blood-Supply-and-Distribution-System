@@ -138,7 +138,7 @@ public class RegisterJPanel extends javax.swing.JPanel {
                 } else if (organization.getType().equals(Organization.OrganizationType.Lab.getValue())) {
                     userAccount.setRole(new LabAssistant());
                 } else if (organization.getType().equals(Organization.OrganizationType.NurseCenter.getValue())) {
-                    userAccount.setRole(new Nurse());
+                    userAccount.setRole(new Medicalstaff());
                 } else if (organization.getType().equals(Organization.OrganizationType.ReceptionistService.getValue())) {
                     userAccount.setRole(new Receptionist());
                 } else if (organization.getType().equals(Organization.OrganizationType.DOR.getValue())) {

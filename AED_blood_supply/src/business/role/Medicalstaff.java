@@ -8,18 +8,18 @@ package business.role;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
-import interfacepac.nurse.NurseWorkAreaJPanel;
+import interfacepac.nurse.MedicalStaffWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class Nurse extends Role{
+public class Medicalstaff extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        return new NurseWorkAreaJPanel(displayPanel, userAccount, organization, system);
+        return new MedicalStaffWorkAreaJPanel(displayPanel, userAccount, organization, system);
     }
     
 }

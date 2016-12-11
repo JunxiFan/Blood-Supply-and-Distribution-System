@@ -6,6 +6,7 @@
 package interfacepac;
 
 import business.EcoSystem;
+import business.db4outil.DB4OUtil;
 import business.organization.BloodBank;
 import business.organization.BloodManageCenter;
 import business.organization.Clinic;
@@ -248,6 +249,8 @@ public class CertificationJPanel extends javax.swing.JPanel {
         displayJPanel.remove(this);
         CardLayout layout = (CardLayout) displayJPanel.getLayout();
         layout.previous(displayJPanel);
+        DB4OUtil dB4OUtil = DB4OUtil.getInstance();
+        dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
 

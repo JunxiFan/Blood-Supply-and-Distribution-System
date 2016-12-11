@@ -35,7 +35,7 @@ public class Clinic extends Organization{
     }
     public void initialClinic(){
         Laboratory laboratory=new Laboratory(this.getName()+" Laboratory");
-        NurseCenter nurseCenter = new NurseCenter(this.getName()+" Nurce Center");
+        NurseCenter nurseCenter = new NurseCenter(this.getName()+" Nurse Center");
         ReceptionistService receptionistService = new ReceptionistService(this.getName()+" Receptionist Service");
         laboratory.setUpOrgan(this);
         nurseCenter.setUpOrgan(this);

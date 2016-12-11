@@ -8,7 +8,7 @@ package business.clinic;
 import business.organization.Clinic;
 import business.organization.Organization;
 import business.role.LabAssistant;
-import business.role.Nurse;
+import business.role.Medicalstaff;
 import business.role.Role;
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class NurseCenter extends Organization {
     @Override
     public ArrayList<Role> getSupportedRole() {
        ArrayList<Role> roles = new ArrayList();
-       roles.add(new Nurse());
+       roles.add(new Medicalstaff());
        return roles;
     }
 

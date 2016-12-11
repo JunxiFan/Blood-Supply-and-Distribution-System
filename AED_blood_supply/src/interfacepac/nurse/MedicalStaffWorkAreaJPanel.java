@@ -7,6 +7,7 @@ package interfacepac.nurse;
 
 import business.EcoSystem;
 import business.blood.Blood;
+import business.organization.BloodBank;
 import business.organization.Clinic;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
-public class NurseWorkAreaJPanel extends javax.swing.JPanel {
+public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BloodManageCenterJPanel
@@ -32,7 +33,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     Organization organization;
     private EcoSystem system;
 
-    public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
+    public MedicalStaffWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
@@ -47,7 +48,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("To nurse") || (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
+            if (request.getStatus().equals("To nurse") ||request.getStatus().equals("Help")||(request.getStatus().equals("Call for blood") && request.getReceiver().getUsername().equals(userAccount.getUsername()))|| (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[4];
                 row[0] = request;
                 row[1] = request.getSender();
@@ -65,7 +66,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Nurse Pending") || request.getStatus().equals("Drawn")) {
+            if (request.getStatus().equals("Nurse Pending") || request.getStatus().equals("Drawn")||request.getStatus().equals("Call for blood")) {
             } else {
                 Object[] row = new Object[4];
                 row[0] = request;
@@ -95,6 +96,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         ongoingTbl = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         processTbl = new javax.swing.JTable();
+        bloodReqBtn1 = new javax.swing.JButton();
 
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
         assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -182,6 +184,15 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(processTbl);
 
+        bloodReqBtn1.setBackground(new java.awt.Color(250, 250, 250));
+        bloodReqBtn1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        bloodReqBtn1.setText("blood require");
+        bloodReqBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bloodReqBtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,12 +200,14 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(409, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bloodDrawBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bloodDrawBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendtoTestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sendtoTestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bloodReqBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -209,7 +222,8 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignBtn)
                     .addComponent(bloodDrawBtn)
-                    .addComponent(sendtoTestBtn))
+                    .addComponent(sendtoTestBtn)
+                    .addComponent(bloodReqBtn1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
@@ -227,7 +241,10 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Nurse Pending");
+        if(request.getStatus().equals("To nurse"))
+            request.setStatus("Nurse Pending");
+        else
+            request.setStatus("Call for blood");
         userAccount.getWorkQueue().getWorkReqestList().add(request);
         JOptionPane.showMessageDialog(null, "Assigned succeed.");
 
@@ -303,10 +320,27 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         populateProcessTbl();
     }//GEN-LAST:event_ongoingTblHierarchyChanged
 
+    private void bloodReqBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodReqBtn1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = ongoingTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        request.setStatus("Waiting");
+        BloodBank bb = (BloodBank) organization.getUpOrgan().getUpOrgan();
+
+        populateOngoingTbl();
+        populateProcessTbl();
+    }//GEN-LAST:event_bloodReqBtn1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignBtn;
     private javax.swing.JButton bloodDrawBtn;
+    private javax.swing.JButton bloodReqBtn1;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable ongoingTbl;

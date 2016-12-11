@@ -157,7 +157,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         });
 
         consumptionCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "200", "300", "400" }));
+        consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1000", "1500", "2000" }));
 
         dobLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         dobLabel3.setText("ml");
@@ -220,14 +220,14 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         int consumptionVolum = Integer.parseInt(consumption);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
 
-        Organization org = (Organization) selectedNode.getUserObject();
+        Clinic org = (Clinic) selectedNode.getUserObject();
 
         WorkRequest recieverRequest = new WorkRequest(org.getUpOrgan());
         recieverRequest.setSender(userAccount);
-        recieverRequest.setStatus("Sent");
+        recieverRequest.setStatus("Help");
         recieverRequest.setQuantity(consumptionVolum);
 
-        org.getWorkQueue().getWorkReqestList().add(recieverRequest);
+        org.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(recieverRequest);
         userAccount.getWorkQueue().getWorkReqestList().add(recieverRequest);
         JOptionPane.showMessageDialog(null, "Request succeed.");
 

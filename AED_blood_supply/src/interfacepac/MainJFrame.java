@@ -92,7 +92,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        dB4OUtil.storeSystem(ecoSystem);
     }//GEN-LAST:event_formWindowClosing
 
     /**

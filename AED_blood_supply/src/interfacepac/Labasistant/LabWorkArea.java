@@ -43,6 +43,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        vitalSign = new VitalSign();
         initComponents();
         populateOngoingTbl();
         populateProcessTbl();
@@ -77,7 +78,7 @@ public class LabWorkArea extends javax.swing.JPanel {
                 row[0] = request;
                 row[1] = request.getSender();
                 row[2] = request.getReceiver() == null ? null : request.getReceiver();
-                int donation = ((DonorRequest) request).getQuantity();
+                int donation = request.getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
@@ -445,13 +446,13 @@ public class LabWorkArea extends javax.swing.JPanel {
 
     private void sendtoDistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoDistBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         request.setStatus("For transit");
 
         Blood blood = new Blood();
@@ -497,7 +498,7 @@ public class LabWorkArea extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         initialVitalSign(request);
         request.setStatus("Tested");
         populateOngoingTbl();
@@ -517,7 +518,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         sendtoDistBtn.setEnabled(false);
         int selectedRow = ongoingTbl.getSelectedRow();
 
-        if (selectedRow > 0) {
+        if (selectedRow >= 0) {
             WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
             if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
                 if (request.getStatus().equals("Lab Pending")) {
