@@ -231,14 +231,14 @@ public class DonateJPanel extends javax.swing.JPanel {
         int donationVolumn = Integer.parseInt(donation);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) clinicJTree.getLastSelectedPathComponent();
 
-        Organization org = (Organization) selectedNode.getUserObject();
+        Clinic clinic = (Clinic) selectedNode.getUserObject();
 
-        DonorRequest donorRequest = new DonorRequest();
+        WorkRequest donorRequest = new WorkRequest(clinic.getUpOrgan());
         donorRequest.setSender(userAccount);
         donorRequest.setStatus("Sent");
-        donorRequest.setDonation(donationVolumn);
+        donorRequest.setQuantity(donationVolumn);
 
-        org.getWorkQueue().getWorkReqestList().add(donorRequest);
+        clinic.getOrganizationList().get(2).getWorkQueue().getWorkReqestList().add(donorRequest);
         userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
         JOptionPane.showMessageDialog(null, "Thank you!");
 
@@ -276,7 +276,7 @@ public class DonateJPanel extends javax.swing.JPanel {
             if (selectedNode != null) {
                 organ = system;
                 dobLabel.setText("system");
-                confirmBtn.setEnabled(true);
+                confirmBtn.setEnabled(false);
             } else {
                 confirmBtn.setEnabled(false);
             }

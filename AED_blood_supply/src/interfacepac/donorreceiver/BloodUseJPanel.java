@@ -108,9 +108,10 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         clinicJTree = new javax.swing.JTree();
         dobLabel = new javax.swing.JLabel();
         dobLabel2 = new javax.swing.JLabel();
-        consumptionCBox = new javax.swing.JComboBox<>();
         confirmBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        consumptionCBox = new javax.swing.JComboBox<>();
+        dobLabel3 = new javax.swing.JLabel();
 
         clinicJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         clinicJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
@@ -137,9 +138,6 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         dobLabel2.setMinimumSize(new java.awt.Dimension(150, 24));
         dobLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        consumptionCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         confirmBtn.setBackground(new java.awt.Color(250, 250, 250));
         confirmBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         confirmBtn.setText("Confirm");
@@ -158,6 +156,15 @@ public class BloodUseJPanel extends javax.swing.JPanel {
             }
         });
 
+        consumptionCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "200", "300", "400" }));
+
+        dobLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        dobLabel3.setText("ml");
+        dobLabel3.setMaximumSize(new java.awt.Dimension(150, 24));
+        dobLabel3.setMinimumSize(new java.awt.Dimension(150, 24));
+        dobLabel3.setPreferredSize(new java.awt.Dimension(150, 24));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,17 +174,22 @@ public class BloodUseJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(353, 353, 353))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(300, 300, 300))
+                        .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addGap(283, 283, 283))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,11 +200,13 @@ public class BloodUseJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(consumptionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(confirmBtn)
                             .addComponent(cancelBtn))))
@@ -208,13 +222,13 @@ public class BloodUseJPanel extends javax.swing.JPanel {
 
         Organization org = (Organization) selectedNode.getUserObject();
 
-        ReceiverRequest donorRequest = new ReceiverRequest();
-        donorRequest.setSender(userAccount);
-        donorRequest.setStatus("Sent");
-        donorRequest.setConsumption(consumptionVolum);
+        WorkRequest recieverRequest = new WorkRequest(org.getUpOrgan());
+        recieverRequest.setSender(userAccount);
+        recieverRequest.setStatus("Sent");
+        recieverRequest.setQuantity(consumptionVolum);
 
-        org.getWorkQueue().getWorkReqestList().add(donorRequest);
-        userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
+        org.getWorkQueue().getWorkReqestList().add(recieverRequest);
+        userAccount.getWorkQueue().getWorkReqestList().add(recieverRequest);
         JOptionPane.showMessageDialog(null, "Request succeed.");
 
         DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization, system);
@@ -267,6 +281,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> consumptionCBox;
     private javax.swing.JLabel dobLabel;
     private javax.swing.JLabel dobLabel2;
+    private javax.swing.JLabel dobLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

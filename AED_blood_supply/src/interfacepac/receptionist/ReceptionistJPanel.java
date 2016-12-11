@@ -7,6 +7,7 @@ package interfacepac.receptionist;
 
 import business.EcoSystem;
 import business.clinic.ReceptionistService;
+import business.organization.Clinic;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.DonorRequest;
@@ -32,6 +33,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 //    private Organization organization;
     private Organization organization;
     private EcoSystem system;
+    private WorkRequest workRequest;
 
     public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
@@ -48,12 +50,12 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Sent")) {
+            if (request.getStatus().equals("Sent") || (request.getStatus().equals("Recep Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[4];
                 row[0] = request;
-                row[1] = request.getSender().getfullName();
-                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
-                int donation = ((DonorRequest) request).getDonation();
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                int donation = request.getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
@@ -65,13 +67,14 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) processTbl.getModel();
         model.setRowCount(0);
 
-        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Nurce Pending")) {
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("Sent") || request.getStatus().equals("Recep Pending")) {
+            } else {
                 Object[] row = new Object[4];
                 row[0] = request;
-                row[1] = request.getSender().getfullName();
-                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
-                int donation = ((DonorRequest) request).getDonation();
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                int donation = request.getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
@@ -105,7 +108,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Reciever", "Donation"
+                "Status", "Sender", "Operator", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -117,6 +120,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
             }
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        ongoingTbl.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                ongoingTblHierarchyChanged(evt);
+            }
+        });
         ongoingTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ongoingTblMouseClicked(evt);
@@ -168,7 +176,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Reciever", "Donation"
+                "Status", "Sender", "Operator", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -192,22 +200,20 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(401, 401, 401)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(viewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(401, 401, 401)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(viewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(404, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -219,13 +225,13 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewBtn)
                     .addComponent(assignBtn))
-                .addGap(78, 78, 78)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rejectBtn)
                     .addComponent(sendtoNurseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -250,34 +256,35 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
     private void sendtoNurseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoNurseBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
 
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
-        request.setStatus("Accepted");
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+            request.setStatus("To nurse");
+            Clinic clinic = (Clinic) organization.getUpOrgan();
+            clinic.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(request);
+        }
+        populateOngoingTbl();
         populateProcessTbl();
     }//GEN-LAST:event_sendtoNurseBtnActionPerformed
 
     private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow1 = ongoingTbl.getSelectedRow();
-        int selectedRow2 = processTbl.getSelectedRow();
+        //int selectedRow2 = processTbl.getSelectedRow();
 
         WorkRequest request = null;
         UserAccount donor;
-        if (selectedRow1 < 0 && selectedRow2 < 0) {
+        if (selectedRow1 < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
-        } else if (selectedRow1 < 0 && selectedRow2 >= 0) {
-            request = (WorkRequest) processTbl.getValueAt(selectedRow2, 0);
-            return;
-        } else if (selectedRow1 >= 0 && selectedRow2 < 0) {
+        } else if (selectedRow1 >= 0) {
             request = (WorkRequest) ongoingTbl.getValueAt(selectedRow1, 0);
-            return;
         }
 
         if (request != null) {
@@ -293,14 +300,16 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
     private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
-        request.setStatus("Rejected");
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+            request.setStatus("Rejected");
+        }
 
         populateOngoingTbl();
         populateProcessTbl();
@@ -315,14 +324,34 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 //        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
 //        String status = request.getStatus();
 //        if(status.equals(""))
-        rejectBtn.setEnabled(false);
-        sendtoNurseBtn.setEnabled(false);
+        int selectedRow = ongoingTbl.getSelectedRow();
+
+        if (selectedRow > 0) {
+            WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+            if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+                rejectBtn.setEnabled(true);
+                sendtoNurseBtn.setEnabled(true);
+                assignBtn.setEnabled(false);
+            }else{
+                assignBtn.setEnabled(true);
+                rejectBtn.setEnabled(false);
+                sendtoNurseBtn.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_ongoingTblMouseClicked
 
     private void processTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processTblMouseClicked
         // TODO add your handling code here:
         assignBtn.setEnabled(false);
+        rejectBtn.setEnabled(false);
+        sendtoNurseBtn.setEnabled(false);
     }//GEN-LAST:event_processTblMouseClicked
+
+    private void ongoingTblHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_ongoingTblHierarchyChanged
+        // TODO add your handling code here:
+        populateOngoingTbl();
+        populateProcessTbl();
+    }//GEN-LAST:event_ongoingTblHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

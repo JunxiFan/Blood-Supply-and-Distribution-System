@@ -37,7 +37,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         ongoingTbl = new javax.swing.JTable();
         assgnBtn = new javax.swing.JButton();
-        packageBtn = new javax.swing.JButton();
         sendBtn = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         finishedTbl = new javax.swing.JTable();
@@ -73,15 +72,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         assgnBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assgnBtnActionPerformed(evt);
-            }
-        });
-
-        packageBtn.setBackground(new java.awt.Color(250, 250, 250));
-        packageBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        packageBtn.setText("package");
-        packageBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                packageBtnActionPerformed(evt);
             }
         });
 
@@ -128,8 +118,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(assgnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(packageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(59, 59, 59)
                             .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(404, Short.MAX_VALUE))
@@ -142,8 +130,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assgnBtn)
-                    .addComponent(sendBtn)
-                    .addComponent(packageBtn))
+                    .addComponent(sendBtn))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(228, Short.MAX_VALUE))
@@ -153,10 +140,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     private void assgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assgnBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_assgnBtnActionPerformed
-
-    private void packageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_packageBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_packageBtnActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
@@ -169,7 +152,6 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable ongoingTbl;
-    private javax.swing.JButton packageBtn;
     private javax.swing.JButton sendBtn;
     // End of variables declaration//GEN-END:variables
 }

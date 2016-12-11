@@ -18,10 +18,20 @@ import java.util.ArrayList;
  */
 public class NurseCenter extends Organization {
 
+    //private Clinic upOrgan = null;
+    
     public NurseCenter(String name) {
         super(OrganizationType.NurseCenter.getValue());
         this.setName(name);
     }
+//
+//    public Clinic getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(Clinic upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {

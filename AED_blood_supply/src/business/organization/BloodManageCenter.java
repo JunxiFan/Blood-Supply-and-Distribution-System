@@ -17,6 +17,7 @@ public class BloodManageCenter extends Organization {
     private ArrayList<BloodBank> bloodBankList;
     private DistributionCenter distributionCenter;
     private boolean firstLevel = false;
+    //private BloodManageCenter upOrgan = null;
 
     public BloodManageCenter(String name) {
         super(OrganizationType.BloodMngCenter.getValue());
@@ -24,6 +25,7 @@ public class BloodManageCenter extends Organization {
         nextLvBloodManageCenterList = new ArrayList();
         this.setName(name);
         distributionCenter = new DistributionCenter(name+"distribution");
+        distributionCenter.setUpOrgan(this);
     }
 
     public ArrayList<BloodBank> getBloodBankList() {
@@ -58,6 +60,14 @@ public class BloodManageCenter extends Organization {
     public void setFirstLevel() {
         this.firstLevel = true;
     }
+
+//    public BloodManageCenter getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(BloodManageCenter upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
     public BloodManageCenter createBloodManageCenter(String name) {
         BloodManageCenter bloodManageCenter = new BloodManageCenter(name);

@@ -7,6 +7,7 @@ package interfacepac.nurse;
 
 import business.EcoSystem;
 import business.blood.Blood;
+import business.organization.Clinic;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.DonorRequest;
@@ -29,7 +30,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     JPanel displayPanel;
     UserAccount userAccount;
     Organization organization;
-    private  EcoSystem system;
+    private EcoSystem system;
 
     public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
@@ -37,6 +38,8 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        populateOngoingTbl();
+        populateProcessTbl();
     }
 
     public void populateOngoingTbl() {
@@ -44,12 +47,12 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Accepted")) {
+            if (request.getStatus().equals("To nurse") || (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[4];
                 row[0] = request;
-                row[1] = request.getSender().getfullName();
-                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
-                int donation = ((DonorRequest) request).getDonation();
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                int donation = request.getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
@@ -61,39 +64,20 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) processTbl.getModel();
         model.setRowCount(0);
 
-        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Nurse Pending")) {
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
+            if (request.getStatus().equals("Nurse Pending") || request.getStatus().equals("Drawn")) {
+            } else {
                 Object[] row = new Object[4];
                 row[0] = request;
-                row[1] = request.getSender().getfullName();
-                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
-                int donation = ((DonorRequest) request).getDonation();
+                row[1] = request.getSender();
+                row[2] = request.getReceiver() == null ? null : request.getReceiver();
+                int donation = ((DonorRequest) request).getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
             }
         }
     }
-
-    public void populateUntestedTbl() {
-        DefaultTableModel model = (DefaultTableModel) untestedTbl.getModel();
-        model.setRowCount(0);
-
-        for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Drawn")) {
-                Object[] row = new Object[4];
-                row[0] = request;
-                row[1] = request.getSender().getfullName();
-                row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
-                int donation = ((DonorRequest) request).getDonation();
-                row[3] = donation;
-
-                model.addRow(row);
-            }
-        }
-    }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,8 +95,6 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         ongoingTbl = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         processTbl = new javax.swing.JTable();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        untestedTbl = new javax.swing.JTable();
 
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
         assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -149,7 +131,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Reciever", "Donation"
+                "Status", "Sender", "Operator", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -161,6 +143,11 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
+        ongoingTbl.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                ongoingTblHierarchyChanged(evt);
+            }
+        });
         ongoingTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ongoingTblMouseClicked(evt);
@@ -176,7 +163,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Reciever", "Donation"
+                "Status", "Sender", "Operator", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -195,65 +182,37 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(processTbl);
 
-        jScrollPane8.setBackground(new java.awt.Color(250, 250, 250));
-
-        untestedTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        untestedTbl.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Status", "Sender", "Reciever", "Donation"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        untestedTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        untestedTbl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                untestedTblMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(untestedTbl);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(453, Short.MAX_VALUE)
+                .addContainerGap(409, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sendtoTestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bloodDrawBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bloodDrawBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sendtoTestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(assignBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(353, 353, 353))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(397, 397, 397))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(assignBtn)
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bloodDrawBtn)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sendtoTestBtn)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assignBtn)
+                    .addComponent(bloodDrawBtn)
+                    .addComponent(sendtoTestBtn))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addGap(44, 44, 44))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -278,13 +237,13 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
 
     private void bloodDrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodDrawBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         request.setStatus("Drawn");
 
         populateOngoingTbl();
@@ -293,24 +252,42 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
 
     private void sendtoTestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoTestBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
             return;
         }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         request.setStatus("Untested");
+        Clinic clinic = (Clinic) organization.getUpOrgan();
+        clinic.getOrganizationList().get(0).getWorkQueue().getWorkReqestList().add(request);
 
-        populateUntestedTbl();
+        populateOngoingTbl();
         populateProcessTbl();
     }//GEN-LAST:event_sendtoTestBtnActionPerformed
 
     private void ongoingTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ongoingTblMouseClicked
         // TODO add your handling code here:
+        int selectedRow = ongoingTbl.getSelectedRow();
 
-        bloodDrawBtn.setEnabled(false);
-        sendtoTestBtn.setEnabled(false);
+        if (selectedRow > 0) {
+            WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+            if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+                if (request.getStatus().equals("Nurse Pending")) {
+                    bloodDrawBtn.setEnabled(true);
+                    sendtoTestBtn.setEnabled(false);
+                } else if (request.getStatus().equals("Drawn")) {
+                    bloodDrawBtn.setEnabled(false);
+                    sendtoTestBtn.setEnabled(true);
+                }
+                assignBtn.setEnabled(false);
+            } else {
+                assignBtn.setEnabled(true);
+                bloodDrawBtn.setEnabled(false);
+                sendtoTestBtn.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_ongoingTblMouseClicked
 
     private void processTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processTblMouseClicked
@@ -319,11 +296,11 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
         sendtoTestBtn.setEnabled(false);
     }//GEN-LAST:event_processTblMouseClicked
 
-    private void untestedTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_untestedTblMouseClicked
+    private void ongoingTblHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_ongoingTblHierarchyChanged
         // TODO add your handling code here:
-        assignBtn.setEnabled(false);
-        bloodDrawBtn.setEnabled(false);
-    }//GEN-LAST:event_untestedTblMouseClicked
+        populateOngoingTbl();
+        populateProcessTbl();
+    }//GEN-LAST:event_ongoingTblHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,10 +308,8 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton bloodDrawBtn;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTable ongoingTbl;
     private javax.swing.JTable processTbl;
     private javax.swing.JButton sendtoTestBtn;
-    private javax.swing.JTable untestedTbl;
     // End of variables declaration//GEN-END:variables
 }

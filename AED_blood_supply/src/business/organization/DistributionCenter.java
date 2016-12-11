@@ -14,10 +14,20 @@ import java.util.ArrayList;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class DistributionCenter extends Organization{
+    //private Organization upOrgan = null;
+    
     public DistributionCenter(String name){
         super(OrganizationType.Distribution.getValue());
         this.setName(name);
     }
+
+//    public Organization getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(Organization upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {

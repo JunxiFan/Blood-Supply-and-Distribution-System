@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class Clinic extends Organization{
     private ArrayList<Organization> organizationList;
+    //private BloodBank upOrgan = null;
     
         public Clinic(String name){
         super(OrganizationType.Clinic.getValue());
@@ -33,13 +34,24 @@ public class Clinic extends Organization{
         this.organizationList = organizationList;
     }
     public void initialClinic(){
-        Laboratory laboratory=new Laboratory(this.getName()+"Laboratory");
-        NurseCenter nurseCenter = new NurseCenter(this.getName()+"Nurce Center");
-        ReceptionistService receptionistService = new ReceptionistService(this.getName()+"Receptionist Service");
+        Laboratory laboratory=new Laboratory(this.getName()+" Laboratory");
+        NurseCenter nurseCenter = new NurseCenter(this.getName()+" Nurce Center");
+        ReceptionistService receptionistService = new ReceptionistService(this.getName()+" Receptionist Service");
+        laboratory.setUpOrgan(this);
+        nurseCenter.setUpOrgan(this);
+        receptionistService.setUpOrgan(this);      
         organizationList.add(laboratory);
         organizationList.add(nurseCenter);
         organizationList.add(receptionistService);
     }
+
+//    public BloodBank getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(BloodBank upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
         
     @Override

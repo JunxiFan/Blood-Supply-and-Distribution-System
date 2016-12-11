@@ -31,7 +31,10 @@ public class VitalSignHistory {
         VitalSign vs = new VitalSign();
         vitalSignHistory.add(vs);
         return vs;
-
+    }
+    public VitalSign addVitals(VitalSign vs) {
+        vitalSignHistory.add(vs);
+        return vs;
     }
 
     public void deleteVitals(VitalSign v) {

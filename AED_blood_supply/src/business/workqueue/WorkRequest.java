@@ -5,6 +5,8 @@
  */
 package business.workqueue;
 
+import business.blood.Blood;
+import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.util.Date;
 
@@ -20,10 +22,13 @@ public class WorkRequest {
     private String status;
     private Date requestDate;
     private Date resolveDate;
+    private int quantity;
+    private Blood blood;
+    private Organization destination;
 
 
-    public WorkRequest() {
-        requestDate = new Date();
+    public WorkRequest(Organization organ) {
+        destination = organ;
     }
 
     public String getMessage() {
@@ -40,6 +45,22 @@ public class WorkRequest {
 
     public void setSender(UserAccount sender) {
         this.sender = sender;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Blood getBlood() {
+        return blood;
+    }
+
+    public void setBlood(Blood blood) {
+        this.blood = blood;
     }
 
     public UserAccount getReceiver() {
@@ -74,6 +95,10 @@ public class WorkRequest {
         this.resolveDate = resolveDate;
     }
 
+    @Override
+    public String toString() {
+        return status;
+    }
 
 
 }

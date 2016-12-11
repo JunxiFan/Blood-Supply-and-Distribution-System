@@ -22,6 +22,7 @@ public abstract class Organization {
     private UserAccountDir userAccountList;
     private int organizationID;
     private static int counter = 0;
+    private Organization upOrgan = null;
 
     public enum OrganizationType {
         Clinic("Clinic"),
@@ -63,6 +64,14 @@ public abstract class Organization {
 
     public WorkQueue getWorkQueue() {
         return workQueue;
+    }
+
+    public Organization getUpOrgan() {
+        return upOrgan;
+    }
+
+    public void setUpOrgan(Organization upOrgan) {
+        this.upOrgan = upOrgan;
     }
 
     public void setWorkQueue(WorkQueue workQueue) {

@@ -193,11 +193,13 @@ public class ConfigureJPanel extends javax.swing.JPanel {
             if (bMC.isFirstLevel()) {
                 bMC.createBloodManageCenter(nameTField.getText());
             } else {
-                bMC.createBloodBank(nameTField.getText());
+                BloodBank bb =bMC.createBloodBank(nameTField.getText());
+                bb.setUpOrgan(bMC);
             }
         } else if (organization.getType().equals(Organization.OrganizationType.BloodBank.getValue())) {
             BloodBank bloodBank = (BloodBank) organization;
-            bloodBank.createClinic(nameTField.getText());
+            Clinic cc = bloodBank.createClinic(nameTField.getText());
+            cc.setUpOrgan(bloodBank);
         } else if (organization.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
 
         } else if (organization.getType().equals(Organization.OrganizationType.Distribution.getValue())) {

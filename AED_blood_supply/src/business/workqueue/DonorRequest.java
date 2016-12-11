@@ -5,6 +5,9 @@
  */
 package business.workqueue;
 
+import business.blood.Blood;
+import business.organization.Organization;
+
 /**
  *
  * @author xdwea
@@ -12,12 +15,17 @@ package business.workqueue;
 public class DonorRequest extends WorkRequest {
 
     private int donation;
+    private Blood blood;
 
-    public int getDonation() {
+    public DonorRequest(Organization organ) {
+        super(organ);
+    }
+
+    public int getQuantity() {
         return donation;
     }
 
-    public void setDonation(int donation) {
+    public void setQuantity(int donation) {
         this.donation = donation;
     }
 }

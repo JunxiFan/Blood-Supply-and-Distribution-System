@@ -24,8 +24,6 @@
                       <Group type="102" attributes="0">
                           <Component id="assgnBtn" min="-2" pref="124" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="packageBtn" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                           <Component id="sendBtn" min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane5" min="-2" pref="495" max="-2" attributes="0"/>
@@ -44,7 +42,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="assgnBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sendBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="packageBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jScrollPane6" min="-2" pref="200" max="-2" attributes="0"/>
@@ -125,20 +122,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assgnBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="packageBtn">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="fa" green="fa" red="fa" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Microsoft YaHei UI Light" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="package"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="packageBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="sendBtn">

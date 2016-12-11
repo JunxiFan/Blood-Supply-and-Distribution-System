@@ -17,10 +17,21 @@ import java.util.ArrayList;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class ReceptionistService extends Organization{
+    
+    //private Clinic upOrgan = null;
+    
      public ReceptionistService(String name){
         super(OrganizationType.ReceptionistService.getValue());
         this.setName(name);
     }
+
+//    public Clinic getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(Clinic upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {

@@ -17,12 +17,14 @@ public class BloodBank extends Organization {
 
     private ArrayList<Clinic> clinicList;
     private DistributionCenter distributionCenter;
+    //private BloodManageCenter upOrgan = null;
 
     public BloodBank(String name) {
         super(OrganizationType.BloodBank.getValue());
         clinicList = new ArrayList<>();
         this.setName(name);
-        distributionCenter = new DistributionCenter(name+"distribution");
+        distributionCenter = new DistributionCenter(name+" distribution");
+        distributionCenter.setUpOrgan(this);
     }
 
     public DistributionCenter getDistributionCenter() {
@@ -47,6 +49,14 @@ public class BloodBank extends Organization {
         clinicList.add(clinic);
         return clinic;
     }
+
+//    public BloodManageCenter getUpOrgan() {
+//        return upOrgan;
+//    }
+//
+//    public void setUpOrgan(BloodManageCenter upOrgan) {
+//        this.upOrgan = upOrgan;
+//    }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
