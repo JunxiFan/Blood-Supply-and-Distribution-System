@@ -17,6 +17,7 @@ public class Blood {
     private String bloodType;
     private String date;
     private Clinic clinic;
+    private int volum;
 
     public Blood(DRAccount donor, String bloodType, String date, Clinic clinic) {
         this.donor = donor;
@@ -56,6 +57,16 @@ public class Blood {
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
+
+    public int getVolum() {
+        return volum;
+    }
+
+    public void setVolum(int volum) {
+        this.volum = volum;
+    }
+    
+    
     
     
 }
