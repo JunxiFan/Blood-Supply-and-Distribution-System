@@ -5,6 +5,7 @@
  */
 package interfacepac.donorreceiver;
 
+import business.EcoSystem;
 import business.VitalSign.VitalSign;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
@@ -28,12 +29,14 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
+    private EcoSystem system;
 
-    public PersonInfoJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public PersonInfoJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        this.system = system;
         populateTable();
         populateVitalSign();
     }

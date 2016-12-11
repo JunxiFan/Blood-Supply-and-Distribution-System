@@ -26,13 +26,13 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-
-    public ManageWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    private  EcoSystem system;
+    public ManageWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
-        this.displayPanel=displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        this.system = system;
     }
 
     /**
@@ -249,7 +249,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
 
     private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("PerosonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

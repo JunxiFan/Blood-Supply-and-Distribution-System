@@ -5,6 +5,7 @@
  */
 package interfacepac.donorreceiver;
 
+import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
@@ -22,9 +23,10 @@ public class DROptionJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-
-    public DROptionJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
+    private EcoSystem system;
+    public DROptionJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
+        this.system = system;
         this.displayPanel = displayPanel;
         this.displayPanel=displayPanel;
         this.userAccount = userAccount;
@@ -102,7 +104,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void donateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBtnActionPerformed
         // TODO add your handling code here:
-        DonateJPanel panel = new DonateJPanel(displayPanel, userAccount, organization);
+        DonateJPanel panel = new DonateJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("DonateJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -110,7 +112,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void needBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_needBtnActionPerformed
         // TODO add your handling code here:
-        BloodUseJPanel panel = new BloodUseJPanel(displayPanel, userAccount, organization);
+        BloodUseJPanel panel = new BloodUseJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("BloodUseJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -118,7 +120,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
 
     private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
         // TODO add your handling code here:
-        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization);
+        PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("PersonInfoJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

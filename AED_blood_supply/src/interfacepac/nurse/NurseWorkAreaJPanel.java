@@ -5,6 +5,7 @@
  */
 package interfacepac.nurse;
 
+import business.EcoSystem;
 import business.blood.Blood;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
@@ -28,12 +29,14 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     JPanel displayPanel;
     UserAccount userAccount;
     Organization organization;
+    private  EcoSystem system;
 
-    public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public NurseWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        this.system = system;
     }
 
     public void populateOngoingTbl() {

@@ -5,6 +5,7 @@
  */
 package interfacepac.Labasistant;
 
+import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.DonorRequest;
@@ -27,12 +28,14 @@ public class LabWorkArea extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
+    private EcoSystem system;
             
-    public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel=displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        this.system = system;
     }
     
     public void populateOngoingTbl() {

@@ -5,6 +5,7 @@
  */
 package interfacepac.distribution;
 
+import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import interfacepac.receptionist.*;
@@ -20,7 +21,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form BloodManageCenterJPanel
      */
-    public distributionAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organizations) {
+    public distributionAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
     }
 

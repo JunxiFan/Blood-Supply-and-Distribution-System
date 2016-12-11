@@ -5,6 +5,7 @@
  */
 package interfacepac.receptionist;
 
+import business.EcoSystem;
 import business.clinic.ReceptionistService;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
@@ -30,12 +31,14 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
 //    private Organization organization;
     private Organization organization;
+    private EcoSystem system;
 
-    public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
+        this.system = system;
         populateProcessTbl();
         populateOngoingTbl();
     }
@@ -279,7 +282,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
         if (request != null) {
             donor = request.getSender();
-            PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, donor, organization);
+            PersonInfoJPanel panel = new PersonInfoJPanel(displayPanel, donor, organization, system);
             displayPanel.add("PerosonInfoJPanel", panel);
             CardLayout layout = (CardLayout) displayPanel.getLayout();
             layout.next(displayPanel);

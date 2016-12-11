@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class SAdmin extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-      return new SAdminWorkAreaJPanel(displayPanel, userAccount, organization);
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
+      return new SAdminWorkAreaJPanel(displayPanel, userAccount, organization, system);
     }
     
 }

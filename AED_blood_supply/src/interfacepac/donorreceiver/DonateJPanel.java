@@ -37,12 +37,12 @@ public class DonateJPanel extends javax.swing.JPanel {
     private EcoSystem system;
     private Organization organ;
 
-    public DonateJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public DonateJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
 
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
-        system = EcoSystem.getInstance();
+        this.system = system;
         initComponents();
         populateTree();
     }
@@ -242,7 +242,7 @@ public class DonateJPanel extends javax.swing.JPanel {
         userAccount.getWorkQueue().getWorkReqestList().add(donorRequest);
         JOptionPane.showMessageDialog(null, "Thank you!");
 
-        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization);
+        DROptionJPanel panel = new DROptionJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("DROptionJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

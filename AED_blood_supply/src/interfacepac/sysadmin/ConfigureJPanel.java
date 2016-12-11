@@ -35,12 +35,12 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private Organization organization;
     private EcoSystem system;
 
-    public ConfigureJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public ConfigureJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
-        system = EcoSystem.getInstance();
+        this.system = system;
         initComponents();
         initAdjust();
     }
@@ -395,7 +395,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
 
     private void createManagerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createManagerBtnActionPerformed
         // TODO add your handling code here:
-        RegisterJPanel panel = new RegisterJPanel(displayPanel, userAccount, organization);
+        RegisterJPanel panel = new RegisterJPanel(displayPanel, userAccount, organization, system);
         displayPanel.add("ConfigureAccountJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

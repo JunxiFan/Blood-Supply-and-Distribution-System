@@ -40,7 +40,7 @@ public abstract class Role {
     
     public abstract JPanel createWorkArea(JPanel displayPanel,
             UserAccount userAccount,
-            Organization organization);
+            Organization organization, EcoSystem system);
     
     @Override
     public String toString() {

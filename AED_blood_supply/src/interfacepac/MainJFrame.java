@@ -50,7 +50,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     private void loadPanel(){
-        RegJPanel homePage = new RegJPanel( displayJPanel);
+        RegJPanel homePage = new RegJPanel( displayJPanel, ecoSystem);
         displayJPanel.add("welcome", homePage);
         CardLayout layout = (CardLayout) displayJPanel.getLayout();
         layout.next(displayJPanel);
@@ -68,6 +68,11 @@ public class MainJFrame extends javax.swing.JFrame {
         displayJPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         displayJPanel.setLayout(new java.awt.CardLayout());
 
@@ -84,6 +89,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        dB4OUtil.storeSystem(ecoSystem);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

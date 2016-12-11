@@ -29,9 +29,9 @@ public class CertificationJPanel extends javax.swing.JPanel {
     private JPanel displayJPanel;
     private boolean isDOR;
 
-    public CertificationJPanel(JPanel displayJPanel, boolean isDOR) {
+    public CertificationJPanel(JPanel displayJPanel, boolean isDOR, EcoSystem system) {
         initComponents();
-        this.system = EcoSystem.getInstance();
+        this.system = system;
         this.displayJPanel = displayJPanel;
         this.isDOR = isDOR;
         populateDisplayPanel();
@@ -39,7 +39,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
 
     private void populateDisplayPanel() {
 
-        LoadSPanel RegJPanel = new LoadSPanel(displayJPanel);
+        LoadSPanel RegJPanel = new LoadSPanel(displayJPanel, system);
         RegJPanel.welcomeIfLabel.setVisible(isDOR);
         RegJPanel.registerBtn.setVisible(isDOR);
         logoutBtn.setText("Back");
@@ -132,7 +132,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
             return;
         } else {
             CardLayout layout = (CardLayout) displayPanel.getLayout();
-            displayPanel.add("workArea", userAccount.getRole().createWorkArea(displayPanel, userAccount, inOrganization));
+            displayPanel.add("workArea", userAccount.getRole().createWorkArea(displayPanel, userAccount, inOrganization, system));
             layout.next(displayPanel);
             loginBtn.setVisible(false);
             logoutBtn.setVisible(true);

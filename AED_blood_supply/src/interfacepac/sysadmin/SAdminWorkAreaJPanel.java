@@ -34,12 +34,12 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     private EcoSystem system;
     private Organization organ;
 
-    public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public SAdminWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
-        system = EcoSystem.getInstance();
+        this.system = system;
         initComponents();
         populateTree();
     }
@@ -207,7 +207,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void configurateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configurateBtnActionPerformed
         // TODO add your handling code here:
-        ConfigureJPanel panel = new ConfigureJPanel(displayPanel, userAccount, organ);
+        ConfigureJPanel panel = new ConfigureJPanel(displayPanel, userAccount, organ, system);
         displayPanel.add("ConfigureJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -215,7 +215,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel, userAccount, organ);
+        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel, userAccount, organ, system);
         displayPanel.add("ConfigureAccountJPanel", panel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

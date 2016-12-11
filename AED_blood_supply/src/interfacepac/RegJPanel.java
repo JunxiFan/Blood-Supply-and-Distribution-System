@@ -23,10 +23,10 @@ public class RegJPanel extends javax.swing.JPanel {
     private EcoSystem ecoSystem;
     private CertificationJPanel cPanel;
             
-    public RegJPanel(JPanel displayPanel) {
+    public RegJPanel(JPanel displayPanel, EcoSystem system) {
         initComponents();
         this.displayPanel=displayPanel;
-        this.ecoSystem  = EcoSystem.getInstance();
+        this.ecoSystem  = system;
         
     }
 
@@ -105,7 +105,7 @@ public class RegJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dORBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dORBtnActionPerformed
-        cPanel = new CertificationJPanel(displayPanel, true);
+        cPanel = new CertificationJPanel(displayPanel, true, ecoSystem);
         displayPanel.add("certification", cPanel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -113,7 +113,7 @@ public class RegJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_dORBtnActionPerformed
 
     private void staffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffBtnActionPerformed
-       cPanel = new CertificationJPanel(displayPanel, false);
+       cPanel = new CertificationJPanel(displayPanel, false, ecoSystem);
         displayPanel.add("certification", cPanel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
@@ -121,7 +121,7 @@ public class RegJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_staffBtnActionPerformed
 
     private void adminBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBtnActionPerformed
-        cPanel = new CertificationJPanel(displayPanel, false);
+        cPanel = new CertificationJPanel(displayPanel, false, ecoSystem);
         displayPanel.add("certification", cPanel);
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);

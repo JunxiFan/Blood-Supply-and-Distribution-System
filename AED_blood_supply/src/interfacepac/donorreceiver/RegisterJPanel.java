@@ -26,12 +26,12 @@ public class RegisterJPanel extends javax.swing.JPanel {
     private Organization organization;
     private EcoSystem system;
 
-    public RegisterJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization) {
+    public RegisterJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
-        system = EcoSystem.getInstance();
+        this.system = system;
 
     }
 

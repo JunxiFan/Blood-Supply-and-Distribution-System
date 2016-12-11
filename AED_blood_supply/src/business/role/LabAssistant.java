@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class LabAssistant extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-        return new LabWorkArea(displayPanel, userAccount, organization);
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
+        return new LabWorkArea(displayPanel, userAccount, organization, system);
     }
     
 }

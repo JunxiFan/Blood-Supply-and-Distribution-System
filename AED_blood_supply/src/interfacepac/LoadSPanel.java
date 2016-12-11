@@ -19,9 +19,9 @@ public class LoadSPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoadSPanel
      */
-    public LoadSPanel(JPanel displayPanel) {
+    public LoadSPanel(JPanel displayPanel, EcoSystem system) {
         initComponents();
-        this.ecoSystem  = EcoSystem.getInstance();
+        this.ecoSystem  = system;
         this.displayPanel = displayPanel;
     }
 

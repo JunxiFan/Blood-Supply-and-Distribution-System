@@ -9,7 +9,7 @@ package business.workqueue;
  *
  * @author fjx19
  */
-public class receiverRequest extends WorkRequest {
+public class ReceiverRequest extends WorkRequest {
     private int consumption;
 
     public int getConsumption() {

@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class DonorReceiver extends Role{
 
     @Override
-    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization) {
-        return new DROptionJPanel(displayPanel, userAccount, organization);
+    public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
+        return new DROptionJPanel(displayPanel, userAccount, organization, system);
     }
     
 }
