@@ -49,6 +49,14 @@ public class UserAccount {
         this.password = password;
     }
 
+    public VitalSignHistory getVitalSignHistory() {
+        return vitalSignHistory;
+    }
+
+    public void setVitalSignHistory(VitalSignHistory vitalSignHistory) {
+        this.vitalSignHistory = vitalSignHistory;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -124,15 +132,6 @@ public class UserAccount {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-    public VitalSignHistory getVitalSignHistory() {
-        return vitalSignHistory;
-    }
-
-    public void setVitalSignHistory(VitalSignHistory vitalSignHistory) {
-        this.vitalSignHistory = vitalSignHistory;
-    }
-
     @Override
     public String toString() {
         return username;

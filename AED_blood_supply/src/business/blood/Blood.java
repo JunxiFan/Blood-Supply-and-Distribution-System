@@ -5,6 +5,7 @@
  */
 package business.blood;
 
+import business.VitalSign.VitalSign;
 import business.organization.Clinic;
 import business.useraccount.DRAccount;
 
@@ -13,18 +14,20 @@ import business.useraccount.DRAccount;
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class Blood {
+
     private DRAccount donor;
     private String bloodType;
     private String date;
     private Clinic clinic;
     private int volum;
+    private VitalSign vitalSign;
 
-    public Blood(DRAccount donor, String bloodType, String date, Clinic clinic) {
-        this.donor = donor;
-        this.bloodType = bloodType;
-        this.date = date;
-        this.clinic = clinic;
-    }
+//    public Blood(DRAccount donor, String bloodType, Clinic clinic) {
+//        this.donor = donor;
+//        this.bloodType = bloodType;
+////        this.date = date;
+//        this.clinic = clinic;
+//    }
 
     public DRAccount getDonor() {
         return donor;
@@ -65,8 +68,15 @@ public class Blood {
     public void setVolum(int volum) {
         this.volum = volum;
     }
+
+    public VitalSign getVitalSign() {
+        return vitalSign;
+    }
+
+    public void setVitalSign(VitalSign vitalSign) {
+        this.vitalSign = vitalSign;
+    }
     
     
-    
-    
+
 }

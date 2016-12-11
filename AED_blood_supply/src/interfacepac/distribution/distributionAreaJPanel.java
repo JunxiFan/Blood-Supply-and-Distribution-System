@@ -50,11 +50,11 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Email", "Date of birth"
+                "Sender", "BloodType", "Destination", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -63,6 +63,9 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
         jScrollPane5.setViewportView(ongoingTbl);
+        if (ongoingTbl.getColumnModel().getColumnCount() > 0) {
+            ongoingTbl.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         assgnBtn.setBackground(new java.awt.Color(250, 250, 250));
         assgnBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N

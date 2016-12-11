@@ -6,7 +6,11 @@
 package interfacepac.Labasistant;
 
 import business.EcoSystem;
+import business.VitalSign.VitalSign;
+import business.blood.Blood;
+import business.organization.Clinic;
 import business.organization.Organization;
+import business.useraccount.DRAccount;
 import business.useraccount.UserAccount;
 import business.workqueue.DonorRequest;
 import business.workqueue.WorkRequest;
@@ -29,15 +33,16 @@ public class LabWorkArea extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Organization organization;
     private EcoSystem system;
-            
+    private VitalSign vitalSign;
+
     public LabWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
-        this.displayPanel=displayPanel;
+        this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
     }
-    
+
     public void populateOngoingTbl() {
         DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
         model.setRowCount(0);
@@ -64,7 +69,7 @@ public class LabWorkArea extends javax.swing.JPanel {
             if (request.getStatus().equals("Lab Pending")) {
                 Object[] row = new Object[4];
                 row[0] = request;
-                row[1] = request.getSender().getfullName();
+                row[1] = request.getSender();
                 row[2] = request.getReceiver() == null ? null : request.getReceiver().getfullName();
                 int donation = ((DonorRequest) request).getDonation();
                 row[3] = donation;
@@ -73,6 +78,24 @@ public class LabWorkArea extends javax.swing.JPanel {
             }
         }
     }
+
+    public void initialVitalSign() {
+        String vitalSignType = vSBloodTypeTField.getText();
+        String hemoglobin = hemoblobinTField.getText();
+        String infection = infectionTField.getText();
+        String diabetes = diabetesTField.getText();
+        String tempConditon = tempConditonTField.getText();
+        String permCondition = permConditionTField.getText();
+
+        vitalSign.setBloodtype(vitalSignType);
+        vitalSign.setHemoglobin(hemoglobin);
+        vitalSign.setInfection(infection);
+        vitalSign.setDiabetes(diabetes);
+        vitalSign.setTempCondition(tempConditon);
+        vitalSign.setPermCondition(permCondition);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +105,6 @@ public class LabWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        testBtn = new javax.swing.JButton();
         assignBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         firstNameLabel2 = new javax.swing.JLabel();
@@ -102,15 +124,6 @@ public class LabWorkArea extends javax.swing.JPanel {
         ongoingTbl = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         processTbl = new javax.swing.JTable();
-
-        testBtn.setBackground(new java.awt.Color(250, 250, 250));
-        testBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        testBtn.setText("Test");
-        testBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testBtnActionPerformed(evt);
-            }
-        });
 
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
         assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
@@ -242,7 +255,7 @@ public class LabWorkArea extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Reciever", "Donation"
+                "Status", "Sender", "Operator", "Donation"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -254,11 +267,6 @@ public class LabWorkArea extends javax.swing.JPanel {
             }
         });
         ongoingTbl.setGridColor(new java.awt.Color(250, 250, 250));
-        ongoingTbl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ongoingTblMouseClicked(evt);
-            }
-        });
         jScrollPane7.setViewportView(ongoingTbl);
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
@@ -298,9 +306,7 @@ public class LabWorkArea extends javax.swing.JPanel {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(assignBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(testBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sendtoDistBtn))
                 .addContainerGap(404, Short.MAX_VALUE))
         );
@@ -312,33 +318,14 @@ public class LabWorkArea extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(assignBtn)
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(testBtn)
-                .addGap(6, 6, 6)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sendtoDistBtn)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void testBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testBtnActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = processTbl.getSelectedRow();
-
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a request.");
-            return;
-        }
-        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
-        request.setStatus("Testing");
-
-        populateOngoingTbl();
-        populateProcessTbl();
-        
-        sendtoDistBtn.setEnabled(true);
-    }//GEN-LAST:event_testBtnActionPerformed
 
     private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
         // TODO add your handling code here:
@@ -361,19 +348,42 @@ public class LabWorkArea extends javax.swing.JPanel {
 
     private void sendtoDistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendtoDistBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = processTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+        WorkRequest request = (WorkRequest) processTbl.getValueAt(selectedRow, 0);
+        request.setStatus("Tested");
+
+        Blood blood = new Blood();
+        DRAccount donor = (DRAccount) request.getSender();
+        blood.setDonor(donor);
+        blood.setBloodType(vSBloodTypeTField.getText());
+        blood.setClinic((Clinic) organization);
+        int volum = ((DonorRequest) request).getDonation();
+        blood.setVolum(volum);
+        initialVitalSign();
+        blood.setVitalSign(vitalSign);
+
+        populateOngoingTbl();
+        populateProcessTbl();
+        sendtoDistBtn.setEnabled(false);
+
+
     }//GEN-LAST:event_sendtoDistBtnActionPerformed
-
-    private void ongoingTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ongoingTblMouseClicked
-        // TODO add your handling code here:
-
-        testBtn.setEnabled(false);
-
-    }//GEN-LAST:event_ongoingTblMouseClicked
 
     private void processTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processTblMouseClicked
         // TODO add your handling code here:
         assignBtn.setEnabled(false);
-
+        sendtoDistBtn.setEnabled(true);
+        vSBloodTypeTField.setEnabled(true);
+        hemoblobinTField.setEnabled(true);
+        infectionTField.setEnabled(true);
+        diabetesTField.setEnabled(true);
+        tempConditonTField.setEnabled(true);
+        permConditionTField.setEnabled(true);
     }//GEN-LAST:event_processTblMouseClicked
 
 
@@ -396,7 +406,6 @@ public class LabWorkArea extends javax.swing.JPanel {
     private javax.swing.JTable processTbl;
     private javax.swing.JButton sendtoDistBtn;
     private javax.swing.JTextField tempConditonTField;
-    private javax.swing.JButton testBtn;
     private javax.swing.JTextField vSBloodTypeTField;
     // End of variables declaration//GEN-END:variables
 }

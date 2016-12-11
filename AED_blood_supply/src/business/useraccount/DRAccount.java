@@ -5,10 +5,27 @@
  */
 package business.useraccount;
 
+import business.VitalSign.VitalSignHistory;
+
 /**
  *
  * @author Jiamin.S <shang.j@husky.neu.edu>
  */
 public class DRAccount extends UserAccount{
+    
+    private VitalSignHistory vitalSignHistory;
+
+    public DRAccount() {
+        vitalSignHistory = new VitalSignHistory();
+    }
+
+    public VitalSignHistory getVitalSignHistory() {
+        return vitalSignHistory;
+    }
+
+    public void setVitalSignHistory(VitalSignHistory vitalSignHistory) {
+        this.vitalSignHistory = vitalSignHistory;
+    }
+    
     
 }
