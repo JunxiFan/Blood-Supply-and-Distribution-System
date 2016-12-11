@@ -9,9 +9,13 @@ import business.EcoSystem;
 import business.VitalSign.VitalSign;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import business.workqueue.DonorRequest;
+import business.workqueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,9 +26,6 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     /**
      * Creates new form PersonInfoJPanel
      */
-    TableJPanel allTable;
-    TableJPanel donationTable;
-    TableJPanel consumptionTable;
 
     private JPanel displayPanel;
     private UserAccount userAccount;
@@ -51,6 +52,18 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
+    
+    private void populateTableV() {
+        DefaultTableModel dtm = (DefaultTableModel) viewTable.getModel();
+        dtm.setRowCount(0);
+        TableRowSorter sorter = new TableRowSorter(dtm);
+        viewTable.setRowSorter(sorter);
+        for(WorkRequest dr : userAccount.getWorkQueue().getWorkReqestList()){
+            Object row[] = new Object[4];
+            dtm.addRow(row);
+        }
+    }
+    
     public void populateVitalSign(){
         int selectedrow = vitalSignTbl.getSelectedRow();
         if(selectedrow>=0){
@@ -73,7 +86,6 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        historyDisTblPanel = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         firstNameLabel = new javax.swing.JLabel();
         firstNameTField = new javax.swing.JTextField();
@@ -119,12 +131,9 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         vitalSignTbl = new javax.swing.JTable();
         cancelBtn1 = new javax.swing.JButton();
-
-        historyDisTblPanel.addTab("all record", null, allTable);
-        historyDisTblPanel.addTab("donation", null, donationTable);
-        historyDisTblPanel.addTab("consumption", null, consumptionTable);
-        historyDisTblPanel.setBackground(new java.awt.Color(250, 250, 250));
-        historyDisTblPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI Light", 1, 24))); // NOI18N
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        viewTable = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Personal info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 0, 24))); // NOI18N
 
@@ -230,7 +239,7 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lastNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameTField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                        .addComponent(lastNameTField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(genderLaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -514,13 +523,50 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
             }
         });
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Blood History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei", 0, 24))); // NOI18N
+
+        viewTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Donor", "Receiver", "State"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(viewTable);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(historyDisTblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -540,7 +586,6 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(historyDisTblPanel)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -551,7 +596,8 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cancelBtn1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -605,7 +651,6 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel genderLaber;
     private javax.swing.JLabel genderLaber1;
     private javax.swing.JTextField hemoblobinTField;
-    private javax.swing.JTabbedPane historyDisTblPanel;
     private javax.swing.JLabel homePhoneLabel;
     private javax.swing.JLabel homePhoneLabel1;
     private javax.swing.JTextField homePhoneTField;
@@ -614,7 +659,11 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel lastNameLabel1;
     private javax.swing.JLabel lastNameLabel2;
@@ -626,7 +675,9 @@ public class PersonInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tempConditonTField;
     private javax.swing.JButton updateBtn;
     private javax.swing.JTextField vSBloodTypeTField;
+    public javax.swing.JTable viewTable;
     private javax.swing.JTable vitalSignTbl;
+    private javax.swing.JTable vitalSignTbl1;
     private javax.swing.JLabel workPhoneLabel;
     private javax.swing.JTextField workPhoneTField;
     // End of variables declaration//GEN-END:variables
