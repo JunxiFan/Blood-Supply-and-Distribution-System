@@ -36,11 +36,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
     private WorkRequest workRequest;
 
     public ReceptionistJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        initComponents();
         populateProcessTbl();
         populateOngoingTbl();
     }

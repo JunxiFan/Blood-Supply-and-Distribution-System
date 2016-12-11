@@ -87,20 +87,13 @@ public class CertificationJPanel extends javax.swing.JPanel {
                                                 break here;
                                             }
                                             for (Clinic clinic : bloodBank.getClinicList()) {
-                                                userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
-                                                if (userAccount == null) {
                                                     for (Organization organization : clinic.getOrganizationList()) {
-                                                        userAccount = clinic.getUserAccountList().authenticateUser(userName, password);
+                                                        userAccount = organization.getUserAccountList().authenticateUser(userName, password);
                                                         if (userAccount != null) {
                                                             inOrganization = organization;
                                                             break here;
                                                         }
                                                     }
-
-                                                } else {
-                                                    inOrganization = clinic;
-                                                    break here;
-                                                }
                                             }
                                         } else {
                                             inOrganization = bloodBank;
