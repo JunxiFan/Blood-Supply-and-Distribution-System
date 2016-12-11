@@ -6,6 +6,8 @@
 package interfacepac;
 
 import business.EcoSystem;
+import interfacepac.donorreceiver.RegisterJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -88,6 +90,10 @@ public class LoadSPanel extends javax.swing.JPanel {
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         // TODO add your handling code here:
+        RegisterJPanel panel = new RegisterJPanel(displayPanel, null, ecoSystem.getdORUserController(), ecoSystem);
+        displayPanel.add("ConfigureAccountJPanel", panel);
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        layout.next(displayPanel);
     }//GEN-LAST:event_registerBtnActionPerformed
 
 
