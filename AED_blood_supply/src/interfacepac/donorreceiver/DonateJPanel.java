@@ -76,17 +76,17 @@ public class DonateJPanel extends javax.swing.JPanel {
                             clinicNode.insert(organNode, m++);
                         }
                     }
-                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
-                    bloodBankNode.insert(fourthDistributionNode, l++);
+//                    DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+//                    bloodBankNode.insert(fourthDistributionNode, l++);
                 }
-                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
-                secondBMCNode.insert(thirdDistributionNode, k++);
+//                DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+//                secondBMCNode.insert(thirdDistributionNode, k++);
             }
-            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
-            firstBMCNode.insert(secondDistributionNode, j++);
+//            DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+//            firstBMCNode.insert(secondDistributionNode, j++);
         }
-        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
-        root.insert(firstDistributionNode, i++);
+//        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
+//        root.insert(firstDistributionNode, i++);
         model.reload();
     }
 
@@ -267,7 +267,7 @@ public class DonateJPanel extends javax.swing.JPanel {
         try {
             organ = (Organization) selectedNode.getUserObject();
             dobLabel.setText(organ.toString());
-            if (organ.getType() == Organization.OrganizationType.Clinic.getValue()) {
+            if (organ.getType().equals(Organization.OrganizationType.Clinic.getValue())) {
                 confirmBtn.setEnabled(true);
             } else {
                 confirmBtn.setEnabled(false);

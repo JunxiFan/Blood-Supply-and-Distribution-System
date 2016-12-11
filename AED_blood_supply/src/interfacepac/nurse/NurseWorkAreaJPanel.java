@@ -71,7 +71,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
                 row[0] = request;
                 row[1] = request.getSender();
                 row[2] = request.getReceiver() == null ? null : request.getReceiver();
-                int donation = ((DonorRequest) request).getQuantity();
+                int donation = request.getQuantity();
                 row[3] = donation;
 
                 model.addRow(row);
@@ -293,6 +293,7 @@ public class NurseWorkAreaJPanel extends javax.swing.JPanel {
     private void processTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processTblMouseClicked
         // TODO add your handling code here:
         assignBtn.setEnabled(false);
+        bloodDrawBtn.setEnabled(false);
         sendtoTestBtn.setEnabled(false);
     }//GEN-LAST:event_processTblMouseClicked
 

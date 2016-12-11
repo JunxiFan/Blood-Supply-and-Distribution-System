@@ -16,6 +16,7 @@ import business.useraccount.UserAccount;
 public class Blood {
 
     private UserAccount donor;
+    private UserAccount usePerson;
     private String bloodType;
     private String date;
     private Clinic clinic;
@@ -27,8 +28,12 @@ public class Blood {
 //        this.bloodType = bloodType;
 ////        this.date = date;
 //        this.clinic = clinic;
-//    }
 
+    public Blood() {
+        usePerson = null;
+    }
+
+//    }
     public UserAccount getDonor() {
         return donor;
     }
@@ -47,6 +52,14 @@ public class Blood {
 
     public String getDate() {
         return date;
+    }
+
+    public UserAccount getUsePerson() {
+        return usePerson;
+    }
+
+    public void setUsePerson(UserAccount userPerson) {
+        this.usePerson = userPerson;
     }
 
     public void setDate(String date) {

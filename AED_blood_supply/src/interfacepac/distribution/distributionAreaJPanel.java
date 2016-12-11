@@ -6,11 +6,13 @@
 package interfacepac.distribution;
 
 import business.EcoSystem;
+import business.organization.BloodBank;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -191,10 +193,41 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
     private void assgnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assgnBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = ongoingTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Distribute Pending");
+        userAccount.getWorkQueue().getWorkReqestList().add(request);
+        JOptionPane.showMessageDialog(null, "Assigned succeed.");
+
+        populateOngoingTbl();
+        populateProcessTbl();
     }//GEN-LAST:event_assgnBtnActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
+         int selectedRow = ongoingTbl.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a request.");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
+        if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+            request.setStatus("Add into Bank");
+            BloodBank bb=(BloodBank)request.getDestination();
+            bb.getBloodRepertory().add(request.getBlood());
+            //clinic.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(request);
+        }
+        populateOngoingTbl();
+        populateProcessTbl();
     }//GEN-LAST:event_sendBtnActionPerformed
 
 
