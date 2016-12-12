@@ -197,6 +197,8 @@ public class LabWorkArea extends javax.swing.JPanel {
         processTbl = new javax.swing.JTable();
         doTestBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
         assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         assignBtn.setText("assign to me");
@@ -206,6 +208,7 @@ public class LabWorkArea extends javax.swing.JPanel {
             }
         });
 
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vital sign", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 0, 24))); // NOI18N
 
         firstNameLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
@@ -216,6 +219,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         lastNameLabel2.setText("hemoglobin");
         lastNameLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        hemoblobinTField.setBackground(new java.awt.Color(250, 250, 250));
         hemoblobinTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         hemoblobinTField.setEnabled(false);
 
@@ -223,6 +227,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         firstNameLabel3.setText("Infection");
         firstNameLabel3.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        infectionTField.setBackground(new java.awt.Color(250, 250, 250));
         infectionTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         infectionTField.setEnabled(false);
 
@@ -230,6 +235,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         lastNameLabel3.setText("diabetes");
         lastNameLabel3.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        diabetesTField.setBackground(new java.awt.Color(250, 250, 250));
         diabetesTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         diabetesTField.setEnabled(false);
 
@@ -237,6 +243,7 @@ public class LabWorkArea extends javax.swing.JPanel {
         firstNameLabel4.setText("Other temporary condition");
         firstNameLabel4.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        tempConditonTField.setBackground(new java.awt.Color(250, 250, 250));
         tempConditonTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         tempConditonTField.setEnabled(false);
 
@@ -244,9 +251,11 @@ public class LabWorkArea extends javax.swing.JPanel {
         firstNameLabel5.setText("Other permanent condition");
         firstNameLabel5.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        permConditionTField.setBackground(new java.awt.Color(250, 250, 250));
         permConditionTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         permConditionTField.setEnabled(false);
 
+        bloodTypeTField.setBackground(new java.awt.Color(250, 250, 250));
         bloodTypeTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
         bloodTypeTField.setEnabled(false);
 
@@ -353,6 +362,7 @@ public class LabWorkArea extends javax.swing.JPanel {
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
+        processTbl.setBackground(new java.awt.Color(250, 250, 250));
         processTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         processTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

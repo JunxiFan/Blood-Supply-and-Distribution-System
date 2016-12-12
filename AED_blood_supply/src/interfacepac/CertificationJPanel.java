@@ -160,6 +160,8 @@ public class CertificationJPanel extends javax.swing.JPanel {
         splitPanel.setDividerLocation(50);
         splitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
+        jPanel1.setBackground(new java.awt.Color(250, 250, 250));
+
         welcomeLabel1.setBackground(new java.awt.Color(250, 250, 250));
         welcomeLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         welcomeLabel1.setText("Username:");
@@ -172,6 +174,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
 
         passwordTField.setFont(new java.awt.Font("Verdana", 0, 22)); // NOI18N
 
+        loginBtn.setBackground(new java.awt.Color(250, 250, 250));
         loginBtn.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +183,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
             }
         });
 
+        logoutBtn.setBackground(new java.awt.Color(250, 250, 250));
         logoutBtn.setFont(new java.awt.Font("Verdana", 0, 20)); // NOI18N
         logoutBtn.setText("Logout");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -223,6 +227,7 @@ public class CertificationJPanel extends javax.swing.JPanel {
 
         splitPanel.setTopComponent(jPanel1);
 
+        displayPanel.setBackground(new java.awt.Color(250, 250, 250));
         displayPanel.setLayout(new java.awt.CardLayout());
         splitPanel.setRightComponent(displayPanel);
 

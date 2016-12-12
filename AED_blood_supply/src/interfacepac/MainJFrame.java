@@ -74,6 +74,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        displayJPanel.setBackground(new java.awt.Color(250, 250, 250));
         displayJPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -49,19 +49,19 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         populatePanel();
     }
 
-    public void populatePanel(){
-        BloodManageCenter bmc = (BloodManageCenter)organization;
-        if(bmc.getUpOrgan().getType().equals(system.getType())){
+    public void populatePanel() {
+        BloodManageCenter bmc = (BloodManageCenter) organization;
+        if (bmc.getUpOrgan().getType().equals(system.getType())) {
             populateLvFTree();
             populateOngoingTbl();
             populateProcessTbl();
-        }else{
+        } else {
             populateLvSTree();
             populateOngoingTbl();
             populateProcessTbl();
         }
     }
-    
+
     public void populateSystemTree() {
         DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
         ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
@@ -118,7 +118,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
 
         model.reload();
     }
-    
+
     public void populateLvSTree() {
         DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
         BloodManageCenter bMC = (BloodManageCenter) organization;
@@ -126,35 +126,35 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
 
-            int k = 0;
-            for (BloodBank bloodBank : bMC.getBloodBankList()) {
-                DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
-                root.insert(bloodBankNode, k++);
-            }
+        int k = 0;
+        for (BloodBank bloodBank : bMC.getBloodBankList()) {
+            DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+            root.insert(bloodBankNode, k++);
+        }
 
         model.reload();
     }
-    
+
     public void populateBankTree() {
         DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
         BloodBank bb = (BloodBank) organization;
 
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
-                int l = 0;
-                    for (Clinic clinic : bb.getClinicList()) {
-                        DefaultMutableTreeNode clinicNode = new DefaultMutableTreeNode(clinic);
-                        root.insert(clinicNode, l++);
-                        int m = 0;
-                        for (Organization organ : clinic.getOrganizationList()) {
-                            DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
-                            clinicNode.insert(organNode, m++);
-                        }
-                    }
+        int l = 0;
+        for (Clinic clinic : bb.getClinicList()) {
+            DefaultMutableTreeNode clinicNode = new DefaultMutableTreeNode(clinic);
+            root.insert(clinicNode, l++);
+            int m = 0;
+            for (Organization organ : clinic.getOrganizationList()) {
+                DefaultMutableTreeNode organNode = new DefaultMutableTreeNode(organ);
+                clinicNode.insert(organNode, m++);
+            }
+        }
 
         model.reload();
     }
-    
+
     public void populateOngoingTbl() {
         DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
         model.setRowCount(0);
@@ -193,8 +193,9 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
                 model.addRow(row);
             }
         }
+        populateReport();
     }
-    
+
     private void reqBlood(WorkRequest req) {
         BloodBank bb = (BloodBank) organ;
         int n = 0;
@@ -216,10 +217,55 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
                 tempList.add(bb.getBloodRepertory().get(i));
             }
         }
-        for(Blood blood: tempList){
+        for (Blood blood : tempList) {
             req.getUseBloodList().add(blood);
             bb.getBloodRepertory().remove(blood);
         }
+    }
+    
+    public void populateReport() {
+//            BloodManageCenter bmc = (BloodManageCenter) organization;
+//            if(bmc.getUpOrgan().getType().equals("system")){
+//                
+//            }
+        BloodBank bb = (BloodBank) organization;
+        int tya = bb.calculateARepertory();
+        int tyb = bb.calculateBRepertory();
+        int tyab = bb.calculateABRepertory();
+        int tyo = bb.calculateORepertory();
+        int tyrha = bb.calculateRHARepertory();
+        int tyrhb = bb.calculateRHBRepertory();
+        int tyrhab = bb.calculateRHABRepertory();
+        int tyrho = bb.calculateRHORepertory();
+        tpa.setText(String.valueOf(tya + " ml"));
+        tpb.setText(String.valueOf(tyb + " ml"));
+        tpab.setText(String.valueOf(tyab + " ml"));
+        tpo.setText(String.valueOf(tyo + " ml"));
+        tprha.setText(String.valueOf(tyrha + " ml"));
+        tprhb.setText(String.valueOf(tyrhb + " ml"));
+        tprhab.setText(String.valueOf(tyrhab + " ml"));
+        tprho.setText(String.valueOf(tyrho + " ml"));
+        int allamount = tya + tyb + tyo + tyab + tyrha + tyrhb + tyrhab + tyrho;
+        if (allamount <= 0) {
+            tpa1.setText(0 + "%");
+            tpb1.setText(0 + "%");
+            tpab1.setText(0 + "%");
+            tpo1.setText(0 + "%");
+            tprha1.setText(0 + "%");
+            tprhb1.setText(0 + "%");
+            tprhab1.setText(0 + "%");
+            tprho1.setText(0 + "%");
+        }else{
+            tpa1.setText(tya/allamount + "%");
+            tpb1.setText(tyb/allamount + "%");
+            tpab1.setText(tyab/allamount + "%");
+            tpo1.setText(tyo/allamount + "%");
+            tprha1.setText(tyrha/allamount + "%");
+            tprhb1.setText(tyrhb/allamount + "%");
+            tprhab1.setText(tyrhab/allamount + "%");
+            tprho1.setText(tyrho/allamount + "%");
+        }
+
     }
 
     /**
@@ -242,6 +288,8 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         rejectBtn = new javax.swing.JButton();
         transferBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         viewDetailsBtn.setBackground(new java.awt.Color(250, 250, 250));
         viewDetailsBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         viewDetailsBtn.setText("view details");
@@ -262,6 +310,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
+        finishedTbl.setBackground(new java.awt.Color(250, 250, 250));
         finishedTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         finishedTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -282,6 +331,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         finishedTbl.setGridColor(new java.awt.Color(250, 250, 250));
         jScrollPane6.setViewportView(finishedTbl);
 
+        viewJTree.setBackground(new java.awt.Color(250, 250, 250));
         viewJTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewJTreeMouseClicked(evt);
@@ -296,6 +346,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane7.setBackground(new java.awt.Color(250, 250, 250));
 
+        ongoingTbl.setBackground(new java.awt.Color(250, 250, 250));
         ongoingTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         ongoingTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -338,8 +389,8 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(393, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(358, 358, 358)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -356,12 +407,12 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(viewDetailsBtn)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(380, 380, 380))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(110, 110, 110)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +425,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -423,7 +474,7 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
         }
         WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         this.reqBlood(request);
-        
+
         system.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
         request.setStatus("Transfer");
         populatePanel();
@@ -431,18 +482,24 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
 
     private void viewJTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewJTreeMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_viewJTreeMouseClicked
 
     private void viewJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_viewJTreeValueChanged
         // TODO add your handling code here:
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) viewJTree.getLastSelectedPathComponent();
-        organ = (Organization)selectedNode.getUserObject();
-        if(organ.getType().equals(Organization.OrganizationType.BloodBank))
-            transferBtn.setEnabled(true);
-        else
-            transferBtn.setEnabled(false);
+        try {
+            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) viewJTree.getLastSelectedPathComponent();
+            organ = (Organization) selectedNode.getUserObject();
+        } catch (Exception e) {
+            organ = organization;
+        }
         
+        if (organ.getType().equals(Organization.OrganizationType.BloodBank)) {
+            transferBtn.setEnabled(true);
+        } else {
+            transferBtn.setEnabled(false);
+        }
+
     }//GEN-LAST:event_viewJTreeValueChanged
 
 

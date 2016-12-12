@@ -49,8 +49,11 @@ public class ConfigureAccountJPanel extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
+        accountsTbl.setBackground(new java.awt.Color(250, 250, 250));
         accountsTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         accountsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

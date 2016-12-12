@@ -108,6 +108,9 @@ public class DonateJPanel extends javax.swing.JPanel {
         cancelBtn = new javax.swing.JButton();
         dobLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
+        clinicJTree.setBackground(new java.awt.Color(250, 250, 250));
         clinicJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         clinicJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
             public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
@@ -133,6 +136,7 @@ public class DonateJPanel extends javax.swing.JPanel {
         dobLabel2.setMinimumSize(new java.awt.Dimension(150, 24));
         dobLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
 
+        donationsCBox.setBackground(new java.awt.Color(250, 250, 250));
         donationsCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
         donationsCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "200", "300", "400" }));
 

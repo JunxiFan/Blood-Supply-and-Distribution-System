@@ -100,8 +100,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         processTbl = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
+        ongoingTbl.setBackground(new java.awt.Color(250, 250, 250));
         ongoingTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         ongoingTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,6 +173,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
+        processTbl.setBackground(new java.awt.Color(250, 250, 250));
         processTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         processTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -40,6 +40,8 @@ public class LoadSPanel extends javax.swing.JPanel {
         welcomeIfLabel = new javax.swing.JLabel();
         registerBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         welcomeLabel.setBackground(new java.awt.Color(250, 250, 250));
         welcomeLabel.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         welcomeLabel.setText("Please login first");
@@ -48,6 +50,7 @@ public class LoadSPanel extends javax.swing.JPanel {
         welcomeIfLabel.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         welcomeIfLabel.setText("If you don't have account");
 
+        registerBtn.setBackground(new java.awt.Color(250, 250, 250));
         registerBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         registerBtn.setText("register now");
         registerBtn.addActionListener(new java.awt.event.ActionListener() {

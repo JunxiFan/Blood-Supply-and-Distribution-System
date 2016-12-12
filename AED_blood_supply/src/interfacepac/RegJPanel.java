@@ -46,9 +46,12 @@ public class RegJPanel extends javax.swing.JPanel {
         staffBtn = new javax.swing.JButton();
         adminBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabel1.setText("welcome");
 
+        dORBtn.setBackground(new java.awt.Color(250, 250, 250));
         dORBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         dORBtn.setText("I'm a donor or receiver");
         dORBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +60,7 @@ public class RegJPanel extends javax.swing.JPanel {
             }
         });
 
+        staffBtn.setBackground(new java.awt.Color(250, 250, 250));
         staffBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         staffBtn.setText("I'm a staff");
         staffBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -65,6 +69,7 @@ public class RegJPanel extends javax.swing.JPanel {
             }
         });
 
+        adminBtn.setBackground(new java.awt.Color(250, 250, 250));
         adminBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         adminBtn.setText("I'm system admin");
         adminBtn.addActionListener(new java.awt.event.ActionListener() {

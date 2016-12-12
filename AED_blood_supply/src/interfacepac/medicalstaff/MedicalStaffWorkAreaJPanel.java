@@ -50,7 +50,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("To nurse") ||request.getStatus().equals("Help")||(request.getStatus().equals("Wait for test") && request.getReceiver().getUsername().equals(userAccount.getUsername()))|| (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
+            if (request.getStatus().equals("To nurse") ||request.getStatus().equals("Help")||(request.getStatus().equals("Call for blood") && request.getReceiver().getUsername().equals(userAccount.getUsername()))||(request.getStatus().equals("Wait for test") && request.getReceiver().getUsername().equals(userAccount.getUsername()))|| (request.getStatus().equals("Nurse Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Drawn") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[4];
                 row[0] = request;
                 row[1] = request.getSender();
@@ -139,6 +139,8 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         processTbl = new javax.swing.JTable();
         bloodReqBtn1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         assignBtn.setBackground(new java.awt.Color(250, 250, 250));
         assignBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         assignBtn.setText("assign to me");
@@ -168,6 +170,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane7.setBackground(new java.awt.Color(250, 250, 250));
 
+        ongoingTbl.setBackground(new java.awt.Color(250, 250, 250));
         ongoingTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         ongoingTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,6 +203,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane6.setBackground(new java.awt.Color(250, 250, 250));
 
+        processTbl.setBackground(new java.awt.Color(250, 250, 250));
         processTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         processTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -284,7 +288,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         request.setReceiver(userAccount);
         if(request.getStatus().equals("To nurse"))
             request.setStatus("Nurse Pending");
-        else
+        else if(request.getStatus().equals("Help"))
             request.setStatus("Call for blood");
         userAccount.getWorkQueue().getWorkReqestList().add(request);
         JOptionPane.showMessageDialog(null, "Assigned succeed.");
@@ -353,6 +357,7 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         assignBtn.setEnabled(false);
         bloodDrawBtn.setEnabled(false);
         sendtoTestBtn.setEnabled(false);
+        bloodReqBtn1.setEnabled(false);
     }//GEN-LAST:event_processTblMouseClicked
 
     private void ongoingTblHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_ongoingTblHierarchyChanged

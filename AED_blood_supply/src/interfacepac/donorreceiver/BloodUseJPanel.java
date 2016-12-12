@@ -113,6 +113,8 @@ public class BloodUseJPanel extends javax.swing.JPanel {
         consumptionCBox = new javax.swing.JComboBox<>();
         dobLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         clinicJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         clinicJTree.addHierarchyListener(new java.awt.event.HierarchyListener() {
             public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
@@ -156,6 +158,7 @@ public class BloodUseJPanel extends javax.swing.JPanel {
             }
         });
 
+        consumptionCBox.setBackground(new java.awt.Color(250, 250, 250));
         consumptionCBox.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
         consumptionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1000", "1500", "2000" }));
 

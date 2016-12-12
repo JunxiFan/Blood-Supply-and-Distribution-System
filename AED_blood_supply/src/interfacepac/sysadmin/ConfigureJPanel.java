@@ -180,7 +180,8 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         if (organization.getType().equals(Organization.OrganizationType.BloodMngCenter.getValue())) {
             BloodManageCenter bMC = (BloodManageCenter) organization;
             if (bMC.isFirstLevel()) {
-                bMC.createBloodManageCenter(nameTField.getText());
+                BloodManageCenter bb =bMC.createBloodManageCenter(nameTField.getText());
+                bb.setUpOrgan(bMC);
             } else {
                 BloodBank bb =bMC.createBloodBank(nameTField.getText());
                 bb.setUpOrgan(bMC);
@@ -202,6 +203,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         } else {
             BloodManageCenter bmc = system.createBloodManageCenter(nameTField.getText());
             bmc.setFirstLevel();
+            bmc.setUpOrgan(system);
         }
         nameTField.setText("");
     }
@@ -227,8 +229,11 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         backBtn = new javax.swing.JButton();
         organTf = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
+        resumeTbl.setBackground(new java.awt.Color(250, 250, 250));
         resumeTbl.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         resumeTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -304,6 +309,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         typeCBox.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
         typeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        backBtn.setBackground(new java.awt.Color(250, 250, 250));
         backBtn.setText("<< Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -100,8 +100,10 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         viewJTree = new javax.swing.JTree();
         dobLabel = new javax.swing.JLabel();
         configurateBtn = new javax.swing.JButton();
-        manageAccountBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
+        viewJTree.setBackground(new java.awt.Color(250, 250, 250));
         viewJTree.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("System");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("colors");
@@ -164,15 +166,6 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        manageAccountBtn.setBackground(new java.awt.Color(250, 250, 250));
-        manageAccountBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        manageAccountBtn.setText("Manage account");
-        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageAccountBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,9 +175,7 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(manageAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                        .addComponent(configurateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(configurateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(339, Short.MAX_VALUE))
         );
@@ -197,10 +188,8 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(configurateBtn)
-                        .addGap(56, 56, 56)
-                        .addComponent(manageAccountBtn)))
+                        .addGap(54, 54, 54)
+                        .addComponent(configurateBtn)))
                 .addContainerGap(280, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -212,14 +201,6 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) displayPanel.getLayout();
         layout.next(displayPanel);
     }//GEN-LAST:event_configurateBtnActionPerformed
-
-    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
-        // TODO add your handling code here:
-        ConfigureAccountJPanel panel = new ConfigureAccountJPanel(displayPanel, userAccount, organ, system);
-        displayPanel.add("ConfigureAccountJPanel", panel);
-        CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.next(displayPanel);
-    }//GEN-LAST:event_manageAccountBtnActionPerformed
 
     private void viewJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_viewJTreeValueChanged
         // TODO add your handling code here:
@@ -255,7 +236,6 @@ public class SAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton configurateBtn;
     private javax.swing.JLabel dobLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton manageAccountBtn;
     private javax.swing.JTree viewJTree;
     // End of variables declaration//GEN-END:variables
 }

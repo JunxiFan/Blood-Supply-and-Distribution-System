@@ -86,12 +86,12 @@ public class RegisterJPanel extends javax.swing.JPanel {
                                                 break here;
                                             }
                                             for (Clinic clinic : bloodBank.getClinicList()) {
-                                                    for (Organization organization : clinic.getOrganizationList()) {
-                                                        userAccount = organization.getUserAccountList().authenticateUser(userName, password);
-                                                        if (userAccount != null) {
-                                                            break here;
-                                                        }
+                                                for (Organization organization : clinic.getOrganizationList()) {
+                                                    userAccount = organization.getUserAccountList().authenticateUser(userName, password);
+                                                    if (userAccount != null) {
+                                                        break here;
                                                     }
+                                                }
                                             }
                                         } else {
                                             break here;
@@ -239,6 +239,8 @@ public class RegisterJPanel extends javax.swing.JPanel {
         confirmBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(250, 250, 250));
 
         firstNameLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         firstNameLabel1.setText("Re-Password");
@@ -446,6 +448,9 @@ public class RegisterJPanel extends javax.swing.JPanel {
         validateInput();
         if (validation) {
             initialData();
+            displayPanel.remove(this);
+            CardLayout layout = (CardLayout) displayPanel.getLayout();
+            layout.previous(displayPanel);
 
         } else {
             JOptionPane.showMessageDialog(null, errorInfo);

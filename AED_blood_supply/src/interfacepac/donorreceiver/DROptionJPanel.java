@@ -47,9 +47,12 @@ public class DROptionJPanel extends javax.swing.JPanel {
         needBtn = new javax.swing.JButton();
         viewBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 250, 250));
+
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         jLabel1.setText("Choose your option");
 
+        donateBtn.setBackground(new java.awt.Color(250, 250, 250));
         donateBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         donateBtn.setText("I want donate blood");
         donateBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +61,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
             }
         });
 
+        needBtn.setBackground(new java.awt.Color(250, 250, 250));
         needBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         needBtn.setText("I need blood");
         needBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +70,7 @@ public class DROptionJPanel extends javax.swing.JPanel {
             }
         });
 
+        viewBtn.setBackground(new java.awt.Color(250, 250, 250));
         viewBtn.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         viewBtn.setText("View my information");
         viewBtn.addActionListener(new java.awt.event.ActionListener() {
