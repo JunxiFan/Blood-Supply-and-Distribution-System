@@ -6,13 +6,19 @@
 package interfacepac.manager;
 
 import business.EcoSystem;
+import business.organization.BloodBank;
+import business.organization.BloodManageCenter;
+import business.organization.Clinic;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import interfacepac.donorreceiver.*;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -26,13 +32,87 @@ public class ManageWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel displayPanel;
     private UserAccount userAccount;
     private Organization organization;
-    private  EcoSystem system;
+    private EcoSystem system;
+
     public ManageWorkAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        initComponents();
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
         this.organization = organization;
         this.system = system;
+        initComponents();
+    }
+
+    public void populateSystemTree() {
+        DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
+        ArrayList<BloodManageCenter> firstBMCList = system.getBloodManageCenterList();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+        int i = 0;
+        for (BloodManageCenter lv1BMC : firstBMCList) {
+            DefaultMutableTreeNode firstBMCNode = new DefaultMutableTreeNode(lv1BMC);
+            root.insert(firstBMCNode, i++);
+            int j = 0;
+            for (BloodManageCenter lv2BMC : lv1BMC.getNextLvBloodManageCenterList()) {
+                DefaultMutableTreeNode secondBMCNode = new DefaultMutableTreeNode(lv2BMC);
+                firstBMCNode.insert(secondBMCNode, j++);
+                int k = 0;
+                for (BloodBank bloodBank : lv2BMC.getBloodBankList()) {
+                    DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                    secondBMCNode.insert(bloodBankNode, k++);
+                }
+                //DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+                //secondBMCNode.insert(thirdDistributionNode, k++);
+            }
+            //DefaultMutableTreeNode secondDistributionNode = new DefaultMutableTreeNode(lv1BMC.getDistributionCenter());
+            //firstBMCNode.insert(secondDistributionNode, j++);
+        }
+        DefaultMutableTreeNode firstDistributionNode = new DefaultMutableTreeNode(system.getDistributionCenter());
+        root.insert(firstDistributionNode, i++);
+        model.reload();
+    }
+
+    public void populateLvFTree() {
+        DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
+        BloodManageCenter bMC = (BloodManageCenter) organization;
+        ArrayList<BloodManageCenter> secondBMCList = bMC.getNextLvBloodManageCenterList();
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+        int j = 0;
+        for (BloodManageCenter lv2BMC : secondBMCList) {
+            DefaultMutableTreeNode secondBMCNode = new DefaultMutableTreeNode(lv2BMC);
+            root.insert(secondBMCNode, j++);
+            int k = 0;
+            for (BloodBank bloodBank : lv2BMC.getBloodBankList()) {
+                DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                secondBMCNode.insert(bloodBankNode, k++);
+                //DefaultMutableTreeNode fourthDistributionNode = new DefaultMutableTreeNode(bloodBank.getDistributionCenter());
+                //bloodBankNode.insert(fourthDistributionNode, l++);
+            }
+            //DefaultMutableTreeNode thirdDistributionNode = new DefaultMutableTreeNode(lv2BMC.getDistributionCenter());
+            //secondBMCNode.insert(thirdDistributionNode, k++);
+        }
+
+        model.reload();
+    }
+    
+    public void populateLvSTree() {
+        DefaultTreeModel model = (DefaultTreeModel) viewJTree.getModel();
+        BloodManageCenter bMC = (BloodManageCenter) organization;
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
+
+            int k = 0;
+            for (BloodBank bloodBank : bMC.getBloodBankList()) {
+                DefaultMutableTreeNode bloodBankNode = new DefaultMutableTreeNode(bloodBank);
+                root.insert(bloodBankNode, k++);
+            }
+
+        model.reload();
     }
 
     /**

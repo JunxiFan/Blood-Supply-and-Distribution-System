@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfacepac.nurse;
+package interfacepac.medicalstaff;
 
 import business.EcoSystem;
 import business.VitalSign.VitalSign;
@@ -374,12 +374,12 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         BloodBank bb = (BloodBank) organization.getUpOrgan().getUpOrgan();
         if(bb.calculateRepertory(testBloodType(request)) >= 5000){
             request.setStatus("Waiting");
-            request.setDestination(organization);
+            //request.setDestination(organization);
             system.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
         }
         else{
             request.setStatus("Lack blood");
-            request.setDestination(organization);
+            //request.setDestination(organization);
             organization.getUpOrgan().getUpOrgan().getWorkQueue().getWorkReqestList().add(request);
         }
 

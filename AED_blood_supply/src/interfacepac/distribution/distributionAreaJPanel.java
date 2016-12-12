@@ -6,12 +6,14 @@
 package interfacepac.distribution;
 
 import business.EcoSystem;
+import business.blood.Blood;
 import business.organization.BloodBank;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import interfacepac.receptionist.*;
 import interfacepac.sysadmin.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +32,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
     private Organization organization;
     private EcoSystem system;
     private WorkRequest workRequest;
-    
+
     public distributionAreaJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         this.displayPanel = displayPanel;
         this.userAccount = userAccount;
@@ -40,13 +42,13 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         populateProcessTbl();
         populateOngoingTbl();
     }
-    
+
     public void populateOngoingTbl() {
         DefaultTableModel model = (DefaultTableModel) ongoingTbl.getModel();
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("For transit") || (request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())))  {
+            if (request.getStatus().equals("For transit") || request.getStatus().equals("Waiting") || (request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Package") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
                 Object[] row = new Object[5];
                 row[0] = request;
                 row[1] = request.getSender();
@@ -66,7 +68,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("Distribute Pending") || request.getStatus().equals("For transit")) {
+            if (request.getStatus().equals("Distribute Pending") || request.getStatus().equals("For transit") || request.getStatus().equals("Waiting")) {
             } else {
                 Object[] row = new Object[5];
                 row[0] = request;
@@ -79,6 +81,33 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
                 model.addRow(row);
             }
+        }
+    }
+
+    private void reqBlood(WorkRequest req) {
+        BloodBank bb = (BloodBank) req.getDestination();
+        int n = 0;
+        int amount = 0;
+        ArrayList<Blood> tempList = new ArrayList<Blood>();
+        for (int i = 1; i < bb.getBloodRepertory().size(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (req.getSender().getVitalSignHistory().getVitalSignHistory().get(0).getBloodtype().equals(bb.getBloodRepertory().get(j).getBloodType())) {
+                    amount += bb.getBloodRepertory().get(j).getVolum();
+                }
+            }
+            if (amount >= req.getQuantity()) {
+                n = i;
+                break;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (req.getSender().getVitalSignHistory().getVitalSignHistory().get(0).getBloodtype().equals(bb.getBloodRepertory().get(i).getBloodType())) {
+                tempList.add(bb.getBloodRepertory().get(i));
+            }
+        }
+        for(Blood blood: tempList){
+            req.getUseBloodList().add(blood);
+            bb.getBloodRepertory().remove(blood);
         }
     }
 
@@ -106,7 +135,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Operator", "BloodType", "Destination", "Quantity"
+                "Status", "Sender", "Operator", "BloodType", "BloodBank", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -146,7 +175,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Sender", "Operator", "BloodType", "Destination", "Quantity"
+                "Status", "Sender", "Operator", "BloodType", "BloodBank", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -212,7 +241,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
         // TODO add your handling code here:
-         int selectedRow = ongoingTbl.getSelectedRow();
+        int selectedRow = ongoingTbl.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a request.");
@@ -221,10 +250,15 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
-            request.setStatus("Add into Bank");
-            BloodBank bb=(BloodBank)request.getDestination();
-            bb.getBloodRepertory().add(request.getBlood());
-            //clinic.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(request);
+            if (request.getStatus().equals("Distribute Pending")) {
+                BloodBank bb = (BloodBank) request.getDestination();
+                bb.getBloodRepertory().add(request.getBlood());
+                request.setStatus("Add into Bank");
+                //clinic.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(request);
+            } else if (request.getStatus().equals("Package")) {
+                this.reqBlood(request);
+                request.setStatus("Used");
+            }
         }
         populateOngoingTbl();
         populateProcessTbl();

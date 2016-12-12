@@ -8,6 +8,7 @@ package business.workqueue;
 import business.blood.Blood;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -25,10 +26,12 @@ public class WorkRequest {
     private int quantity;
     private Blood blood;
     private Organization destination;
+    private ArrayList<Blood> useBloodList;
 
 
     public WorkRequest(Organization organ) {
         destination = organ;
+        useBloodList = new ArrayList<>();
     }
 
     public String getMessage() {
@@ -63,6 +66,14 @@ public class WorkRequest {
         this.quantity = quantity;
     }
 
+    public ArrayList<Blood> getUseBloodList() {
+        return useBloodList;
+    }
+
+    public void setUseBloodList(ArrayList<Blood> useBloodList) {
+        this.useBloodList = useBloodList;
+    }
+
     public Blood getBlood() {
         return blood;
     }
@@ -93,6 +104,14 @@ public class WorkRequest {
 
     public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
+    }
+    
+    public int quanOfList(){
+        int amount = 0;
+        for(Blood blood : useBloodList){
+                amount += blood.getVolum();
+        }
+        return amount;
     }
 
     public Date getResolveDate() {

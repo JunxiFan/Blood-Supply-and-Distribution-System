@@ -84,18 +84,12 @@ public class RegisterJPanel extends javax.swing.JPanel {
                                                 break here;
                                             }
                                             for (Clinic clinic : bloodBank.getClinicList()) {
-                                                userAccount = clinic.getUserAccountList().usernameCheck(userName);
-                                                if (userAccount == null) {
-                                                    for (Organization organ : clinic.getOrganizationList()) {
-                                                        userAccount = clinic.getUserAccountList().usernameCheck(userName);
+                                                    for (Organization organization : clinic.getOrganizationList()) {
+                                                        userAccount = organization.getUserAccountList().authenticateUser(userName, password);
                                                         if (userAccount != null) {
                                                             break here;
                                                         }
                                                     }
-
-                                                } else {
-                                                    break here;
-                                                }
                                             }
                                         } else {
                                             break here;
