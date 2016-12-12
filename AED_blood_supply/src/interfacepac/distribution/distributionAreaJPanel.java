@@ -48,8 +48,8 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (WorkRequest request : organization.getWorkQueue().getWorkReqestList()) {
-            if (request.getStatus().equals("For transit") || request.getStatus().equals("Waiting") || (request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Package") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
-                Object[] row = new Object[5];
+            if (request.getStatus().equals("Transfer") ||request.getStatus().equals("For transit") || request.getStatus().equals("Waiting") || (request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) ||(request.getStatus().equals("Distribute Pending") && request.getReceiver().getUsername().equals(userAccount.getUsername())) || (request.getStatus().equals("Package") && request.getReceiver().getUsername().equals(userAccount.getUsername()))) {
+                Object[] row = new Object[6];
                 row[0] = request;
                 row[1] = request.getSender();
                 row[2] = request.getReceiver() == null ? null : request.getReceiver();
@@ -70,7 +70,7 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
         for (WorkRequest request : userAccount.getWorkQueue().getWorkReqestList()) {
             if (request.getStatus().equals("Distribute Pending") || request.getStatus().equals("For transit") || request.getStatus().equals("Waiting")) {
             } else {
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 row[0] = request;
                 row[1] = request.getSender();
                 row[2] = request.getReceiver() == null ? null : request.getReceiver();
@@ -231,7 +231,12 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Distribute Pending");
+        if(request.getStatus().equals("For transit")) 
+            request.setStatus("Distribute Pending");
+        else if(request.getStatus().equals("Waiting"))
+            request.setStatus("Package");
+        else if(request.getStatus().equals("Transfer"))
+            request.setStatus("Sending");
         userAccount.getWorkQueue().getWorkReqestList().add(request);
         JOptionPane.showMessageDialog(null, "Assigned succeed.");
 
@@ -256,6 +261,10 @@ public class distributionAreaJPanel extends javax.swing.JPanel {
                 request.setStatus("Add into Bank");
                 //clinic.getOrganizationList().get(1).getWorkQueue().getWorkReqestList().add(request);
             } else if (request.getStatus().equals("Package")) {
+                this.reqBlood(request);
+                request.setStatus("Used");
+            }
+            else if (request.getStatus().equals("Sending")) {
                 this.reqBlood(request);
                 request.setStatus("Used");
             }

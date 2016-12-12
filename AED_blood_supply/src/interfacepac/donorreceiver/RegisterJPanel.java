@@ -31,6 +31,8 @@ public class RegisterJPanel extends javax.swing.JPanel {
     private UserAccount account;
     private Organization organization;
     private EcoSystem system;
+    private Boolean validation = true;
+    private String errorInfo;
 
     public RegisterJPanel(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
         initComponents();
@@ -138,14 +140,69 @@ public class RegisterJPanel extends javax.swing.JPanel {
                 } else if (organization.getType().equals(Organization.OrganizationType.DOR.getValue())) {
                     userAccount.setRole(new DonorReceiver());
                 } else {
-                    JOptionPane.showMessageDialog(null,"no match role");
+                    JOptionPane.showMessageDialog(null, "no match role");
                 }
                 organization.getUserAccountList().addUserAccount(userAccount);
             } else {
-                JOptionPane.showMessageDialog(null,"Two Passwords are different!");
+                JOptionPane.showMessageDialog(null, "Two Passwords are different!");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "username already exist");
+        }
+
+    }
+
+    public boolean validateDate(String str) {
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^(([0]\\d{1})|([1][012]{1})){1}\\/(([0][1-9]{1})|([12]{1}\\d{1})|([3]{1}[01]{1})){1}\\/(\\d{4}){1}$");
+//        月/日/年
+        java.util.regex.Matcher match = pattern.matcher(str);
+        return match.matches() == false;
+    }
+
+    public boolean validatePhoneNumber(String str) {
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\d{3}-?\\d{7}$");
+        java.util.regex.Matcher match = pattern.matcher(str);
+        return match.matches() == false;
+    }
+
+    public boolean validateEmail(String str) {
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,6}){1,2})$");
+        java.util.regex.Matcher match = pattern.matcher(str);
+        return match.matches() == false;
+    }
+
+    public void validateInput() {
+        validation = true;
+        errorInfo = "";
+        char[] passwordCharArray = passwordTField.getPassword();
+        String password = String.valueOf(passwordCharArray);
+        char[] repasswordCharArray = rePasswordTField.getPassword();
+        String repassword = String.valueOf(repasswordCharArray);
+
+        if (userNameTField.getText().length() < 1 || password.length() < 1) {
+            errorInfo += "Please input user name and password.\n";
+            validation = false;
+        }
+        if (!password.equals(repassword)) {
+            errorInfo += "Please input the same password.\n";
+            validation = false;
+        }
+        if (firstNameTField.getText().length() < 1 || firstNameTField.getText().length() < 1) {
+            //JOptionPane.showMessageDialog(null,"Input full name please");
+            errorInfo += "Please input full name. \n";
+            validation = false;
+        }
+        if (validateDate(dobTField.getText()) || dobTField.getText().length() < 1) {
+            errorInfo += "Please innput Correct date of birth (mm/dd/yyyy). \n";
+            validation = false;
+        }
+        if (validatePhoneNumber(homePhoneTField.getText()) || validatePhoneNumber(workPhoneTField.getText())) {
+            errorInfo += "Please innput Correct homephone/workphone. \n";
+            validation = false;
+        }
+        if (validateEmail(emailTField.getText())) {
+            errorInfo += "Please innput Correct e-mail. \n";
+            validation = false;
         }
 
     }
@@ -386,10 +443,14 @@ public class RegisterJPanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        initialData();
-        displayPanel.remove(this);
-        CardLayout layout = (CardLayout) displayPanel.getLayout();
-        layout.previous(displayPanel);
+        validateInput();
+        if (validation) {
+            initialData();
+
+        } else {
+            JOptionPane.showMessageDialog(null, errorInfo);
+        }
+
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed

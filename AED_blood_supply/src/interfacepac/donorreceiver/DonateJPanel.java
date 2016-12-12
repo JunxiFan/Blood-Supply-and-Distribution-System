@@ -102,8 +102,6 @@ public class DonateJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         clinicJTree = new javax.swing.JTree();
         dobLabel = new javax.swing.JLabel();
-        reserveDateTField = new javax.swing.JTextField();
-        dobLabel1 = new javax.swing.JLabel();
         dobLabel2 = new javax.swing.JLabel();
         donationsCBox = new javax.swing.JComboBox<>();
         confirmBtn = new javax.swing.JButton();
@@ -129,14 +127,6 @@ public class DonateJPanel extends javax.swing.JPanel {
         dobLabel.setMinimumSize(new java.awt.Dimension(150, 24));
         dobLabel.setPreferredSize(new java.awt.Dimension(150, 24));
 
-        reserveDateTField.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 14)); // NOI18N
-
-        dobLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
-        dobLabel1.setText("Reserve date");
-        dobLabel1.setMaximumSize(new java.awt.Dimension(150, 24));
-        dobLabel1.setMinimumSize(new java.awt.Dimension(150, 24));
-        dobLabel1.setPreferredSize(new java.awt.Dimension(150, 24));
-
         dobLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         dobLabel2.setText("donations ");
         dobLabel2.setMaximumSize(new java.awt.Dimension(150, 24));
@@ -149,6 +139,7 @@ public class DonateJPanel extends javax.swing.JPanel {
         confirmBtn.setBackground(new java.awt.Color(250, 250, 250));
         confirmBtn.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         confirmBtn.setText("Confirm");
+        confirmBtn.setEnabled(false);
         confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmBtnActionPerformed(evt);
@@ -178,25 +169,21 @@ public class DonateJPanel extends javax.swing.JPanel {
                 .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(dobLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(reserveDateTField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(donationsCBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(donationsCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
                                 .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                        .addComponent(dobLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(300, 300, 300))
         );
         layout.setVerticalGroup(
@@ -208,11 +195,7 @@ public class DonateJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dobLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(reserveDateTField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dobLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(donationsCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,11 +273,9 @@ public class DonateJPanel extends javax.swing.JPanel {
     private javax.swing.JTree clinicJTree;
     private javax.swing.JButton confirmBtn;
     private javax.swing.JLabel dobLabel;
-    private javax.swing.JLabel dobLabel1;
     private javax.swing.JLabel dobLabel2;
     private javax.swing.JLabel dobLabel3;
     private javax.swing.JComboBox<String> donationsCBox;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField reserveDateTField;
     // End of variables declaration//GEN-END:variables
 }

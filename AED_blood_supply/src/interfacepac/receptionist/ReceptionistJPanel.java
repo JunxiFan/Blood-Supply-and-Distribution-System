@@ -328,7 +328,11 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
 
         if (selectedRow > 0) {
             WorkRequest request = (WorkRequest) ongoingTbl.getValueAt(selectedRow, 0);
-            if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
+            if(request.getReceiver() == null){
+                assignBtn.setEnabled(true);
+                rejectBtn.setEnabled(false);
+                sendtoNurseBtn.setEnabled(false);
+            }else if (request.getReceiver().getUsername().equals(userAccount.getUsername())) {
                 rejectBtn.setEnabled(true);
                 sendtoNurseBtn.setEnabled(true);
                 assignBtn.setEnabled(false);
@@ -345,6 +349,7 @@ public class ReceptionistJPanel extends javax.swing.JPanel {
         assignBtn.setEnabled(false);
         rejectBtn.setEnabled(false);
         sendtoNurseBtn.setEnabled(false);
+        viewBtn.setEnabled(false);
     }//GEN-LAST:event_processTblMouseClicked
 
     private void ongoingTblHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_ongoingTblHierarchyChanged

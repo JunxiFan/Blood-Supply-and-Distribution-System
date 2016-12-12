@@ -8,7 +8,7 @@ package business.role;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
-import interfacepac.nurse.MedicalStaffWorkAreaJPanel;
+import interfacepac.medicalstaff.MedicalStaffWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**

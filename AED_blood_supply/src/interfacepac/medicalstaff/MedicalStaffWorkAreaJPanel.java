@@ -373,12 +373,18 @@ public class MedicalStaffWorkAreaJPanel extends javax.swing.JPanel {
         
         BloodBank bb = (BloodBank) organization.getUpOrgan().getUpOrgan();
         if(bb.calculateRepertory(testBloodType(request)) >= 5000){
+            Blood blood = new Blood();
+            blood.setBloodType(testBloodType(request));
+            request.setBlood(blood);
             request.setStatus("Waiting");
             //request.setDestination(organization);
             system.getDistributionCenter().getWorkQueue().getWorkReqestList().add(request);
         }
         else{
             request.setStatus("Lack blood");
+            Blood blood = new Blood();
+            blood.setBloodType(testBloodType(request));
+            request.setBlood(blood);
             //request.setDestination(organization);
             organization.getUpOrgan().getUpOrgan().getWorkQueue().getWorkReqestList().add(request);
         }

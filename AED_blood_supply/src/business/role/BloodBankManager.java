@@ -8,7 +8,7 @@ package business.role;
 import business.EcoSystem;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
-import interfacepac.manager.ManageWorkAreaJPanel;
+import interfacepac.manager.BankWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -19,7 +19,7 @@ public class BloodBankManager extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel displayPanel, UserAccount userAccount, Organization organization, EcoSystem system) {
-        return new ManageWorkAreaJPanel(displayPanel, userAccount, organization, system);
+        return new BankWorkAreaJPanel(displayPanel, userAccount, organization, system);
     }
     
 }

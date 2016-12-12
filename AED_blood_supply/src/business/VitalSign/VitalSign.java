@@ -20,6 +20,7 @@ public class VitalSign {
     private String tempCondition;
     private String permCondition;
     private static int count = 0;
+    private String isHealthy;
 
     public VitalSign() {
         count++;
@@ -33,7 +34,13 @@ public class VitalSign {
     public void setVitalSignID(int vitalSignID) {
         this.vitalSignID = vitalSignID;
     }
-    
+    public void isHealthy(){
+        if(hemoglobin.equals("Abnormal")||infection.equals("Yes")||diabetes.equals("Yes")||tempCondition.equals("Yes")||permCondition.equals("Yes")){
+            isHealthy="No";
+        }else{
+            isHealthy="Yes";
+        }
+    }
 
     public String getBloodtype() {
         return bloodtype;
@@ -86,7 +93,7 @@ public class VitalSign {
     
     @Override
     public String toString(){
-        return this.date;
+        return this.isHealthy;
     }
 
 }

@@ -43,6 +43,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         this.system = system;
         initComponents();
         initAdjust();
+        organTf.setText(organization.getType());
     }
 
     private void initAdjust() {
@@ -224,6 +225,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
         UserNameLabel = new javax.swing.JLabel();
         typeCBox = new javax.swing.JComboBox<>();
         backBtn = new javax.swing.JButton();
+        organTf = new javax.swing.JLabel();
 
         jScrollPane5.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -309,6 +311,10 @@ public class ConfigureJPanel extends javax.swing.JPanel {
             }
         });
 
+        organTf.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        organTf.setText("Organization Type");
+        organTf.setPreferredSize(new java.awt.Dimension(150, 24));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -336,13 +342,20 @@ public class ConfigureJPanel extends javax.swing.JPanel {
                 .addContainerGap(404, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(backBtn)
-                .addGap(93, 93, 93))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backBtn)
+                        .addGap(93, 93, 93))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(organTf, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(562, 562, 562))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addGap(42, 42, 42)
+                .addComponent(organTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(typeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,6 +481,7 @@ public class ConfigureJPanel extends javax.swing.JPanel {
     private javax.swing.JButton deleteManagerBtn;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField nameTField;
+    private javax.swing.JLabel organTf;
     private javax.swing.JTable resumeTbl;
     private javax.swing.JComboBox<String> typeCBox;
     // End of variables declaration//GEN-END:variables
